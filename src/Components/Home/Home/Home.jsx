@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet";
 
 const Home = () => {
     return (
-        <div>
-            This is Home page
+        <div className="text-red-500">
+            <Helmet>
+                <title>FOODHUB - HOME</title>
+            </Helmet>
+            FOODHUB - HOME
         </div>
     );
 };
