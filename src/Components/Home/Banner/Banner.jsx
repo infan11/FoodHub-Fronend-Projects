@@ -16,25 +16,25 @@ const Banner = () => {
       >
         <SwiperSlide>
 
-            <div className=' lg:h-[400px]'>
+            <div className=' lg:h-[1000px]'>
                 <img src="https://i.ibb.co.com/MCd7jXg/HOME1.png" alt="" />
             </div>
         </SwiperSlide>
         <SwiperSlide>
 
-            <div className=' lg:h-[590px]'>
+            <div className=' lg:h-[1000px]'>
                 <img src="https://i.ibb.co.com/xjTbNcp/home2.png" alt="" />
             </div>
         </SwiperSlide>
         <SwiperSlide>
 
-            <div className=' lg:h-[590px]'>
+            <div className=' lg:h-[1000px]'>
                 <img src="https://i.ibb.co.com/YkRCTV7/home3.png" alt="" />
             </div>
         </SwiperSlide>
         <SwiperSlide>
 
-            <div className=' lg:h-[590px]'>
+            <div className=' lg:h-[1000px]'>
                 <img src="https://i.ibb.co.com/XWzByRJ/home4.png" alt="" />
             </div>
         </SwiperSlide>
