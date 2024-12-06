@@ -14,8 +14,11 @@ module.exports = withMT({
        "./index.html",
          "./src/**/*.{js,ts,jsx,tsx}",
          ],
-  theme: {
-    extend: {},
-  },
+         theme: {
+          fontFamily: {
+            'sans': ['sans-serif', 'roboto',],
+            
+          }
+        },
   plugins: [require("daisyui")],
 });
