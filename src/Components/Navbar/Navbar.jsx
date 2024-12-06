@@ -16,7 +16,7 @@ const Navbar = () => {
        <NavLink
   to="/"
   className={({ isActive }) =>
-    isActive ? " font-extrabold border-b-2 transition-colors border-orange-700" : "font-extrabold"
+    isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white "
   }
 >
   HOME
@@ -24,7 +24,7 @@ const Navbar = () => {
 <NavLink
   to="/restaurants"
   className={({ isActive }) =>
-    isActive ? "   font-extrabold border-b-2 transition-colors border-orange-700" : "font-extrabold  "
+    isActive ? "   font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white  "
   }
 >
 RESTAURANTS
@@ -32,7 +32,7 @@ RESTAURANTS
 <NavLink
   to="/food"
   className={({ isActive }) =>
-    isActive ? " font-extrabold border-b-2 transition-colors border-orange-700" : "font-extrabold"
+    isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white"
   }
 >
   FOOD
@@ -40,7 +40,7 @@ RESTAURANTS
 <NavLink
   to="/about"
   className={({ isActive }) =>
-    isActive ? " font-extrabold border-b-2 transition-colors border-orange-700" : "font-extrabold"
+    isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white"
   }
 >
   ABOUT
@@ -48,7 +48,7 @@ RESTAURANTS
 <NavLink
   to="/login"
   className={({ isActive }) =>
-    isActive ? " font-extrabold border-b-2 transition-colors border-orange-700" : "font-extrabold"
+    isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white"
   }
 >
   LOGIN
@@ -226,7 +226,7 @@ RESTAURANTS
   </div>
 </div>
   {/* Second Navbar */}
-  <div className="navbar  sm:px-2 md:px-4 lg:px-6 bg-[#23143a2d]">
+  <div className="navbar  sm:px-2 md:px-4 lg:px-6 bg-[#ff6600a2]">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
