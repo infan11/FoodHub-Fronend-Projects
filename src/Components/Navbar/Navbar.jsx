@@ -47,6 +47,14 @@ const Navbar = () => {
       ABOUT
     </NavLink>
     <NavLink
+      to="/register"
+      className={({ isActive }) =>
+        isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white"
+      }
+    >
+      REGISTER
+    </NavLink>
+    <NavLink
       to="/login"
       className={({ isActive }) =>
         isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white"
