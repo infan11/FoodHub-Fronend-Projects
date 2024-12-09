@@ -7,10 +7,66 @@ import {
 } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 const Register = () => {
+    const { createUser, googleAuth, user, updateUserProfile } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/"
+    const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, watch, formState: { errors }, } = useForm()
-    const onSubmit = event => {
-        console.log(event);
+    const onSubmit = data => {
+        console.log(data);
+        createUser(data.email, data.password)
+            .then(res => {
+                const registerUser = res.user;
+                console.log(registerUser);
+                updateUserProfile(data.name, null)
+                    .then(() => {
+                        const usersInfo = {
+                            name: data.name,
+                            email: data.email
+                        };
+                        return toast.promise(
+                            axiosPublic.post("/users", usersInfo),
+
+                            {
+                                loading: 'Loading...',
+                                success: `${user?.displayName}`,
+                                error: <b>Could not save user.</b>,
+                            },
+                            navigate(from, { replace: true })
+                        );
+
+                    })
+
+            })
+
+    }
+    const handelGoogle = () => {
+        googleAuth()
+            .then(res => {
+                const google = res.user;
+                console.log(google);
+                const usersInfo = {
+                    email: res.user?.email,
+                    name: res.user?.displayName
+                };
+                toast.promise(
+                    axiosPublic.post("/users", usersInfo),
+
+                    {
+                        loading: 'Loading...',
+                        success: `Sucessfully Signin ${user?.displayName}`,
+                        error: <b>Could not save user.</b>,
+                    },
+                    navigate(from, { replace: true })
+                );
+
+            })
     }
     return (
         <div className="">
@@ -54,7 +110,7 @@ const Register = () => {
                                             placeholder="********"
                                             className=""
                                             label="Password"
-                                            {...register("password",  {required : true,  minLength: 6, maxLength: 8  })}
+                                            {...register("password", { required: true, minLength: 6, maxLength: 8 })}
                                         />
                                         {errors.password?.type && <span className="text-red-600">This field is reqiure</span>}
                                         {errors.password?.type === 'minLength' && <span className="text-red-600">This pass must 6 Characters</span>}
@@ -86,7 +142,7 @@ const Register = () => {
                                     <div className="divider">OR</div>
                                 </form>
 
-                                <div className=" mx-auto "> <button className="flex text-[14px] items-center font-bold btn rounded-full"><FcGoogle /> Continue With Google</button></div>
+                                <div className=" mx-auto "> <button onClick={handelGoogle} className="flex text-[14px] items-center font-bold btn rounded-full"><FcGoogle /> Continue With Google</button></div>
                                 <Typography color="gray" className="mt-4 text-center font-normal">
                                     Already have an account?{" "}
                                     <a href="/login" className="font-medium text-gray-900">

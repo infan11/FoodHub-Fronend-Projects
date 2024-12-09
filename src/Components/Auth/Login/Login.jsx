@@ -2,15 +2,38 @@ import {
     Card,
     Input,
     Checkbox,
-    Button,
     Typography,
 } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import useAuth from "../../Hooks/useAuth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 const Login = () => {
+    const { login, googleAuth } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || "/"
     const { register, handleSubmit, watch, formState: { errors }, } = useForm()
-    const onSubmit = event => {
-        console.log(event);
+    const onSubmit = data => {
+        console.log(data);
+        login(data.email, data.password)
+            .then(res => {
+                const loginUser = res.user;
+                console.log(loginUser);
+                toast.success("Successfully Sginup")
+            })
+        navigate(from, { replace: true })
+    }
+    const hnadleGoogle = () => {
+        googleAuth()
+        then(res => {
+            const google = res.user;
+            console.log(google);
+            toast.success("Successfully Google")
+        })
+        navigate(from, { replace: true })
+
     }
     return (
         <div className="">
@@ -51,6 +74,11 @@ const Login = () => {
                                         {errors.password?.type === 'minLength' && <span className="text-red-600">This pass must 6 Characters</span>}
                                         {errors.password?.type === 'maxLength' && <span className="text-red-600">This pass only 8 Characters</span>}
                                     </div>
+                                   <Link to={"/resetPassword"}>
+                                   <label className="label ml-2 font-bold">
+                                        <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                    </label>
+                                   </Link>
                                     <Checkbox
                                         label={
                                             <Typography
@@ -77,7 +105,7 @@ const Login = () => {
                                     <div className="divider">OR</div>
                                 </form>
 
-                                <div className=" mx-auto "> <button className="flex text-[14px] items-center font-bold btn rounded-full"><FcGoogle /> Continue With Google</button></div>
+                                <div className=" mx-auto "> <button onClick={hnadleGoogle} className="flex text-[14px] items-center font-bold btn rounded-full"><FcGoogle /> Continue With Google</button></div>
                                 <Typography color="gray" className="mt-4 text-center font-normal">
                                     Create a new account?{" "}
                                     <a href="/register" className="font-medium text-gray-900">

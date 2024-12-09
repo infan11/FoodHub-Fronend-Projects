@@ -9,6 +9,7 @@ import Food from "../../Food/Food/Food";
 import About from "../../About/About/About";
 import Login from "../../Auth/Login/Login";
 import Register from "../../Auth/Register/Register/Register";
+import ResetPassword from "../../Auth/ResetPassword/ResetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />
+      },
+      {
+        path : "/resetPassword",
+        element : <ResetPassword/>
       }
     ]
   },

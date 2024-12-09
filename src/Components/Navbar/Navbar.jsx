@@ -11,8 +11,14 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { RiHand, RiShoppingBag2Line } from "react-icons/ri";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 const Navbar = () => {
+  const {logout , user} = useAuth();
+  const handleLogut =  () => {
+     logout()
+     .then(() => {}) 
+  }
   const navbarLinks = <>
     <NavLink
       to="/"
@@ -242,9 +248,19 @@ const Navbar = () => {
                     fill="#90A4AE"
                   />
                 </svg>
-                <Typography variant="small" className="font-medium">
+               {
+                user ? <>
+                   <Typography onClick={handleLogut} variant="small" className="font-medium">
                   Sign Out
                 </Typography>
+                </> :<>
+           <Link to={"/login"}>
+           <Typography  variant="small" className="font-medium">
+                  Sign up
+                </Typography>
+           </Link>
+                </>
+               }
               </MenuItem>
             </MenuList>
           </Menu>
