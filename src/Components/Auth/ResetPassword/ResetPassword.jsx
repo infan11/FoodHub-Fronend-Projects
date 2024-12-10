@@ -24,7 +24,7 @@ const ResetPassword = () => {
       console.log("Notification email sent successfully");
     } catch (error) {
       console.error("Error sending email:", error.message);
-      toast.error("Failed to send confirmation email");
+      toast.error("Failed to send confirmation emaill");
     }
   };
 
