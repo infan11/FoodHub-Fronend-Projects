@@ -2,8 +2,8 @@ import { useSelect } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { IoSunnyOutline } from "react-icons/io5";
 import { LuSunMoon } from "react-icons/lu";
-const Darkmode = () => {
-    const [isDarkMode, setDarkMode] = useState(() => {
+export const Darkmode = () => {
+ const [isDarkMode, setDarkMode] = useState(() => {
      return   localStorage.getItem("isDarkMode") === "true";
     })
     const toggleTheme = () => {
@@ -15,12 +15,12 @@ const Darkmode = () => {
     }
     useEffect(() => {
         if (isDarkMode) {
-            document.body.classList.add("bg-black", "text-white");
+            document.body.classList.add("bg-gradient-to-r", "from-black", "via-gray-900", "to-blue-900", "text-white");
             document.body.classList.remove("bg-white", "text-black");
         }
         else {
             document.body.classList.add("bg-white", "text-black");
-            document.body.classList.remove("bg-black", "text-white");
+            document.body.classList.remove("bg-gradient-to-r", "from-black", "via-gray-900", "to-blue-900", "text-white");
 
         }
     }, [isDarkMode])
