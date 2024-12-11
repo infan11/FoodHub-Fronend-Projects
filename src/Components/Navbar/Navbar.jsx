@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { RiHand, RiShoppingBag2Line } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import Darkmode from "../Darkmode/Darkmode";
 const Navbar = () => {
   const {logout , user} = useAuth();
   const handleLogut =  () => {
@@ -125,7 +126,7 @@ const Navbar = () => {
 
         </div>
         <div className="navbar-end">
-
+<Darkmode/>
           <button className="btn btn-ghost btn-circle">
             <div className="indicator">
               <svg
