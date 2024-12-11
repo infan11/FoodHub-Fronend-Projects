@@ -11,22 +11,6 @@ const ResetPassword = () => {
   const emailRef = useRef();
   const { register, formState: { errors } } = useForm();
 
-  const sendConfirmationEmail = async (email) => {
-    try {
-      await emailjs.send(
-        `${import.meta.env.VITE_SERVICEID}`, 
-        `${import.meta.env.VITE_TEMPLATECODE}`, 
-        {
-          user_email: email, 
-        },
-        `${import.meta.env.  VITE_USERID}`
-      );
-      console.log("Notification email sent successfully");
-    } catch (error) {
-      console.error("Error sending email:", error.message);
-      toast.error("Failed to send confirmation emaill");
-    }
-  };
 
   const haandleResetPassword = async (event) => {
     event.preventDefault();
@@ -56,6 +40,23 @@ const ResetPassword = () => {
       toast.error("Error: " + error.message);
     }
   };
+  
+  const sendConfirmationEmail = async (email) => {
+    try {
+      await emailjs.send(
+        `${import.meta.env.VITE_SERVICEID}`, 
+        `${import.meta.env.VITE_TEMPLATECODE}`, 
+        {
+          user_email: email, 
+        },
+        `${import.meta.env.  VITE_USERID}`
+      );
+      console.log("Notification email sent successfully");
+    } catch (error) {
+      console.error("Error sending email:", error.message);
+      toast.error("Failed to send confirmation emaill");
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-10 flex min-h-screen justify-center items-center">
@@ -70,7 +71,8 @@ const ResetPassword = () => {
               label="Type Your Email"
               placeholder="Type Your Email"
               inputRef={emailRef}
-              className=""
+              color="orange"
+              className="text-orange-500"
               {...register("email", { required: true })}
             />
             {errors.email && (

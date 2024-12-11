@@ -31,6 +31,7 @@ const Login = () => {
             const google = res.user;
             console.log(google);
             toast.success("Successfully Google")
+          
         })
         navigate(from, { replace: true })
 

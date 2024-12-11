@@ -5,7 +5,7 @@ import Navbar from "../Navbar/Navbar";
 
 const Main = () => {
     const location = useLocation();
-    const noNavbarFooter = ["/login" , "/register"].includes(location.pathname);
+    const noNavbarFooter = ["/login" , "/register" , "/resetPassword"].includes(location.pathname);
     return (
         <div>
           { noNavbarFooter || <Navbar/>  }
