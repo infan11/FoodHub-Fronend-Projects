@@ -194,6 +194,7 @@ const Navbar = () => {
                   Edit Profile
                 </Typography>
               </MenuItem>
+              <Link to={"/dashboard"}>
               <MenuItem className="flex items-center gap-2">
                 <svg
                   width="14"
@@ -211,9 +212,10 @@ const Navbar = () => {
                 </svg>
 
                 <Typography variant="small" className="font-medium">
-                  Inbox
+                  Dashboard
                 </Typography>
               </MenuItem>
+              </Link>
               <MenuItem className="flex items-center gap-2">
                 <svg
                   width="16"

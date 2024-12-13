@@ -15,9 +15,9 @@ const Register = () => {
     const { createUser, googleAuth, user, updateUserProfile } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/"
+    const from = location.state?.from?.pathname || "/";
     const axiosPublic = useAxiosPublic();
-    const { register, handleSubmit, watch, formState: { errors }, } = useForm()
+    const { register, handleSubmit,  formState: { errors }, } = useForm()
     const onSubmit = data => {
         console.log(data);
         createUser(data.email, data.password)

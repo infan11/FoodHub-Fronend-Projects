@@ -10,6 +10,9 @@ import About from "../../About/About/About";
 import Login from "../../Auth/Login/Login";
 import Register from "../../Auth/Register/Register/Register";
 import ResetPassword from "../../Auth/ResetPassword/ResetPassword";
+import Dashboard from "../../Dashboard/Dashboard/Dashboard";
+import AddFoods from "../../Dashboard/AddFoods/AddFoods";
+import Profile from "../../Dashboard/Profle/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +48,23 @@ export const router = createBrowserRouter([
         path : "/resetPassword",
         element : <ResetPassword/>
       }
-    ]
+      
+    ],
+    
+    
   },
+  {
+    path :"/dashboard",
+    element : <Dashboard/>,
+    children : [
+     {
+      path : "/dashboard/addFoods",
+      element : <AddFoods/>
+     },
+     {
+      path : "/dashboard/profile",
+      element : <Profile/>
+     }
+    ]
+  }
 ]);
