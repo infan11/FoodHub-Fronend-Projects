@@ -15,12 +15,12 @@ export const Darkmode = () => {
     }
     useEffect(() => {
         if (isDarkMode) {
-            document.body.classList.add("bg-gradient-to-r", "from-black", "via-gray-900", "to-blue-900", "text-white");
+            document.body.classList.add("bg-black",  "text-white");
             document.body.classList.remove("bg-white", "text-black");
         }
         else {
             document.body.classList.add("bg-white", "text-black");
-            document.body.classList.remove("bg-gradient-to-r", "from-black", "via-gray-900", "to-blue-900", "text-white");
+            document.body.classList.remove("bg-black",  "text-white");
 
         }
     }, [isDarkMode])
