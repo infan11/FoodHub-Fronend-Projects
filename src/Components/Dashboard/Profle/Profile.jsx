@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import { Card, Checkbox, Input, Typography } from '@material-tailwind/react';
+import { imageUpload } from '../../Hooks/imageHooks';
+import toast from 'react-hot-toast';
 
 const Profile = () => {
     const { createUser, googleAuth, user, updateUserProfile } = useAuth();
@@ -12,9 +14,27 @@ const Profile = () => {
     const from = location.state?.from?.pathname || "/";
     const axiosPublic = useAxiosPublic();
     const { register, handleSubmit,  formState: { errors }, } = useForm();
-    const onSubmit = data => {
+    const onSubmit = async data => {
         console.log(data);
-      
+        const photo = data.photo?.[0];
+        const imageData= await imageUpload(photo);
+     
+                const ownerProfile = {
+                  restaurantName : data.restaurantName,
+                  restaurantEmail: data.restaurantEmail,
+                  restaurantAdddress : data.restaurantAdddress,
+                  restaurantNumber : parseFloat(data.restaurantNumber),
+                  photo: imageData?.data?.display_url  || ""
+                };
+                axiosPublic.post("/ownerProfile" , ownerProfile)
+                .then(res => {
+                    console.log("SEND TO DATABASE",res.data);
+                    if(res.data.insertedId){
+                        toast.success("Successfully Created Profile")
+                    }
+                    navigate("/dashboard/addFoods")
+                })
+          
     }             
     return (
         <div className='max-w-7xl mx-auto'>
@@ -62,21 +82,14 @@ const Profile = () => {
                                             {...register("restaurantNumber", { required: true })}
                                         />
                                         {errors.restaurantNumber && <span className="text-red-600 text-sm font-bold">This field is required</span>}
-                                        <Input
-                                            type="password"
-                                            name="password"
-                                            size="lg"
-                                            placeholder="********"
-                                            className=""
-                                            label="Password"
-                                            {...register("password", { required: true, minLength: 6, maxLength: 8 })}
-                                        />
-                                        {errors.password?.type && <span className="text-red-600">This field is reqiure</span>}
-                                        {errors.password?.type === 'minLength' && <span className="text-red-600">This pass must 6 Characters</span>}
-                                        {errors.password?.type === 'maxLength' && <span className="text-red-600">This pass only 8 Characters</span>}
-                                   
+                                      
+                                        
                                     </div>
-                                    <input type="file" name='photo' accept='image/*' className="file-input file-input-ghost w-full max-w-xs" />
+                                    <input type="file" name='photo' accept='image/*' 
+                                    {...register("photo", { required: true })}
+                                    
+                                    className="file-input file-input-ghost w-full max-w-xs" />
+                                       {errors.photo && <span className="text-red-600 text-sm font-bold">This field is required</span>}
                                     <Checkbox
                                         label={
                                             <Typography
@@ -98,15 +111,11 @@ const Profile = () => {
                                     />
                                     <br />
                                     <button className=" w-full uppercase bg-[#ea9540fd] hover:bg-[#ea9540fd] text-white mt-2 btn rounded-badge" fullWidth>
-                                        Continue
+                                        Submit Request
                                     </button>
-                                    <div className="divider">OR</div>
-                                    <Typography color="gray" className="mt-4 text-center font-normal">
-                                    Already have an account?{" "}
-                                    <a href="/profileLogin" className="font-medium text-gray-900">
-                                        Profile Login
-                                    </a>
-                                </Typography>
+                                    <br />
+                                    <iframe width="500" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=400&amp;height=400&amp;hl=en&amp;q=Chittagong%20,%20Bangladesh+(FOOHUB)&amp;t=k&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps devices</a></iframe>
+                                 
 
                                 </form>
 
