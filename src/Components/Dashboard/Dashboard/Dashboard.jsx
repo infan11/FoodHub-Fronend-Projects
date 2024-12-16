@@ -40,7 +40,9 @@ const Dashboard = () => {
          
         </div>
         <List>
-          <ListItem>
+        <Link to={"/dashboard/users"}>
+        
+        <ListItem>
             <ListItemPrefix>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -55,8 +57,9 @@ const Dashboard = () => {
                 />
               </svg>
             </ListItemPrefix>
-            Dashboard
+            Users
           </ListItem>
+        </Link>
           <ListItem>
             <ListItemPrefix>
               <svg

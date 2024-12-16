@@ -10,8 +10,7 @@ import toast from 'react-hot-toast';
 const Profile = () => {
     const { createUser, googleAuth, user, updateUserProfile } = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
+    
     const axiosPublic = useAxiosPublic();
     const { register, handleSubmit,  formState: { errors }, } = useForm();
     const onSubmit = async data => {

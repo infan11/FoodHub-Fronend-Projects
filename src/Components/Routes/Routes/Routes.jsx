@@ -13,6 +13,7 @@ import ResetPassword from "../../Auth/ResetPassword/ResetPassword";
 import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import AddFoods from "../../Dashboard/AddFoods/AddFoods";
 import Profile from "../../Dashboard/Profle/Profile";
+import Users from "../../Dashboard/users/users";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
      {
       path : "/dashboard/profile",
       element : <Profile/>
+     },
+     {
+      path : "/dashboard/users",
+      element : <Users/>
      }
     ]
   }
