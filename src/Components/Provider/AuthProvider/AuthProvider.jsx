@@ -59,7 +59,7 @@ const AuthProvider = ({ children }) => {
         return () => onSubscribe();
     }, [])
     const authInfo = {
-        user, loading, createUser, login, logout, googleAuth, updateUserProfile, resetPassword
+        user,setUser, loading, createUser, login, logout, googleAuth, updateUserProfile, resetPassword
 
     }
     return (

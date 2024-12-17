@@ -27,7 +27,7 @@ const useAxiosSecure = () => {
             await  logout()
             // navigate("/login")
         }
-        return Promise.project.reject.error;
+        return Promise.project.reject.error
     })
     return axiosSecure;
 };

@@ -18,12 +18,15 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import useAuth from "../../Hooks/useAuth";
 
 const Users = () => {
-   const [users , refetch] = useAllUserHooks();
+    const [users, refetch] = useAllUserHooks();
     const [searchInput, setSearchInput] = useState("");
     const [activeTab, setActiveTab] = useState("all");
     const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
 
     const TABS = [
         { label: "User", value: "all" },
@@ -45,7 +48,7 @@ const Users = () => {
     });
 
     // Delete user function
-    const handleDelete = (id) => {
+    const handleDelete = user => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -56,22 +59,33 @@ const Users = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/users/${id}`)
+                axiosSecure.delete(`/users/${user}`)
                     .then((res) => {
                         console.log("User deleted", res.data);
                         refetch()
                         Swal.fire("Deleted!", "The user has been deleted.", "success");
-                 
+
                     })
-             
+
                     .catch((err) => {
                         console.error(err);
                         Swal.fire("Error!", "Failed to delete the user.", "error");
                     });
-            
+
             }
         });
     };
+    const handleAdmin = users => {
+        console.log(users);
+        axiosSecure.patch(`/users/admin/${users}`)
+            .then(res => {
+                console.log(res.data);
+                refetch()
+                if (res.data.modifiedCount > 0) {
+                   toast.success("Succesfully Admin")
+                }
+            })
+    }
 
     return (
         <div>
@@ -90,11 +104,11 @@ const Users = () => {
                             <Button variant="outlined" size="sm">
                                 View All
                             </Button>
-                          <Link to={"/register"}>
-                          <Button className="flex items-center gap-3" size="sm">
-                                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Member
-                            </Button>
-                          </Link>
+                            <Link to={"/register"}>
+                                <Button className="flex items-center gap-3" size="sm">
+                                    <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Member
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -182,13 +196,15 @@ const Users = () => {
                                                 </div>
                                             </td>
                                             <td className={classes}>
-                                                <Typography
-                                                    variant="small"
-                                                    color="blue-gray"
-                                                    className="font-normal text-xl"
-                                                >
-                                                    <MdOutlineAdminPanelSettings />
-                                                </Typography>
+                                               
+                                               {role === "admin" ? "Admin" :   <button
+                                                        className="btn"
+                                                        onClick={() => handleAdmin(_id)}
+                                                    >
+                                                        <MdOutlineAdminPanelSettings />
+                                                    </button>}
+                                              
+
                                             </td>
                                         </tr>
                                     );
