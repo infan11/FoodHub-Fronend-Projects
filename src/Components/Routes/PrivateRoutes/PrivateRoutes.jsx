@@ -13,7 +13,7 @@ if(loading){
   width="80"
   color="#ea9540fd"
   ariaLabel="circles-loading"
-  wrapperStyle={{}}
+  wrapperStyle={{}} 
   wrapperClass=""
   visible={true}
   />

@@ -11,6 +11,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+
 const Register = () => {
     const { createUser, googleAuth, user, updateUserProfile } = useAuth();
     const navigate = useNavigate();
@@ -135,6 +136,12 @@ const Register = () => {
                                         }
                                         containerProps={{ className: "-ml-2.5" }}
                                     />
+                                       <Typography color="gray" className="mt-4 text-center font-normal">
+                                   Food Seller? Now{" "}
+                                    <a href="/restaurantRegister" className="font-medium text-gray-900">
+                                        Sign up
+                                    </a>
+                                </Typography>
                                     <br />
                                     <button className=" w-full uppercase bg-[#ea9540fd] hover:bg-[#ea9540fd] text-white mt-2 btn rounded-badge" fullWidth>
                                         sign in

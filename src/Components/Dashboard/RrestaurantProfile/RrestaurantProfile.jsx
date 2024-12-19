@@ -1,4 +1,3 @@
-import useAllUserHooks from "../../Hooks/useAllUserHooks";
 import { MdOutlineAdminPanelSettings, MdOutlineRestaurant } from "react-icons/md";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
@@ -9,28 +8,28 @@ import toast from "react-hot-toast";
 import useOwnerUser from "../../Hooks/useOwnerUser";
 import { Input } from "@material-tailwind/react";
 
-const Users = () => {
-    const [users, refetch] = useAllUserHooks();
+const RestaurantProfile = () => {
     const [searchInput, setSearchInput] = useState("");
     const [activeTab, setActiveTab] = useState("all");
     const axiosSecure = useAxiosSecure();
-    const TABLE_HEAD = ["Information", "Action", "Role", "moderator"];
+    const [ownerUser, refetch] = useOwnerUser(); // Ensure refetch is functional
+    const TABLE_HEAD = ["Information", "Action", "Restaurant Owner"];
 
     // Filter users by tab and search
-    const filteredUsers = users.filter((user) => {
+    const filteredUsers = (ownerUser || []).filter((user) => {
         const userSearch =
             user.name?.toLowerCase().includes(searchInput.toLowerCase()) ||
             user.email?.toLowerCase().includes(searchInput.toLowerCase()) ||
-            user.role?.toLowerCase().includes(searchInput.toLowerCase()) ;
+            user.position?.toLowerCase().includes(searchInput.toLowerCase());
+
         const matchesTab =
             activeTab === "all" ||
-            (activeTab === "admin" && user.role === "admin") ;
-            (activeTab === "moderator" && user.role === "moderator") ;
+            (activeTab === "restaurantOwner" && user.position === "restaurantOwner");
 
         return userSearch && matchesTab;
     });
 
-    const handleDelete = (user) => {
+    const handleDelete = (userId) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -42,7 +41,7 @@ const Users = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosSecure
-                    .delete(`/users/${user}`)
+                    .delete(`/ownerUsers/${userId}`)
                     .then(() => {
                         refetch();
                         Swal.fire("Deleted!", "The user has been deleted.", "success");
@@ -54,39 +53,31 @@ const Users = () => {
         });
     };
 
-    const handleAdmin = (user) => {
-        axiosSecure.patch(`/users/admin/${user}`).then((res) => {
+    const handleOwner = (userId) => {
+        axiosSecure.patch(`/ownerUsers/restaurantOwner/${userId}`).then((res) => {
             if (res.data.modifiedCount > 0) {
                 refetch();
-                toast.success("Successfully updated to Admin");
-            }
-        });
-    };
-    const handleModarator = (user) => {
-        axiosSecure.patch(`/users/moderator/${user}`).then((res) => {
-            if (res.data.modifiedCount > 0) {
-                refetch();
-                toast.success("Successfully updated to Admin");
+                toast.success("Successfully updated to Restaurant Owner");
             }
         });
     };
 
- 
     return (
         <div className="max-w-7xl mx-auto min-h-full">
             <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Manage Users</h2>
                 <div className="w-64">
                     <div className="relative">
-                        <MagnifyingGlassIcon className="absolute h-5 w-5 text-orange-900 top-3 left-3" />
+                        <MagnifyingGlassIcon className="absolute h-5 w-5  top-3 left-3" />
                         <Input
                             type="text"
-                            className="input input-bordered w-full pl-10 text-orange-500 font-bold"
+                            className="input text-orange-700 w-full pl-10 ext-orange-500 font-bold"
                             placeholder="Search users..."
                             value={searchInput}
-                            label="Search Users"
                             color="orange"
+                            label="Serach Restaurant Owner"
                             onChange={(e) => setSearchInput(e.target.value)}
+                            aria-label="Search users"
                         />
                     </div>
                 </div>
@@ -94,25 +85,23 @@ const Users = () => {
 
             {/* Tabs */}
             <div className="tabs  mb-4">
-                <button
-                    className={`tab ${activeTab === "all" ? "tab-active bg-orange-800  text-white font-bold rounded-full shadow-2xl" : " text-orange-900 font-extrabold"}`}
+                <button 
+                    className={`tab ${activeTab === "all" ? "tab-active bg-orange-900 text-white font-bold rounded-full shadow-2xl" : "font-bold text-orange-900"}`}
                     onClick={() => setActiveTab("all")}
                 >
-                    All Users
+                    All Restaurant Users
                 </button>
                 <button
-                    className={`tab ${activeTab === "admin" ? "tab-active bg-orange-800  text-white font-bold rounded-full shadow-2xl" : " text-orange-900 font-extrabold"}`}
-                    onClick={() => setActiveTab("admin")}
+                    className={`tab ${activeTab === "restaurantOwner" ? "tab-active bg-orange-900 text-white font-bold rounded-full shadow-2xl" : "font-bold text-orange-900"}`}
+                    onClick={() => setActiveTab("restaurantOwner")}
                 >
-                    Admins
+                    Restaurant Owners
                 </button>
-               
-                
             </div>
 
             {/* Table */}
             <div className="overflow-auto">
-                <table className="table-auto w-full">
+                <table className="table-auto w-full ">
                     <thead>
                         <tr>
                             {TABLE_HEAD.map((head) => (
@@ -124,47 +113,45 @@ const Users = () => {
                     </thead>
                     <tbody>
                         {filteredUsers.length > 0 ? (
-                            filteredUsers.map(({ _id, name, email, role, position }, index) => (
+                            filteredUsers.map(({ _id, name, email,
+                                restaurantNumber, photo, 
+                                restaurantAdddress, position, avatar }) => (
                                 <tr key={_id} className="">
-                                    <td className="px-4 py-2 border">
+                                    <td className="px-4 py-2 border flex items-center space-x-4">
+                                        <img
+                                            src={avatar || photo} alt={name || "User Avatar"}
+                                            className="w-10 h-10 rounded-full"
+                                        />
                                         <div>
                                             <p>{name}</p>
                                             <p className="text-sm text-gray-500">{email}</p>
+                                            <p className="text-sm text-gray-500">
+{restaurantAdddress}</p>
+                                            <p className="text-sm text-gray-500">{restaurantNumber}</p>
                                         </div>
                                     </td>
                                     <td className="px-4 py-2 border">
                                         <button
-                                            className="text-xl font-extrabold shadow-2xl  "
+                                            className="text-xl font-extrabold shadow-2xl "
                                             onClick={() => handleDelete(_id)}
+                                            aria-label={`Delete ${name}`}
                                         >
                                             <AiOutlineUserDelete />
                                         </button>
                                     </td>
                                     <td className="px-4 py-2 border">
-                                        {role === "admin" ? (
-                                            <span className="font-bold">Admin</span>
+                                        {position === "restaurantOwner" ? (
+                                            <span className="font-bold">Owner</span>
                                         ) : (
                                             <button
                                                 className="text-xl font-extrabold shadow-2xl "
-                                                onClick={() => handleAdmin(_id)}
+                                                onClick={() => handleOwner(_id)}
+                                                aria-label={`Promote ${name} to Owner`}
                                             >
-                                                <MdOutlineAdminPanelSettings />
+                                                <MdOutlineRestaurant />
                                             </button>
                                         )}
                                     </td>
-                                    <td className="px-4 py-2 border">
-                                        {role === "moderator" ? (
-                                            <span className="font-bold">Moderator</span>
-                                        ) : (
-                                            <button
-                                                className="text-xl font-extrabold shadow-2xl "
-                                                onClick={() => handleModarator(_id)}
-                                            >
-                                                <MdOutlineAdminPanelSettings />
-                                            </button>
-                                        )}
-                                    </td>
-                                   
                                 </tr>
                             ))
                         ) : (
@@ -181,4 +168,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default RestaurantProfile;

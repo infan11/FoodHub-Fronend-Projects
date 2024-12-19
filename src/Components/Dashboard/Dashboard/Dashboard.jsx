@@ -102,7 +102,7 @@ const Dashboard = () => {
             </ListItemPrefix>
             Sales
           </ListItem>
-          <Link to={"/dashboard/profile"}>
+          <Link to={"/dashboard/RrestaurantProfile"}>
           <ListItem>
             <ListItemPrefix>
               <svg
@@ -118,7 +118,7 @@ const Dashboard = () => {
                 />
               </svg>
             </ListItemPrefix>
-            Profile
+            Restaurant Profile
           </ListItem>
           </Link>
           <ListItem>

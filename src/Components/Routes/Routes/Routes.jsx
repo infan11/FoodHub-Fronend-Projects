@@ -14,6 +14,9 @@ import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import AddFoods from "../../Dashboard/AddFoods/AddFoods";
 import Profile from "../../Dashboard/Profle/Profile";
 import Users from "../../Dashboard/users/users";
+import RestaurantRegister from "../../Auth/RestaurantRegister/RestaurantRegister";
+import RrestaurantProfile from "../../Dashboard/RrestaurantProfile/RrestaurantProfile";
+import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +49,10 @@ export const router = createBrowserRouter([
         element: <Register />
       },
       {
+        path: "/restaurantRegister",
+        element: <RestaurantRegister/>
+      },
+      {
         path : "/resetPassword",
         element : <ResetPassword/>
       }
@@ -56,20 +63,21 @@ export const router = createBrowserRouter([
   },
   {
     path :"/dashboard",
-    element : <Dashboard/>,
+    element : <PrivateRoutes><Dashboard/></PrivateRoutes>,
     children : [
      {
       path : "/dashboard/addFoods",
       element : <AddFoods/>
      },
      {
-      path : "/dashboard/profile",
-      element : <Profile/>
+      path : "/dashboard/RrestaurantProfile",
+      element :<PrivateRoutes> <RrestaurantProfile/></PrivateRoutes>
      },
      {
       path : "/dashboard/users",
-      element : <Users/>
+      element : <PrivateRoutes><Users/>   </PrivateRoutes>
      }
     ]
   }
 ]);
+ 
