@@ -3,6 +3,8 @@ import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
+import { MdOutlineAddModerator } from "react-icons/md";
+import { MdOutlineRestaurant } from "react-icons/md";
 import {
     Card,
     CardHeader,
@@ -31,18 +33,25 @@ const Users = () => {
     const TABS = [
         { label: "User", value: "all" },
         { label: "Admin", value: "admin" },
+        { label: "RestaurantOwner", value: "restaurantOwner" },
     ];
 
-    const TABLE_HEAD = ["Information", "Action", "Role"];
+    const TABLE_HEAD = ["Information", "Action", "Role", "RoleTwo","Restaurant Owner"];
 
     // Filter search and tabs logic
     const filterSearch = users.filter((user) => {
         const userSearch =
-            user.name.toLowerCase().includes(searchInput.toLowerCase()) ||
-            user.email.toLowerCase().includes(searchInput.toLowerCase());
+            (user.name?.toLowerCase().includes(searchInput.toLowerCase()) ||
+            user.email?.toLowerCase().includes(searchInput.toLowerCase()) ||
+           (user.role && user.role.toLowerCase().includes(searchInput.toLowerCase())) ||
+           (user.role && user.role.toLowerCase().includes(searchInput.toLowerCase())) ||
+           (user.position && user.position.toLowerCase().includes(searchInput.toLowerCase()))) ;
+             
         const matchesTab =
             activeTab === "all" ||
             (activeTab === "admin" && user.role === "admin");
+            (activeTab === "restaurantOwner" && user.position === "restaurantOwner");
+            (activeTab === "moderator" && user.role === "moderator");
 
         return userSearch && matchesTab;
     });
@@ -86,9 +95,31 @@ const Users = () => {
                 }
             })
     }
+    const handleModerator = users => {
+        console.log(users);
+        axiosSecure.patch(`/users/moderator/${users}`)
+            .then(res => {
+                console.log(res.data);
+                refetch()
+                if (res.data.modifiedCount > 0) {
+                   toast.success("Succesfully Moderator")
+                }
+            })
+    }
+    const handleOwner = users => {
+        console.log(users);
+        axiosSecure.patch(`/users/restaurantOwner/${users}`)
+            .then(res => {
+                console.log(res.data);
+                refetch()
+                if (res.data.modifiedCount > 0) {
+                   toast.success("Succesfully Restaurant Owner")
+                }
+            })
+    }
 
     return (
-        <div>
+        <div className="max-w-7xl mx-auto min-h-full">
             <Card className="h-full w-full">
                 <CardHeader floated={false} shadow={false} className="rounded-none">
                     <div className="mb-8 flex items-center justify-between gap-8">
@@ -127,7 +158,7 @@ const Users = () => {
                         </Tabs>
                         <div className="w-full md:w-72">
                             <Input
-                                label="Search"
+                                label="Search User"
                                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
@@ -157,7 +188,7 @@ const Users = () => {
                         </thead>
                         <tbody>
                             {filterSearch.length > 0 ? (
-                                filterSearch.map(({ _id, name, email, role }, index) => {
+                                filterSearch.map(({ _id, name, email, role,roleTwo,position }, index) => {
                                     const isLast = index === filterSearch.length - 1;
                                     const classes = isLast
                                         ? "p-4"
@@ -197,11 +228,32 @@ const Users = () => {
                                             </td>
                                             <td className={classes}>
                                                
-                                               {role === "admin" ? "Admin" :   <button
+                                               {role === "admin" ? <span className=" font-extrabold">Admin</span> :   <button
                                                         className="btn"
                                                         onClick={() => handleAdmin(_id)}
                                                     >
                                                         <MdOutlineAdminPanelSettings />
+                                                    </button>}
+                                              
+
+                                            </td>
+                                            <td className={classes}>
+                                               {role === "moderator" ? <span className=" font-extrabold">Moderator</span> :   <button
+                                                        className="btn"
+                                                        onClick={() => handleModerator(_id)}
+                                                    >
+                                                        <MdOutlineAddModerator />
+                                                    </button>}
+                                              
+
+                                            </td>
+                                            <td className={classes}>
+                                               
+                                               {position === "restaurantOwner" ? <span className=" font-extrabold">Owner</span> :   <button
+                                                        className="btn"
+                                                        onClick={() => handleOwner(_id)}
+                                                    >
+                                                        <MdOutlineRestaurant />
                                                     </button>}
                                               
 
