@@ -17,6 +17,13 @@ import Users from "../../Dashboard/users/users";
 import RestaurantRegister from "../../Auth/RestaurantRegister/RestaurantRegister";
 import RrestaurantProfile from "../../Dashboard/RrestaurantProfile/RrestaurantProfile";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
+import AdminHome from "../../Dashboard/AdminHome/AdminHome";
+import ModeratorHome from "../../Dashboard/ModeratorHome/ModeratorHome";
+import OwnerHome from "../../Dashboard/OwnerHome/OwnerHome";
+import UserHome from "../../Dashboard/UserHome/UserHome";
+import MyCart from "../../Dashboard/MyCart/MyCart";
+import UpdateFood from "../../Dashboard/UpdateFood/UpdateFood";
+import PaymentHistory from "../../Dashboard/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -63,7 +70,7 @@ export const router = createBrowserRouter([
   },
   {
     path :"/dashboard",
-    element : <PrivateRoutes><Dashboard/></PrivateRoutes>,
+    element : <Dashboard/>,
     children : [
      {
       path : "/dashboard/addFoods",
@@ -71,12 +78,40 @@ export const router = createBrowserRouter([
      },
      {
       path : "/dashboard/RrestaurantProfile",
-      element :<PrivateRoutes> <RrestaurantProfile/></PrivateRoutes>
+      element : <RrestaurantProfile/>
+     },
+     {
+      path : "/dashboard/adminHome",
+      element :<AdminHome/>
+     },
+     {
+      path : "/dashboard/moderator",
+      element : <ModeratorHome/>
+     },
+     {
+      path : "/dashboard/ownerHome",
+      element : <OwnerHome/>
+     },
+     {
+      path : "/dashboard/userHome",
+      element : <UserHome></UserHome> 
+     },
+     {
+      path : "/dashboard/myCart",
+      element : <MyCart/>
+     },
+     {
+      path : "/dashboard/updateFood",
+      element : <UpdateFood/>
      },
      {
       path : "/dashboard/users",
-      element : <PrivateRoutes><Users/>   </PrivateRoutes>
-     }
+      element :<Users/>
+     },
+     {
+      path : "/dashboard/paymentHistory",
+      element :<PaymentHistory/>
+     },
     ]
   }
 ]);
