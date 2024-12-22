@@ -3,6 +3,7 @@ import Banner from "../Banner/Banner";
 import BannerTwo from "../BannerTwo/BannerTwo";
 import ServeFood from "../ServeFood/ServeFood";
 import Food from "../Food/Food";
+import AvailableItem from "../AvailableItem/AvailableItem";
 
 const Home = () => {
     return (
@@ -13,7 +14,7 @@ const Home = () => {
          <Banner/>
          <BannerTwo/>
          <ServeFood/>
-         <Food/>
+         <AvailableItem/>
         </div>
     );
 };

@@ -25,11 +25,13 @@ import { PiContactlessPaymentLight } from "react-icons/pi";
 import useAuth from '../../Hooks/useAuth';
 import useAdmin from '../../Hooks/useAdmin';
 import useModerator from '../../Hooks/usemoderator';
+import userRestaurantOwner from '../../Hooks/userRestaurantOwner';
 const Dashboard = () => {
  const [users] = useAllUserHooks();
  const {user} = useAuth();
  const [isAdmin] = useAdmin()
  const [isModerator] = useModerator()
+ const [isRestaurantOwner] = userRestaurantOwner()
   const [openRight, setOpenRight] = React.useState(false);
     const openDrawerRight = () => setOpenRight(true);
     const closeDrawerRight = () => setOpenRight(false);
@@ -178,7 +180,7 @@ const Dashboard = () => {
          </>
           }
         {
-         isModerator ? <>
+           isModerator ? <>
              <Link to={"/dashboard/moderator"}>
           <ListItem>
             <ListItemPrefix>

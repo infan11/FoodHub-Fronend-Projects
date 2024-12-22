@@ -21,11 +21,12 @@ const Users = () => {
         const userSearch =
             user.name?.toLowerCase().includes(searchInput.toLowerCase()) ||
             user.email?.toLowerCase().includes(searchInput.toLowerCase()) ||
-            user.role?.toLowerCase().includes(searchInput.toLowerCase()) ;
+            user.role?.toLowerCase().includes(searchInput.toLowerCase()) ||
+            user.roleTwo?.toLowerCase().includes(searchInput.toLowerCase()) ;
         const matchesTab =
             activeTab === "all" ||
             (activeTab === "admin" && user.role === "admin") ;
-            (activeTab === "moderator" && user.role === "moderator") ;
+            (activeTab === "moderator" && user.roleTwo === "moderator") ;
 
         return userSearch && matchesTab;
     });
@@ -124,7 +125,7 @@ const Users = () => {
                     </thead>
                     <tbody>
                         {filteredUsers.length > 0 ? (
-                            filteredUsers.map(({ _id, name, email, role, position }, index) => (
+                            filteredUsers.map(({ _id, name, email, role,  roleTwo }, index) => (
                                 <tr key={_id} className="">
                                     <td className="px-4 py-2 border">
                                         <div>
@@ -153,7 +154,7 @@ const Users = () => {
                                         )}
                                     </td>
                                     <td className="px-4 py-2 border">
-                                        {role === "moderator" ? (
+                                        {roleTwo === "moderator" ? (
                                             <span className="font-bold">Moderator</span>
                                         ) : (
                                             <button
