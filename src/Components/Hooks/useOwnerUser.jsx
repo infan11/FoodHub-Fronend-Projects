@@ -4,7 +4,6 @@ import useAxiosSecure from "./useAxiosSecure";
 
 
 const useOwnerUser = () => {
-    const  {user} = useAuth();
     const axiosSecure = useAxiosSecure();
     const {data : ownerUser = [] , refetch} = useQuery({
         queryKey : ["ownerUser"],

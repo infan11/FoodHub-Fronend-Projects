@@ -22,6 +22,7 @@ import { MdOutlineAddModerator } from "react-icons/md"
 import Darkmode from '../../Darkmode/Darkmode';
 import useAllUserHooks from '../../Hooks/useAllUserHooks';
 import { PiContactlessPaymentLight } from "react-icons/pi";
+import { RiHome9Line } from "react-icons/ri";
 import useAuth from '../../Hooks/useAuth';
 import useAdmin from '../../Hooks/useAdmin';
 import useModerator from '../../Hooks/usemoderator';
@@ -123,7 +124,8 @@ const Dashboard = () => {
           </>
         }
 
-       {user ? <>
+       {
+       isRestaurantOwner ? <>
  
         <Link to={"/dashboard/ownerHome"}>
           <ListItem>
@@ -222,9 +224,27 @@ const Dashboard = () => {
             </ListItemPrefix>
             Update Food
           </ListItem>
+        
+          </Link>
+          <div className='divider-start'></div>
+          <Link to={"/"}>
+          <ListItem>
+            <ListItemPrefix>
+            <RxUpdate />
+            </ListItemPrefix>
+          Home
+          </ListItem>
           </Link>
           </> : <>
-          
+          <div className='divider-start'></div>
+          <Link to={"/"}>
+          <ListItem>
+            <ListItemPrefix>
+            <RiHome9Line />
+            </ListItemPrefix>
+          Home
+          </ListItem>
+          </Link>
           </>
         }
         </List>
