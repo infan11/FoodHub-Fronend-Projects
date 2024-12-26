@@ -23,7 +23,7 @@ const AvailableItem = () => {
                     src="https://i.ibb.co.com/PFBV4qh/pizza.png" 
                     alt="Pizza" 
                 />
-                  <p className='text-center font-extrabold -mt-3'>Pizza</p>
+                  <p className='text-center font-extrabold -mt-3'>Pizz</p>
                 </div>
                </Link>
          <Link to={"/Burger"}>
