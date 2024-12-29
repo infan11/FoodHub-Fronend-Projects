@@ -1,11 +1,11 @@
-import React from 'react';
+
 
 const Food = () => {
     return (
-        <div>
+        <div className='min-h-screen'>
           this is food 
         </div>
     );
 };
 
-export default Food;
+export default Food;           

@@ -24,6 +24,14 @@ import UserHome from "../../Dashboard/UserHome/UserHome";
 import MyCart from "../../Dashboard/MyCart/MyCart";
 import UpdateFood from "../../Dashboard/UpdateFood/UpdateFood";
 import PaymentHistory from "../../Dashboard/PaymentHistory/PaymentHistory";
+import Biryani from "../../Home/Biryani/Biryani";
+import Pizza from "../../Home/Pizza/Pizza";
+import Chicken from "../../Home/Home/Chicken/Chicken";
+import Chinese from "../../Home/Chinese/Chinese";
+import Juice from "../../Home/Juice/Juice";
+import Cake from "../../Home/Cake/Cake";
+import Beef from "../../Home/Beef/Beef";
+import Burger from "../../Home/Home/Burger/Burger";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +42,38 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />
+      },
+      {
+        path: "/biryani",
+        element: <Biryani/>
+      },
+      {
+        path: "/pizza",
+        element: <Pizza/>
+      },
+      {
+        path: "/chicken",
+        element: <Chicken/>
+      },
+      {
+        path: "/chinese",
+        element: <Chinese/>
+      },
+      {
+        path: "/juice",
+        element: <Juice/>
+      },
+      {
+        path: "/cake",
+        element: <Cake/>
+      },
+      {
+        path: "/beef",
+        element: <Beef/>
+      },
+      {
+        path: "/burger",
+        element: <Burger/>
       },
       {
         path: "/restaurants",

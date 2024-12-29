@@ -13,8 +13,9 @@ const Home = () => {
             </Helmet>
          <Banner/>
          <BannerTwo/>
-         <ServeFood/>
+       
          <AvailableItem/>
+         <ServeFood/>
         </div>
     );
 };

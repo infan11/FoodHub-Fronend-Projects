@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const AvailableItem = () => {
     return (
-        <div className="px-4 sm:px-8 md:px-36">
+        <div data-aos="fade-up" className="px-4 sm:px-8 md:px-36">
             <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-4">
-            <Link to={"/Biryani"}>
+            <Link to={"/biryani"}>
             <div>
               <img 
                     className="w-32 h-32 mx-auto object-contain" 
@@ -16,7 +16,7 @@ const AvailableItem = () => {
                 <p className='text-center font-extrabold -mt-3'>Biryani</p>
               </div>
             </Link>
-               <Link to={"Pizza"}>
+               <Link to={"/pizza"}>
                <div>
                 <img 
                     className="w-32 h-32 mx-auto object-contain" 
@@ -26,7 +26,7 @@ const AvailableItem = () => {
                   <p className='text-center font-extrabold -mt-3'>Pizza</p>
                 </div>
                </Link>
-         <Link to={"/Burger"}>
+         <Link to={"/burger"}>
          <div>
                <img 
                     className="w-20 h-20 mt-6 mx-auto object-contain" 
@@ -36,7 +36,7 @@ const AvailableItem = () => {
                   <p className='text-center font-extrabold mt-2'>Burger</p>
                </div>
          </Link>
-        <Link to={"/Chicken"}>
+        <Link to={"/chicken"}>
         <div>
               <img 
                     className="w-32 h-32 mx-auto object-contain" 
@@ -46,7 +46,7 @@ const AvailableItem = () => {
                   <p className='text-center font-extrabold -mt-3'>Chicken</p>
               </div>
         </Link>
-           <Link to={"/Chinese"}>
+           <Link to={"/chinese"}>
            <div>
               <img 
                     className="w-32 h-32 mx-auto object-contain" 
@@ -56,7 +56,7 @@ const AvailableItem = () => {
                   <p className='text-center font-extrabold -mt-3'>Chinese</p>
               </div>
            </Link>
-         <Link to={"/Cake"}>
+         <Link to={"/cake"}>
          <div>
              <img 
                     className="w-32 h-32  mx-auto object-contain" 
@@ -66,7 +66,7 @@ const AvailableItem = () => {
                   <p className='text-center font-extrabold -mt-3'>Cake</p>
              </div>
          </Link>
-              <Link to={"/Beef"}>
+              <Link to={"/beef"}>
               <div><img 
                     className="w-32 h-32 mx-auto object-contain" 
                     src="https://i.ibb.co.com/wMjCr5Q/beep.png" 
@@ -75,7 +75,7 @@ const AvailableItem = () => {
                   <p className='text-center font-extrabold -mt-3'>Beef</p>
                 </div>
               </Link>
-             <Link to={"/Juice"}>
+             <Link to={"/juice"}>
              <div>
               <img 
                     className="w-32 h-32 mx-auto object-contain" 
