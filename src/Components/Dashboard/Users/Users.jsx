@@ -79,10 +79,10 @@ const Users = () => {
                 <h2 className="text-lg font-semibold">Manage Users</h2>
                 <div className="w-64">
                     <div className="relative">
-                        <MagnifyingGlassIcon className="absolute h-5 w-5 text-orange-900 top-3 left-3" />
+                        <MagnifyingGlassIcon className="absolute h-5 w-5 text-red-900 top-3 left-3" />
                         <Input
                             type="text"
-                            className="input input-bordered w-full pl-10 text-orange-500 font-bold"
+                            className="input input-bordered w-full pl-10 text-red-500 font-bold"
                             placeholder="Search users..."
                             value={searchInput}
                             label="Search Users"
@@ -96,13 +96,13 @@ const Users = () => {
             {/* Tabs */}
             <div className="tabs  mb-4">
                 <button
-                    className={`tab ${activeTab === "all" ? "tab-active bg-orange-800  text-white font-bold rounded-full shadow-2xl" : " text-orange-900 font-extrabold"}`}
+                    className={`tab ${activeTab === "all" ? "tab-active bg-red-500  text-white font-bold rounded-full shadow-2xl" : " text-red-900 font-extrabold"}`}
                     onClick={() => setActiveTab("all")}
                 >
                     All Users
                 </button>
                 <button
-                    className={`tab ${activeTab === "admin" ? "tab-active bg-orange-800  text-white font-bold rounded-full shadow-2xl" : " text-orange-900 font-extrabold"}`}
+                    className={`tab ${activeTab === "admin" ? "tab-active bg-red-500  text-white font-bold rounded-full shadow-2xl" : " text-red-900 font-extrabold"}`}
                     onClick={() => setActiveTab("admin")}
                 >
                     Admins

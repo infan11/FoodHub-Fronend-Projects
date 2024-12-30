@@ -18,8 +18,8 @@ const BannerTwo = () => {
                         <p className="md:text-sm lg:text-[16px]">
                         Created god gathered don't you yielding herb you had. And isn't, god was saw. Dominion. Great sixth for in unto was. Open can't tree waters brought. Divide after there. Was. Created god gathered don't you yielding herb you had. And isn't god.
                         </p>
-                        <div className="w-56 "> 
-                        <button className={`rounded  mt-5 border-2 p-3 px-3 border-orange-500 bg-orange-500 text-white font-semibold hover:transition-colors  hover:bg-white hover:text-orange-500`}>BOOK A FOOD</button>
+                        <div className="w-60 "> 
+                        <button className={`rounded  mt-5 border-2 p-3 px-3 border-red-500  bg-[#ff0000d8] text-white font-semibold hover:transition-colors  hover:bg-white hover:text-red-600`}>BOOK A FOOD</button>
                         </div>
                     </div>
                  </div>

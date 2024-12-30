@@ -1,5 +1,5 @@
 import { Button, Input } from "@material-tailwind/react";
-
+import { FaHamburger } from "react-icons/fa";
 import {
   Menu,
   MenuHandler,
@@ -7,6 +7,8 @@ import {
   MenuItem,
   Avatar,
   Typography,
+  IconButton,
+  ClockIcon 
 
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
@@ -15,6 +17,24 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import Darkmode from "../Darkmode/Darkmode";
 const Navbar = () => {
+  const ClockIcon = () =>  {
+    return (
+      <svg
+        width="16"
+        height="17"
+        viewBox="0 0 16 17"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M7.99998 14.9C9.69736 14.9 11.3252 14.2257 12.5255 13.0255C13.7257 11.8252 14.4 10.1974 14.4 8.49998C14.4 6.80259 13.7257 5.17472 12.5255 3.97449C11.3252 2.77426 9.69736 2.09998 7.99998 2.09998C6.30259 2.09998 4.67472 2.77426 3.47449 3.97449C2.27426 5.17472 1.59998 6.80259 1.59998 8.49998C1.59998 10.1974 2.27426 11.8252 3.47449 13.0255C4.67472 14.2257 6.30259 14.9 7.99998 14.9ZM8.79998 5.29998C8.79998 5.0878 8.71569 4.88432 8.56566 4.73429C8.41563 4.58426 8.21215 4.49998 7.99998 4.49998C7.7878 4.49998 7.58432 4.58426 7.43429 4.73429C7.28426 4.88432 7.19998 5.0878 7.19998 5.29998V8.49998C7.20002 8.71213 7.28434 8.91558 7.43438 9.06558L9.69678 11.3288C9.7711 11.4031 9.85934 11.4621 9.95646 11.5023C10.0536 11.5425 10.1577 11.5632 10.2628 11.5632C10.3679 11.5632 10.472 11.5425 10.5691 11.5023C10.6662 11.4621 10.7544 11.4031 10.8288 11.3288C10.9031 11.2544 10.9621 11.1662 11.0023 11.0691C11.0425 10.972 11.0632 10.8679 11.0632 10.7628C11.0632 10.6577 11.0425 10.5536 11.0023 10.4565C10.9621 10.3593 10.9031 10.2711 10.8288 10.1968L8.79998 8.16878V5.29998Z"
+          fill="#90A4AE"
+        />
+      </svg>
+    );
+  }
   const {logout , user} = useAuth();
   const handleLogut =  () => {
      logout()
@@ -24,7 +44,7 @@ const Navbar = () => {
     <NavLink
       to="/"
       className={({ isActive }) =>
-        isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white "
+        isActive ? " font-extrabold text-white border-b-2  border-y-red-200 " : "font-extrabold text-white "
       }
     >
       HOME
@@ -32,7 +52,7 @@ const Navbar = () => {
     <NavLink
       to="/restaurants"
       className={({ isActive }) =>
-        isActive ? "   font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white  "
+        isActive ? "   font-extrabold text-white border-b-2  border-y-red-200 " : "font-extrabold text-white  "
       }
     >
       RESTAURANTS
@@ -40,7 +60,7 @@ const Navbar = () => {
     <NavLink
       to="/food"
       className={({ isActive }) =>
-        isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white"
+        isActive ? " font-extrabold text-white border-b-2  border-y-red-200 " : "font-extrabold text-white"
       }
     >
       FOOD
@@ -48,27 +68,12 @@ const Navbar = () => {
     <NavLink
       to="/about"
       className={({ isActive }) =>
-        isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white"
+        isActive ? " font-extrabold text-white border-b-2  border-y-red-200 " : "font-extrabold text-white"
       }
     >
       ABOUT
     </NavLink>
-    <NavLink
-      to="/register"
-      className={({ isActive }) =>
-        isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white"
-      }
-    >
-      REGISTER
-    </NavLink>
-    <NavLink
-      to="/login"
-      className={({ isActive }) =>
-        isActive ? " font-extrabold text-white border-b-2 transition-colors border-orange-700 " : "font-extrabold text-white"
-      }
-    >
-      LOGIN
-    </NavLink>
+  
 
   </>
   const [scrolled, setScrolled] = useState(false);
@@ -92,7 +97,7 @@ const Navbar = () => {
       {/* First Navbar */}
       <div className="navbar sm:px-2 md:px-4 lg:px-6">
         <div className="navbar-start">
-          <a className=" w-12 rounded-full"><img src="https://i.ibb.co.com/wMGRF9B/foodlogo.png" alt="" /></a>
+          <a className=" w-16  rounded-full"><img src="https://i.ibb.co.com/GszTr2n/LOGO-removebg-preview.png" alt="" /></a>
         </div>
         <div className="navbar-center " >
           <div className="relative flex w-full gap-2 md:w-max ">
@@ -125,25 +130,78 @@ const Navbar = () => {
           </div>
 
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end gap-1">
 <Darkmode/>
-          <button className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
-              <span className="badge badge-xs badge-primary indicator-item"></span>
-            </div>
-          </button>
+<Menu>
+      <MenuHandler>
+     <a className="">
+
+     <IconButton variant="text" className="indicator text-xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="h-5 w-5 text-red-500"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <span className="badge badge-sm indicator-item  font-bold text-red-500">3</span>
+        </IconButton>
+     </a>
+      </MenuHandler>
+      <MenuList className="flex flex-col gap-2">
+        <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
+          <Avatar
+            variant="circular"
+            alt="tania andrew"
+            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+          />
+          <div className="flex flex-col gap-1">
+            <Typography variant="small" color="gray" className="font-semibold">
+              Tania send you a message
+            </Typography>
+            <Typography className="flex items-center gap-1 text-sm font-medium text-blue-gray-500">
+              <ClockIcon />
+              13 minutes ago
+            </Typography>
+          </div>
+        </MenuItem>
+        <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
+          <Avatar
+            variant="circular"
+            alt="natali craig"
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1061&q=80"
+          />
+          <div className="flex flex-col gap-1">
+            <Typography variant="small" color="gray" className="font-semibold">
+              Natali replied to your email.
+            </Typography>
+            <Typography className="flex items-center gap-1 text-sm font-medium text-blue-gray-500">
+              <ClockIcon />1 hour ago
+            </Typography>
+          </div>
+        </MenuItem>
+        <MenuItem className="flex items-center gap-4 py-2 pl-2 pr-8">
+          <Avatar
+            variant="circular"
+            alt="paypal"
+            src="https://dwglogo.com/wp-content/uploads/2016/08/PayPal_Logo_Icon.png"
+          />
+          <div className="flex flex-col gap-1">
+            <Typography variant="small" color="gray" className="font-semibold">
+              You&apos;ve received a payment.
+            </Typography>
+            <Typography className="flex items-center gap-1 text-sm font-medium text-blue-gray-500">
+              <ClockIcon />5 hours ago
+            </Typography>
+          </div>
+        </MenuItem>
+      </MenuList>
+    </Menu>
           <Menu>
             <MenuHandler>
               <Avatar
@@ -189,7 +247,7 @@ const Navbar = () => {
                     fill="#90A4AE"
                   />
                 </svg>
-
+              
                 <Typography variant="small" className="font-medium">
                   Edit Profile
                 </Typography>
@@ -288,27 +346,57 @@ const Navbar = () => {
       <div className={`navbar  sm:px-2 md:px-4 lg:px-6 bg-[#ff0000d8] ${scrolled ? "fixed top-0 left-0 w-full  shadow z-10 " : ""}`}>
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h7" />
-              </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li><a>Homepage</a></li>
-              <li><a>Portfolio</a></li>
-              <li><a>About</a></li>
-            </ul>
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle text-white  font-extrabold">
+
+            <Menu>
+      <MenuHandler>
+     <a className="text-white text-2xl">   <FaHamburger /></a>
+      </MenuHandler>
+  
+
+         
+            <MenuList>
+        <MenuItem>    <NavLink
+      to="/"
+      className={({ isActive }) =>
+        isActive ? " font-extrabold    border-b-2  border-y-red-200 " : "  font-extrabold "
+      }
+    >
+      HOME
+    </NavLink></MenuItem>
+        <MenuItem>
+        <NavLink
+      to="/food"
+      className={({ isActive }) =>
+        isActive ? " font-extrabold    border-b-2  border-y-red-200 " : "font-extrabold   "
+      }
+    >
+      FOOD
+    </NavLink>
+    
+        </MenuItem>
+        <MenuItem><NavLink
+      to="/about"
+      className={({ isActive }) =>
+        isActive ? " font-extrabold  border-b-2  border-y-red-200 " : "font-extrabold "
+      }
+    >
+      ABOUT
+    </NavLink></MenuItem>
+        <MenuItem>
+        <NavLink
+      to="/restaurants"
+      className={({ isActive }) =>
+        isActive ? "     font-extrabold  border-b-2  border-y-red-200 " : "font-extrabold     "
+      }
+    >
+      RESTAURANTS
+    </NavLink></MenuItem>
+
+  
+      </MenuList>
+      </Menu>
+      </div>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -320,10 +408,10 @@ const Navbar = () => {
 
           <div className="w-16 text-2xl">
 
-            <button className="btn btn-ghost btn-circle text-2xl font-bold">
+            <button className="btn btn-ghost btn-circle text-2xl  text-white font-extrabold">
               <div className="indicator">
                 <RiShoppingBag2Line />
-                <span className="badge badge-sm indicator-item">8</span>
+                <span className="badge badge-sm indicator-item ">8</span>
               </div>
             </button>
           </div>

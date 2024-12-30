@@ -41,7 +41,7 @@ const Dashboard = () => {
             <div className="navbar">
   <div className="flex-none">
     <div className='bg-white shadow-2xl'>
-  <button onClick={openDrawerRight} className='text-orange-800 text-4xl font-bold'><PiHamburgerThin /></button>
+  <button onClick={openDrawerRight} className='text-red-500 text-4xl font-bold'><PiHamburgerThin /></button>
 
     </div>
   <Drawer
@@ -248,7 +248,7 @@ const Dashboard = () => {
           </>
         }
         </List>
-        <Button className="mt-3 bg-orange-800 w-full" size="sm">
+        <Button className="mt-3 bg-red-500 w-full" size="sm">
         <Darkmode/>
         </Button>
       </Drawer>
