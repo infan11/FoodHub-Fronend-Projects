@@ -285,7 +285,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* Second Navbar */}
-      <div className={`navbar  sm:px-2 md:px-4 lg:px-6 bg-[#ff6600a2] ${scrolled ? "fixed top-0 left-0 w-full  shadow z-10 " : ""}`}>
+      <div className={`navbar  sm:px-2 md:px-4 lg:px-6 bg-[#ff0000d8] ${scrolled ? "fixed top-0 left-0 w-full  shadow z-10 " : ""}`}>
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">

@@ -13,7 +13,7 @@ const AvailableItem = () => {
                     alt="Biryani" 
                     
                 />
-                <p className='text-center font-extrabold -mt-3'>Biryani</p>
+                <p className='text-center font-extrabold -mt-3 text-red-500'>Biryani</p>
               </div>
             </Link>
                <Link to={"/pizza"}>
@@ -23,7 +23,7 @@ const AvailableItem = () => {
                     src="https://i.ibb.co.com/PFBV4qh/pizza.png" 
                     alt="Pizza" 
                 />
-                  <p className='text-center font-extrabold -mt-3'>Pizza</p>
+                  <p className='text-center font-extrabold -mt-3 text-red-500'>Pizza</p>
                 </div>
                </Link>
          <Link to={"/burger"}>
@@ -33,7 +33,7 @@ const AvailableItem = () => {
                     src="https://i.ibb.co.com/yy1Jc6N/burger-removebg-preview.png" 
                     alt="Burger" 
                 />
-                  <p className='text-center font-extrabold mt-2'>Burger</p>
+                  <p className='text-center font-extrabold mt-2 text-red-500'>Burger</p>
                </div>
          </Link>
         <Link to={"/chicken"}>
@@ -43,7 +43,7 @@ const AvailableItem = () => {
                     src="https://i.ibb.co.com/FJg7xmP/Chicken.png" 
                     alt="Chicken" 
                 />
-                  <p className='text-center font-extrabold -mt-3'>Chicken</p>
+                  <p className='text-center font-extrabold -mt-3 text-red-500'>Chicken</p>
               </div>
         </Link>
            <Link to={"/chinese"}>
@@ -53,7 +53,7 @@ const AvailableItem = () => {
                     src="https://i.ibb.co.com/jLzCxbQ/Chinese.png" 
                     alt="Chinese" 
                 />
-                  <p className='text-center font-extrabold -mt-3'>Chinese</p>
+                  <p className='text-center font-extrabold -mt-3 text-red-500'>Chinese</p>
               </div>
            </Link>
          <Link to={"/cake"}>
@@ -63,7 +63,7 @@ const AvailableItem = () => {
                     src="https://i.ibb.co.com/12qMjL0/Cake.png" 
                     alt="Cake" 
                 />
-                  <p className='text-center font-extrabold -mt-3'>Cake</p>
+                  <p className='text-center font-extrabold -mt-3 text-red-500'>Cake</p>
              </div>
          </Link>
               <Link to={"/beef"}>
@@ -72,7 +72,7 @@ const AvailableItem = () => {
                     src="https://i.ibb.co.com/wMjCr5Q/beep.png" 
                     alt="Beef" 
                 />
-                  <p className='text-center font-extrabold -mt-3'>Beef</p>
+                  <p className='text-center font-extrabold -mt-3 text-red-500'>Beef</p>
                 </div>
               </Link>
              <Link to={"/juice"}>
@@ -82,7 +82,7 @@ const AvailableItem = () => {
                     src="https://i.ibb.co.com/LRQjdvF/drinks.png" 
                     alt="Drinks" 
                 />
-                  <p className='text-center font-extrabold -mt-3'>Juice</p>
+                  <p className='text-center font-extrabold -mt-3 text-red-500'>Juice</p>
               </div>
              </Link>
             </div>
