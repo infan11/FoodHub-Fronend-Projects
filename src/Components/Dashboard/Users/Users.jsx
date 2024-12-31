@@ -86,7 +86,7 @@ const Users = () => {
                             placeholder="Search users..."
                             value={searchInput}
                             label="Search Users"
-                            color="orange"
+                            color="red"
                             onChange={(e) => setSearchInput(e.target.value)}
                         />
                     </div>
@@ -96,13 +96,13 @@ const Users = () => {
             {/* Tabs */}
             <div className="tabs  mb-4">
                 <button
-                    className={`tab ${activeTab === "all" ? "tab-active bg-red-500  text-white font-bold rounded-full shadow-2xl" : " text-red-900 font-extrabold"}`}
+                    className={`tab ${activeTab === "all" ? "tab-active bg-red-800  text-white font-bold rounded-full shadow-2xl" : " text-red-900 font-extrabold"}`}
                     onClick={() => setActiveTab("all")}
                 >
                     All Users
                 </button>
                 <button
-                    className={`tab ${activeTab === "admin" ? "tab-active bg-red-500  text-white font-bold rounded-full shadow-2xl" : " text-red-900 font-extrabold"}`}
+                    className={`tab ${activeTab === "admin" ? "tab-active bg-red-800  text-white font-bold rounded-full shadow-2xl" : " text-red-900 font-extrabold"}`}
                     onClick={() => setActiveTab("admin")}
                 >
                     Admins

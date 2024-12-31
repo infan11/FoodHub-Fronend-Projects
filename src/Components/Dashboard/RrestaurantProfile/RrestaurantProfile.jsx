@@ -71,7 +71,7 @@ const RestaurantProfile = () => {
                         <MagnifyingGlassIcon className="absolute h-5 w-5  top-3 left-3" />
                         <Input
                             type="text"
-                            className="input text-red-700 w-full pl-10 ext-orange-500 font-bold"
+                            className="input text-orange-700 w-full pl-10 ext-orange-500 font-bold"
                             placeholder="Search users..."
                             value={searchInput}
                             color="orange"
@@ -86,13 +86,13 @@ const RestaurantProfile = () => {
             {/* Tabs */}
             <div className="tabs  mb-4">
                 <button 
-                    className={`tab ${activeTab === "all" ? "tab-active bg-red-900 text-white font-bold rounded-full shadow-2xl" : "font-bold text-red-900"}`}
+                    className={`tab ${activeTab === "all" ? "tab-active bg-orange-900 text-white font-bold rounded-full shadow-2xl" : "font-bold text-orange-900"}`}
                     onClick={() => setActiveTab("all")}
                 >
                     All Restaurant Users
                 </button>
                 <button
-                    className={`tab ${activeTab === "restaurantOwner" ? "tab-active bg-red-900 text-white font-bold rounded-full shadow-2xl" : "font-bold text-red-900"}`}
+                    className={`tab ${activeTab === "restaurantOwner" ? "tab-active bg-orange-900 text-white font-bold rounded-full shadow-2xl" : "font-bold text-orange-900"}`}
                     onClick={() => setActiveTab("restaurantOwner")}
                 >
                     Restaurant Owners

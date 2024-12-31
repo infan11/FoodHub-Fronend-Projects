@@ -13,7 +13,7 @@ import ResetPassword from "../../Auth/ResetPassword/ResetPassword";
 import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import AddFoods from "../../Dashboard/AddFoods/AddFoods";
 import Profile from "../../Dashboard/Profle/Profile";
-import Users from "../../Dashboard/users/users";
+
 import RestaurantRegister from "../../Auth/RestaurantRegister/RestaurantRegister";
 import RrestaurantProfile from "../../Dashboard/RrestaurantProfile/RrestaurantProfile";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
@@ -32,6 +32,7 @@ import Juice from "../../Home/Juice/Juice";
 import Cake from "../../Home/Cake/Cake";
 import Beef from "../../Home/Beef/Beef";
 import Burger from "../../Home/Home/Burger/Burger";
+import Users from "../../Dashboard/Users/Users";
 
 export const router = createBrowserRouter([
   {

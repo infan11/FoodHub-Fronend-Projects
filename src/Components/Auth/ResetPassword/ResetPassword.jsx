@@ -72,7 +72,7 @@ const ResetPassword = () => {
               placeholder="Type Your Email"
               inputRef={emailRef}
               color="orange"
-              className="text-red-500"
+              className="text-orange-500"
               {...register("email", { required: true })}
             />
             {errors.email && (
