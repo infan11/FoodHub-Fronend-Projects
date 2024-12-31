@@ -59,7 +59,34 @@ const Dashboard = () => {
         <List>
         {
         isAdmin  ?  <>
-            <Link to={"/dashboard/adminHome"}>
+           
+      <Link to={"/dashboard/myCart"}>
+          <ListItem>
+            <ListItemPrefix>
+            <RiShoppingBag4Line />
+            </ListItemPrefix>
+            My Order
+          </ListItem>
+          </Link>
+          <Link to={"/dashboard/userHome"}>
+            <ListItem>
+              <ListItemPrefix>
+              <FaRegUser />
+              </ListItemPrefix>
+          User Home
+            </ListItem>
+            </Link>
+     
+       <Link to={"/dashboard/paymentHistory"}>
+          <ListItem>
+            <ListItemPrefix>
+            <PiContactlessPaymentLight />
+            </ListItemPrefix>
+            Payment History
+          </ListItem>
+          </Link>
+          </> : <>
+          <Link to={"/dashboard/adminHome"}>
           <ListItem>
             <ListItemPrefix>
             <RiAdminLine />
@@ -111,31 +138,17 @@ const Dashboard = () => {
             Owner User
           </ListItem>
           </Link>
-    
-          </> : <>
-          <Link to={"/dashboard/myCart"}>
-          <ListItem>
-            <ListItemPrefix>
-            <RiShoppingBag4Line />
-            </ListItemPrefix>
-            My Order
-          </ListItem>
-          </Link>
-       <Link to={"/dashboard/paymentHistory"}>
-          <ListItem>
-            <ListItemPrefix>
-            <PiContactlessPaymentLight />
-            </ListItemPrefix>
-            Payment History
-          </ListItem>
-          </Link>
           </>
         }
 
        {
        isRestaurantOwner ? <>
  
-        <Link to={"/dashboard/ownerHome"}>
+        
+      
+       </> : <>
+      
+       <Link to={"/dashboard/ownerHome"}>
           <ListItem>
             <ListItemPrefix>
               <svg
@@ -172,26 +185,16 @@ const Dashboard = () => {
           </ListItem>
           </Link>
          
-      
-       </> : <>
-    
-      
        
        </>}
-          {
-            user ? <><Link to={"/dashboard/userHome"}>
-            <ListItem>
-              <ListItemPrefix>
-              <FaRegUser />
-              </ListItemPrefix>
-          User Home
-            </ListItem>
-            </Link></> : <> 
-         </>
-          }
-        {
-           isModerator ? <>
-             <Link to={"/dashboard/moderator"}>
+
+       {/* {
+        isModerator ? <>
+         
+      
+        </> : <>
+     
+        <Link to={"/dashboard/moderator"}>
           <ListItem>
             <ListItemPrefix>
             <MdOutlineAddModerator />
@@ -243,18 +246,21 @@ const Dashboard = () => {
           Home
           </ListItem>
           </Link>
-          </> : <>
-          <div className='divider-start'></div>
-          <Link to={"/"}>
-          <ListItem>
-            <ListItemPrefix>
-            <RiHome9Line />
-            </ListItemPrefix>
-          Home
-          </ListItem>
-          </Link>
-          </>
-        }
+        </>
+        } */}
+          {
+            user ? <></> : <> 
+            <Link to={"/dashboard/userHome"}>
+            <ListItem>
+              <ListItemPrefix>
+              <FaRegUser />
+              </ListItemPrefix>
+          User Home
+            </ListItem>
+            </Link>
+         </>
+          }
+       
         </List>
         <Button className="mt-3 bg-[#ff0000d8] w-full" size="sm">
         <Darkmode/>
