@@ -27,7 +27,7 @@ const Login = () => {
     }
     const hnadleGoogle = () => {
         googleAuth()
-        then(res => {
+        .then(res => {
             const google = res.user;
             console.log(google);
             toast.success("Successfully Google")

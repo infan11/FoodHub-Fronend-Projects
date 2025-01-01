@@ -1,12 +1,11 @@
 import useAllUserHooks from "../../Hooks/useAllUserHooks";
-import { MdOutlineAdminPanelSettings, MdOutlineRestaurant } from "react-icons/md";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-import useOwnerUser from "../../Hooks/useOwnerUser";
 import { Input } from "@material-tailwind/react";
 
 const Users = () => {
@@ -14,23 +13,23 @@ const Users = () => {
     const [searchInput, setSearchInput] = useState("");
     const [activeTab, setActiveTab] = useState("all");
     const axiosSecure = useAxiosSecure();
-    const TABLE_HEAD = ["Information", "Action", "Role", "moderator"];
+    const TABLE_HEAD = ["Information", "Action", "Role", "Moderator"];
 
     // Filter users by tab and search
     const filteredUsers = users.filter((user) => {
         const userSearch =
             user.name?.toLowerCase().includes(searchInput.toLowerCase()) ||
             user.email?.toLowerCase().includes(searchInput.toLowerCase()) ||
-            user.role?.toLowerCase().includes(searchInput.toLowerCase()) ||
-            user.roleTwo?.toLowerCase().includes(searchInput.toLowerCase()) ;
+            user.role?.toLowerCase().includes(searchInput.toLowerCase());
         const matchesTab =
             activeTab === "all" ||
-            (activeTab === "admin" && user.role === "admin") ;
-            (activeTab === "moderator" && user.roleTwo === "moderator") ;
+            (activeTab === "admin" && user.role === "admin") ||
+            (activeTab === "moderator" && user.role === "moderator");
 
         return userSearch && matchesTab;
     });
 
+    // Delete User
     const handleDelete = (user) => {
         Swal.fire({
             title: "Are you sure?",
@@ -55,16 +54,9 @@ const Users = () => {
         });
     };
 
-    const handleAdmin = (user) => {
-        axiosSecure.patch(`/users/admin/${user}`).then((res) => {
-            if (res.data.modifiedCount > 0) {
-                refetch();
-                toast.success("Successfully updated to Admin");
-            }
-        });
-    };
-    const handleModarator = (user) => {
-        axiosSecure.patch(`/users/moderator/${user}`).then((res) => {
+    // Update to Admin
+    const handleAdmin = (userId) => {
+        axiosSecure.patch(`/users/admin/${userId}`).then((res) => {
             if (res.data.modifiedCount > 0) {
                 refetch();
                 toast.success("Successfully updated to Admin");
@@ -72,9 +64,22 @@ const Users = () => {
         });
     };
 
- 
+    // Update to Moderator
+    const handleModerator = (userId) => {
+        axiosSecure.patch(`/users/moderator/${userId}`).then((res) => {
+            if (res.data.modifiedCount > 0) {
+                refetch();
+                toast.success("Successfully updated to Moderator");
+            }
+        }).catch((error) => {
+            toast.error("Failed to update user to Moderator");
+            console.error("Error updating user to moderator:", error);
+        });
+    };
+
     return (
         <div className="max-w-7xl mx-auto min-h-full">
+            {/* Header Section */}
             <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Manage Users</h2>
                 <div className="w-64">
@@ -94,21 +99,37 @@ const Users = () => {
             </div>
 
             {/* Tabs */}
-            <div className="tabs  mb-4">
+            <div className="tabs mb-4">
                 <button
-                    className={`tab ${activeTab === "all" ? "tab-active bg-red-800  text-white font-bold rounded-full shadow-2xl" : " text-red-900 font-extrabold"}`}
+                    className={`tab ${
+                        activeTab === "all"
+                            ? "tab-active bg-red-800 text-white font-bold rounded-full shadow-2xl"
+                            : "text-red-900 font-extrabold"
+                    }`}
                     onClick={() => setActiveTab("all")}
                 >
                     All Users
                 </button>
                 <button
-                    className={`tab ${activeTab === "admin" ? "tab-active bg-red-800  text-white font-bold rounded-full shadow-2xl" : " text-red-900 font-extrabold"}`}
+                    className={`tab ${
+                        activeTab === "admin"
+                            ? "tab-active bg-red-800 text-white font-bold rounded-full shadow-2xl"
+                            : "text-red-900 font-extrabold"
+                    }`}
                     onClick={() => setActiveTab("admin")}
                 >
                     Admins
                 </button>
-               
-                
+                <button
+                    className={`tab ${
+                        activeTab === "moderator"
+                            ? "tab-active bg-red-800 text-white font-bold rounded-full shadow-2xl"
+                            : "text-red-900 font-extrabold"
+                    }`}
+                    onClick={() => setActiveTab("moderator")}
+                >
+                    Moderators
+                </button>
             </div>
 
             {/* Table */}
@@ -125,7 +146,7 @@ const Users = () => {
                     </thead>
                     <tbody>
                         {filteredUsers.length > 0 ? (
-                            filteredUsers.map(({ _id, name, email, role,  roleTwo }, index) => (
+                            filteredUsers.map(({ _id, name, email, role }, index) => (
                                 <tr key={_id} className="">
                                     <td className="px-4 py-2 border">
                                         <div>
@@ -135,7 +156,7 @@ const Users = () => {
                                     </td>
                                     <td className="px-4 py-2 border">
                                         <button
-                                            className="text-xl font-extrabold shadow-2xl  "
+                                            className="text-xl font-extrabold shadow-2xl"
                                             onClick={() => handleDelete(_id)}
                                         >
                                             <AiOutlineUserDelete />
@@ -146,7 +167,7 @@ const Users = () => {
                                             <span className="font-bold">Admin</span>
                                         ) : (
                                             <button
-                                                className="text-xl font-extrabold shadow-2xl "
+                                                className="text-xl font-extrabold shadow-2xl"
                                                 onClick={() => handleAdmin(_id)}
                                             >
                                                 <MdOutlineAdminPanelSettings />
@@ -154,18 +175,17 @@ const Users = () => {
                                         )}
                                     </td>
                                     <td className="px-4 py-2 border">
-                                        {roleTwo === "moderator" ? (
+                                        {role === "moderator" ? (
                                             <span className="font-bold">Moderator</span>
                                         ) : (
                                             <button
-                                                className="text-xl font-extrabold shadow-2xl "
-                                                onClick={() => handleModarator(_id)}
+                                                className="text-xl font-extrabold shadow-2xl"
+                                                onClick={() => handleModerator(_id)}
                                             >
                                                 <MdOutlineAdminPanelSettings />
                                             </button>
                                         )}
                                     </td>
-                                   
                                 </tr>
                             ))
                         ) : (

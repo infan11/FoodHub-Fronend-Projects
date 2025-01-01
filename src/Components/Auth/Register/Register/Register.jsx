@@ -29,10 +29,12 @@ const Register = () => {
                     .then(() => {
                         const usersInfo = {
                             name: data.name,
-                            email: data.email
+                            email: data.email,
+                           role : "guest",
+                            status : "Verified" 
                         };
                         return toast.promise(
-                            axiosPublic.post("/users", usersInfo),
+                            axiosPublic.put("/users", usersInfo),
 
                             {
                                 loading: 'Loading...',
@@ -54,10 +56,12 @@ const Register = () => {
                 console.log(google);
                 const usersInfo = {
                     email: res.user?.email,
-                    name: res.user?.displayName
+                    name: res.user?.displayName,
+                    role : "guest",
+                    status : "Verified"
                 };
                 toast.promise(
-                    axiosPublic.post("/users", usersInfo),
+                    axiosPublic.put("/users", usersInfo),
 
                     {
                         loading: 'Loading...',

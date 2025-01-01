@@ -5,7 +5,7 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useOwnerUser = () => {
     const axiosSecure = useAxiosSecure();
-    const {data : ownerUser = [] , refetch} = useQuery({
+    const {data : ownerUser = [] ,  isLoading : loading , refetch} = useQuery({
         queryKey : ["ownerUser"],
         queryFn : async () => {
             const res = await axiosSecure.get("/ownerUsers")
@@ -13,7 +13,7 @@ const useOwnerUser = () => {
             return res.data
         }
     })
-    return [ownerUser , refetch]
+    return [ownerUser , loading,refetch  ]
 };
 
 export default useOwnerUser;
