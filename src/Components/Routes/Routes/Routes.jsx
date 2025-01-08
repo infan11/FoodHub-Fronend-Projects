@@ -10,7 +10,6 @@ import About from "../../About/About/About";
 import Login from "../../Auth/Login/Login";
 import Register from "../../Auth/Register/Register/Register";
 import ResetPassword from "../../Auth/ResetPassword/ResetPassword";
-import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import AddFoods from "../../Dashboard/AddFoods/AddFoods";
 import Profile from "../../Dashboard/Profle/Profile";
 
@@ -33,6 +32,7 @@ import Cake from "../../Home/Cake/Cake";
 import Beef from "../../Home/Beef/Beef";
 import Burger from "../../Home/Home/Burger/Burger";
 import Users from "../../Dashboard/Users/Users";
+import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -145,6 +145,7 @@ export const router = createBrowserRouter([
       path : "/dashboard/updateFood",
       element : <UpdateFood/>
      },
+   
      {
       path : "/dashboard/users",
       element :<Users/>

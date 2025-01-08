@@ -1,5 +1,5 @@
 import useAllUserHooks from "../../Hooks/useAllUserHooks";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { MdOutlineAdminPanelSettings, MdOutlineRestaurant } from "react-icons/md";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
@@ -9,11 +9,11 @@ import toast from "react-hot-toast";
 import { Input } from "@material-tailwind/react";
 
 const Users = () => {
-    const [users, refetch] = useAllUserHooks();
+    const [users, , refetch] = useAllUserHooks();
     const [searchInput, setSearchInput] = useState("");
     const [activeTab, setActiveTab] = useState("all");
     const axiosSecure = useAxiosSecure();
-    const TABLE_HEAD = ["Information", "Action", "Role", "Moderator"];
+    const TABLE_HEAD = ["Information" , "","Action", "Admin Role", "Moderator Role", "Owner Role"];
 
     // Filter users by tab and search
     const filteredUsers = users.filter((user) => {
@@ -23,8 +23,9 @@ const Users = () => {
             user.role?.toLowerCase().includes(searchInput.toLowerCase());
         const matchesTab =
             activeTab === "all" ||
-            (activeTab === "admin" && user.role === "admin") ||
-            (activeTab === "moderator" && user.role === "moderator");
+            (activeTab === "admin" && user?.role === "admin") ||
+            (activeTab === "moderator" && user?.role === "moderator") ||
+            (activeTab === "owner" && user?.role === "owner");
 
         return userSearch && matchesTab;
     });
@@ -54,7 +55,7 @@ const Users = () => {
         });
     };
 
-    // Update to Admin
+    // Update Roles
     const handleAdmin = (userId) => {
         axiosSecure.patch(`/users/admin/${userId}`).then((res) => {
             if (res.data.modifiedCount > 0) {
@@ -64,25 +65,32 @@ const Users = () => {
         });
     };
 
-    // Update to Moderator
     const handleModerator = (userId) => {
         axiosSecure.patch(`/users/moderator/${userId}`).then((res) => {
             if (res.data.modifiedCount > 0) {
                 refetch();
                 toast.success("Successfully updated to Moderator");
             }
-        }).catch((error) => {
+        }).catch(() => {
             toast.error("Failed to update user to Moderator");
-            console.error("Error updating user to moderator:", error);
+        });
+    };
+
+    const handleOwner = (userId) => {
+        axiosSecure.patch(`/users/restaurantOwner/${userId}`).then((res) => {
+            if (res.data.modifiedCount > 0) {
+                refetch();
+                toast.success("Successfully updated to Restaurant Owner");
+            }
         });
     };
 
     return (
         <div className="max-w-7xl mx-auto min-h-full">
             {/* Header Section */}
-            <div className="mb-4 flex items-center justify-between">
+            <div className="mb-4 flex flex-col md:flex-row items-center justify-between gap-4">
                 <h2 className="text-lg font-semibold">Manage Users</h2>
-                <div className="w-64">
+                <div className="w-full md:w-64">
                     <div className="relative">
                         <MagnifyingGlassIcon className="absolute h-5 w-5 text-red-900 top-3 left-3" />
                         <Input
@@ -99,103 +107,121 @@ const Users = () => {
             </div>
 
             {/* Tabs */}
-            <div className="tabs mb-4">
-                <button
-                    className={`tab ${
-                        activeTab === "all"
-                            ? "tab-active bg-red-800 text-white font-bold rounded-full shadow-2xl"
-                            : "text-red-900 font-extrabold"
-                    }`}
-                    onClick={() => setActiveTab("all")}
-                >
-                    All Users
-                </button>
-                <button
-                    className={`tab ${
-                        activeTab === "admin"
-                            ? "tab-active bg-red-800 text-white font-bold rounded-full shadow-2xl"
-                            : "text-red-900 font-extrabold"
-                    }`}
-                    onClick={() => setActiveTab("admin")}
-                >
-                    Admins
-                </button>
-                <button
-                    className={`tab ${
-                        activeTab === "moderator"
-                            ? "tab-active bg-red-800 text-white font-bold rounded-full shadow-2xl"
-                            : "text-red-900 font-extrabold"
-                    }`}
-                    onClick={() => setActiveTab("moderator")}
-                >
-                    Moderators
-                </button>
+            <div className="tabs mb-4 flex justify-center md:justify-start">
+                {["all", "admin", "moderator", "owner"].map((tab) => (
+                    <button
+                        key={tab}
+                        className={`tab ${
+                            activeTab === tab
+                                ? "tab-active bg-red-800 text-white font-bold rounded-full shadow-2xl"
+                                : "text-red-900 font-extrabold"
+                        }`}
+                        onClick={() => setActiveTab(tab)}
+                    >
+                        {tab.charAt(0).toUpperCase() + tab.slice(1)} Users
+                    </button>
+                ))}
             </div>
 
             {/* Table */}
-            <div className="overflow-auto">
+            <div className="overflow-auto shadow-lg rounded-lg border">
                 <table className="table-auto w-full">
-                    <thead>
+                    <thead className="bg-gray-100">
                         <tr>
                             {TABLE_HEAD.map((head) => (
-                                <th key={head} className="px-4 py-2 border">
+                                <th key={head} className="px-4 py-2 text-[14px] text-red-500 tracking-wide text-center"  >
                                     {head}
                                 </th>
                             ))}
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredUsers.length > 0 ? (
-                            filteredUsers.map(({ _id, name, email, role }, index) => (
-                                <tr key={_id} className="">
-                                    <td className="px-4 py-2 border">
-                                        <div>
-                                            <p>{name}</p>
-                                            <p className="text-sm text-gray-500">{email}</p>
-                                        </div>
-                                    </td>
-                                    <td className="px-4 py-2 border">
-                                        <button
-                                            className="text-xl font-extrabold shadow-2xl"
-                                            onClick={() => handleDelete(_id)}
-                                        >
-                                            <AiOutlineUserDelete />
-                                        </button>
-                                    </td>
-                                    <td className="px-4 py-2 border">
-                                        {role === "admin" ? (
-                                            <span className="font-bold">Admin</span>
+  {filteredUsers.length > 0 ? (
+    filteredUsers.map(({ _id, name, email, role, photo, 
+        restaurantAdddress, 
+        restaurantNumber }) => (
+      <tr key={_id}>
+        {/* Common Information */}
+        <td className="px-4 py-2 border">
+          <div className="flex items-center space-x-3">
+            {role === "owner" ? (
+              <img src={photo} alt={`${name}'s photo`} className="w-10 h-10 rounded-full object-cover" />
+            ) : null}
+            <div>
+              <p>{name}</p>
+              <p className="text-sm text-gray-500">{email}</p>
+            </div>
+          </div>
+        </td>
+
+        {/* Owner-Specific Details */}
+        {role === "owner" ? (
+          <td className="px-4 py-2 border">
+            <p className="text-sm text-gray-500">Address: {restaurantAdddress || "N/A"}</p>
+            <p className="text-sm text-gray-500">Number: {restaurantNumber || "N/A"}</p>
+          </td>
+        ) : (
+          <td className="px-4 py-2 border text-center">—</td>
+        )}
+
+        {/* Action Buttons */}
+        <td className="px-4 py-2 border">
+          <button
+            className="text-xl font-extrabold shadow-2xl"
+            onClick={() => handleDelete(_id)}
+          >
+            <AiOutlineUserDelete />
+          </button>
+        </td>
+
+        {/* Role-Specific Columns */}
+        <td className="px-4 py-2 border">
+          {role === "admin" ? (
+            <span className="font-bold">Admin</span>
+          ) : (
+            <button
+              className="text-xl font-extrabold shadow-2xl"
+              onClick={() => handleAdmin(_id)}
+            >
+              <MdOutlineAdminPanelSettings />
+            </button>
+          )}
+        </td>
+        <td className="px-4 py-2 border">
+          {role === "moderator" ? (
+            <span className="font-bold">Moderator</span>
+          ) : (
+            <button
+              className="text-xl font-extrabold shadow-2xl"
+              onClick={() => handleModerator(_id)}
+            >
+              <MdOutlineAdminPanelSettings />
+            </button>
+          )}
+        </td>
+        <td className="px-4 py-2 border text-center">
+                                        {role === "owner" ? (
+                                            <span className="font-bold">Owner</span>
                                         ) : (
                                             <button
                                                 className="text-xl font-extrabold shadow-2xl"
-                                                onClick={() => handleAdmin(_id)}
+                                                onClick={() => handleOwner(_id)}
                                             >
-                                                <MdOutlineAdminPanelSettings />
+                                                <MdOutlineRestaurant />
                                             </button>
                                         )}
                                     </td>
-                                    <td className="px-4 py-2 border">
-                                        {role === "moderator" ? (
-                                            <span className="font-bold">Moderator</span>
-                                        ) : (
-                                            <button
-                                                className="text-xl font-extrabold shadow-2xl"
-                                                onClick={() => handleModerator(_id)}
-                                            >
-                                                <MdOutlineAdminPanelSettings />
-                                            </button>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={TABLE_HEAD.length} className="text-center py-4">
-                                    No users found.
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan={TABLE_HEAD.length} className="text-center py-4">
+        No users found.
+      </td>
+    </tr>
+  )}
+</tbody>
+
                 </table>
             </div>
         </div>

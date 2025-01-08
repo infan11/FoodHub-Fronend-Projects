@@ -8,16 +8,18 @@ import {
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../Hooks/useAuth";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+// import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const Register = () => {
     const { createUser, googleAuth, user, updateUserProfile } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
-    const axiosPublic = useAxiosPublic();
+    // const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const { register, handleSubmit,  formState: { errors }, } = useForm()
     const onSubmit = data => {
         console.log(data);
@@ -34,7 +36,7 @@ const Register = () => {
                             status : "Verified" 
                         };
                         return toast.promise(
-                            axiosPublic.put("/users", usersInfo),
+                            axiosSecure.put("/users", usersInfo),
 
                             {
                                 loading: 'Loading...',
@@ -61,8 +63,8 @@ const Register = () => {
                     status : "Verified"
                 };
                 toast.promise(
-                    axiosPublic.put("/users", usersInfo),
-
+                    axiosSecure.put("/users", usersInfo),
+                   
                     {
                         loading: 'Loading...',
                         success: `Sucessfully Signin ${user?.displayName}`,

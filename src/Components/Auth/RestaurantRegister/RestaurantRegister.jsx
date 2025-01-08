@@ -10,16 +10,18 @@ import { FcGoogle } from "react-icons/fc";
 import { imageUpload } from '../../Hooks/imageHooks';
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from "react-router-dom";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+// import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 const RestaurantRegister = () => {
     const { createUser, googleAuth, user, updateUserProfile } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     
     const from = location.state?.from?.pathname || "/";
-    const axiosPublic = useAxiosPublic();
+    // const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure()
     const { register, handleSubmit, formState: { errors }, } = useForm()
     const onSubmit = async data => {
         console.log(data);
@@ -40,7 +42,7 @@ const RestaurantRegister = () => {
                             photo: imageData?.data?.display_url  || " "
                         };
                         return toast.promise(
-                            axiosPublic.post("/ownerUsers", usersInfo),
+                            axiosPublic.put("/users", usersInfo),
                             {
                                 loading: 'Loading...',
                                 success: `Successfully Signin`,
@@ -67,7 +69,7 @@ const RestaurantRegister = () => {
                 }
             
             }) 
-            form.reset()
+            // form.reset()
            
     }
 

@@ -5,26 +5,27 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-import useOwnerUser from "../../Hooks/useOwnerUser";
+
 import { Input } from "@material-tailwind/react";
+import useAllUserHooks from "../../Hooks/useAllUserHooks";
 
 const RestaurantProfile = () => {
     const [searchInput, setSearchInput] = useState("");
     const [activeTab, setActiveTab] = useState("all");
     const axiosSecure = useAxiosSecure();
-    const [ownerUser, refetch] = useOwnerUser(); // Ensure refetch is functional
+    const [users, , refetch] = useAllUserHooks(); // Ensure refetch is functional
     const TABLE_HEAD = ["Information", "Action", "Restaurant Owner"];
 
     // Filter users by tab and search
-    const filteredUsers = (ownerUser || []).filter((user) => {
+    const filteredUsers = (users || []).filter((user) => {
         const userSearch =
             user.name?.toLowerCase().includes(searchInput.toLowerCase()) ||
             user.email?.toLowerCase().includes(searchInput.toLowerCase()) ||
-            user.position?.toLowerCase().includes(searchInput.toLowerCase());
+            user.role?.toLowerCase().includes(searchInput.toLowerCase());
 
         const matchesTab =
             activeTab === "all" ||
-            (activeTab === "restaurantOwner" && user.position === "restaurantOwner");
+            (activeTab === "owner" && user.role === "owner");
 
         return userSearch && matchesTab;
     });
@@ -41,7 +42,7 @@ const RestaurantProfile = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosSecure
-                    .delete(`/ownerUsers/${userId}`)
+                    .delete(`/users/${userId}`)
                     .then(() => {
                         refetch();
                         Swal.fire("Deleted!", "The user has been deleted.", "success");
@@ -54,7 +55,7 @@ const RestaurantProfile = () => {
     };
 
     const handleOwner = (userId) => {
-        axiosSecure.patch(`/ownerUsers/restaurantOwner/${userId}`).then((res) => {
+        axiosSecure.patch(`/users/restaurantOwner/${userId}`).then((res) => {
             if (res.data.modifiedCount > 0) {
                 refetch();
                 toast.success("Successfully updated to Restaurant Owner");
@@ -85,15 +86,15 @@ const RestaurantProfile = () => {
 
             {/* Tabs */}
             <div className="tabs  mb-4">
-                <button 
+                <button
                     className={`tab ${activeTab === "all" ? "tab-active bg-orange-900 text-white font-bold rounded-full shadow-2xl" : "font-bold text-orange-900"}`}
                     onClick={() => setActiveTab("all")}
                 >
                     All Restaurant Users
                 </button>
                 <button
-                    className={`tab ${activeTab === "restaurantOwner" ? "tab-active bg-orange-900 text-white font-bold rounded-full shadow-2xl" : "font-bold text-orange-900"}`}
-                    onClick={() => setActiveTab("restaurantOwner")}
+                    className={`tab ${activeTab === "owner" ? "tab-active bg-orange-900 text-white font-bold rounded-full shadow-2xl" : "font-bold text-orange-900"}`}
+                    onClick={() => setActiveTab("owner")}
                 >
                     Restaurant Owners
                 </button>
@@ -114,8 +115,8 @@ const RestaurantProfile = () => {
                     <tbody>
                         {filteredUsers.length > 0 ? (
                             filteredUsers.map(({ _id, name, email,
-                                restaurantNumber, photo, 
-                                restaurantAdddress, position, avatar }) => (
+                                restaurantNumber, photo,
+                                restaurantAdddress, role, avatar }) => (
                                 <tr key={_id} className="">
                                     <td className="px-4 py-2 border flex items-center space-x-4">
                                         <img
@@ -126,7 +127,7 @@ const RestaurantProfile = () => {
                                             <p>{name}</p>
                                             <p className="text-sm text-gray-500">{email}</p>
                                             <p className="text-sm text-gray-500">
-{restaurantAdddress}</p>
+                                                {restaurantAdddress}</p>
                                             <p className="text-sm text-gray-500">{restaurantNumber}</p>
                                         </div>
                                     </td>
@@ -140,7 +141,7 @@ const RestaurantProfile = () => {
                                         </button>
                                     </td>
                                     <td className="px-4 py-2 border">
-                                        {position === "restaurantOwner" ? (
+                                        {role === "owner" ? (
                                             <span className="font-bold">Owner</span>
                                         ) : (
                                             <button
