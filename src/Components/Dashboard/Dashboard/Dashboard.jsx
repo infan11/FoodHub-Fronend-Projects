@@ -19,9 +19,10 @@ import useAuth from "../../Hooks/useAuth";
 import useAdmin from "../../Hooks/useAdmin";
 import useModerator from "../../Hooks/useModerator";
 import useRestaurantOwner from "../../Hooks/useRestaurantOwner";
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { IoIosAddCircleOutline, IoMdLogIn } from "react-icons/io";
+import { HiLogout } from "react-icons/hi";
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user , logout } = useAuth();
   const [isAdmin] = useAdmin();
   const [isModerator] = useModerator();
   const [isOwner] = useRestaurantOwner();
@@ -29,7 +30,10 @@ const Dashboard = () => {
   console.log("isAdmin:", isAdmin);
   console.log("isModerator:", isModerator);
   console.log("isOwner:", isOwner);
-
+const handleLogout = () => {
+  logout()
+  .then(() => {})
+}
   return (
     <div className="min-h-screen">
       {/* Navbar */}
@@ -291,9 +295,18 @@ const Dashboard = () => {
             </Link>
 
             {/* Dark Mode Toggle */}
-            <Button className="mt-4 bg-red-600 w-full" size="sm">
+            <Button className="mt-4 bg-[#ff1818] shadow-2xl w-full" size="sm">
               <Darkmode />
             </Button>
+            <div className=" md:mt-16 lg:mt-20 mx-auto">
+           {
+            user ? <>
+            <button className="btn  w-[200px] rounded-full bg-white text-[#ff1818] " onClick={handleLogout}><HiLogout /> Logout</button>
+            </> : <><Link to={"/login"}>
+            <button className="btn mt-72 w-[200px] rounded-full bg-white text-[#ff1818] " ><IoMdLogIn />LOGIN</button>
+            </Link></>
+           }
+            </div>
           </ul>
         </div>
       </div>
