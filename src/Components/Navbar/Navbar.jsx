@@ -15,6 +15,7 @@ import { RiShoppingBag2Line } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import Darkmode from "../Darkmode/Darkmode";
+import { IoMdLogIn } from "react-icons/io";
 const Navbar = () => {
   const ClockIcon = () => {
     return (
@@ -96,23 +97,23 @@ const Navbar = () => {
       {/* First Navbar */}
       <div className="navbar sm:px-2 md:px-4 lg:px-6">
         <div className="navbar-start">
-          <a className=" w-16  rounded-full"><img src="https://i.ibb.co.com/GszTr2n/LOGO-removebg-preview.png" alt="" /></a>
+          <a className=" w-12 mr-4  rounded-full"><img src="https://i.ibb.co.com/GszTr2n/LOGO-removebg-preview.png" alt="" /></a>
         </div>
         <div className="navbar-center " >
           <div className="relative flex w-full gap-2 md:w-max ">
             <Input
               type="search"
               placeholder="Search"
-
+              color="red"
               containerProps={{
-                className: "sm:w-[140px] md:w-[320px] lg:w-[600px]"
+                className: "w-[200px] md:w-[320px] lg:w-[600px] mr-10 rounded-ful"
               }}
-              className=" !border-t-blue-gray-300 pl-9 font-bold md:rounded-full placeholder:text-blue-gray-300 focus:!border-blue-gray-300"
+              className=" !border-t-red-500 pl-9 font-bold rounded-full text-red-500 md:rounded-full placeholder:text-red-500 focus:!border-red-500"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
             />
-            <div className="!absolute left-3 top-[13px]">
+            <div className="!absolute left-3 top-[13px] text-red-500">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4"
@@ -130,8 +131,10 @@ const Navbar = () => {
 
         </div>
         <div className="navbar-end gap-1">
-          <Darkmode />
-          <Menu>
+         
+          {
+            user ? <>
+            <Menu>
             <MenuHandler>
               <a className="">
 
@@ -201,12 +204,17 @@ const Navbar = () => {
               </MenuItem>
             </MenuList>
           </Menu>
-          <Menu>
+            </> :<></>
+          }
+        {
+          user ? <>
+            <Menu>
             <MenuHandler>
               <Avatar
                 variant="circular"
                 alt="tania andrew"
-                className="cursor-pointer"
+
+                className="cursor-pointer w-10 h-10 rounded-full"
                 src={user?.photoURL}
               />
             </MenuHandler>
@@ -230,6 +238,7 @@ const Navbar = () => {
                 <Typography variant="small" className="font-medium">
                   My Profile
                 </Typography>
+              
               </MenuItem>
               <MenuItem className="flex items-center gap-2">
                 <svg
@@ -292,6 +301,7 @@ const Navbar = () => {
                   Help
                 </Typography>
               </MenuItem>
+               <Typography variant="small" className="ml-2" >   <Darkmode /></Typography>
               <hr className="my-2 border-blue-gray-50" />
               <MenuItem className="flex items-center gap-2">
 
@@ -339,6 +349,10 @@ const Navbar = () => {
               </MenuItem>
             </MenuList>
           </Menu>
+          </> : <><Link to={"/login"}>
+          <button className="btn  w-[70px] rounded-full bg-white text-[#ff1818] " ><IoMdLogIn />LOGIN</button>
+          </Link></>
+        }
         </div>
       </div>
       {/* Second Navbar */}
