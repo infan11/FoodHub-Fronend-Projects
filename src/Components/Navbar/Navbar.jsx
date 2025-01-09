@@ -95,9 +95,9 @@ const Navbar = () => {
   return (
     <div>
       {/* First Navbar */}
-      <div className="navbar sm:px-2 md:px-4 lg:px-6">
+      <div className="navbar px-4 md:px-4 lg:px-6">
         <div className="navbar-start">
-          <a className=" w-12 mr-4  rounded-full"><img src="https://i.ibb.co.com/GszTr2n/LOGO-removebg-preview.png" alt="" /></a>
+          <a className=" w-12  rounded-full"><img src="https://i.ibb.co.com/GszTr2n/LOGO-removebg-preview.png" alt="" /></a>
         </div>
         <div className="navbar-center " >
           <div className="relative flex w-full gap-2 md:w-max ">
@@ -350,7 +350,7 @@ const Navbar = () => {
             </MenuList>
           </Menu>
           </> : <><Link to={"/login"}>
-          <button className="btn  w-[70px] rounded-full bg-white text-[#ff1818] " ><IoMdLogIn />LOGIN</button>
+          <button className="btn  text-4xl rounded-full bg-white text-[#ff1818] " ><IoMdLogIn /></button>
           </Link></>
         }
         </div>
