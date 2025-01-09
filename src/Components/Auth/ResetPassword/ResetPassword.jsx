@@ -59,20 +59,20 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-10 flex min-h-screen justify-center items-center">
+    <div className="max-w-7xl mx-auto px-5 rounded-xl flex min-h-screen justify-center items-center">
       <Helmet>
         <title>Enter Your Email</title>
       </Helmet>
-      <div className="border-4 w-full mx-auto p-5 px-2 shadow-2xl">
-        <p className="text-3xl text-center font-bold">Reset Your Password</p>
+      <div className=" w-full mx-auto p-10 px-2 shadow-xl rounded-2xl">
+        <p className="text-2xl text-center font-extrabold text-[#ff1818] ">Reset Your Password</p>
         <form onSubmit={haandleResetPassword} className="mt-5 mx-auto">
-          <div className="sm:w-[200px] md:w-[280px] lg:w-[500px] mx-auto font-bold">
+          <div className="sm:w-[200px] md:w-[280px] lg:w-[500px] mx-auto font-bold ">
             <Input
               label="Type Your Email"
               placeholder="Type Your Email"
               inputRef={emailRef}
-              color="orange"
-              className="text-orange-500"
+              color="red"
+              className="text-[#ff1818] rounded-lg"
               {...register("email", { required: true })}
             />
             {errors.email && (
@@ -81,8 +81,8 @@ const ResetPassword = () => {
               </span>
             )}
           </div>
-          <div className="w-56 mx-auto mt-4 shadow-2xl">
-            <button className="btn rounded px-4 ml-7 bg-[#ff1818] hover:bg-[#ff1818] text-white">
+          <div className="  mt-4 ">
+            <button className="btn   w-80 mx-auto ml-4 lg:ml-[450px] rounded-full mt-2 px-4  bg-[#ff1818] hover:bg-[#ff1818] text-white">
               Send Your Email
             </button>
           </div>

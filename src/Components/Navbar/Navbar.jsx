@@ -97,7 +97,7 @@ const Navbar = () => {
       {/* First Navbar */}
       <div className="navbar px-4 md:px-4 lg:px-6">
         <div className="navbar-start">
-          <a className=" w-12  rounded-full"><img src="https://i.ibb.co.com/GszTr2n/LOGO-removebg-preview.png" alt="" /></a>
+          <a className=" w-12  rounded-full mr-3"><img src="https://i.ibb.co.com/GszTr2n/LOGO-removebg-preview.png" alt="" /></a>
         </div>
         <div className="navbar-center " >
           <div className="relative flex w-full gap-2 md:w-max ">
@@ -105,10 +105,11 @@ const Navbar = () => {
               type="search"
               placeholder="Search"
               color="red"
+              onBlurCapture={"red"}
               containerProps={{
-                className: "w-[200px] md:w-[320px] lg:w-[600px] mr-10 rounded-ful"
+                className: "w-[250px] md:w-[320px] lg:w-[600px] mr-3 rounded-ful"
               }}
-              className=" !border-t-red-500 pl-9 font-bold rounded-full text-red-500 md:rounded-full placeholder:text-red-500 focus:!border-red-500"
+              className=" !border-red-500 pl-9 font-extrabold  rounded-full text-red-500 md:rounded-full placeholder:text-red-500 focus:!border-red-500"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
