@@ -82,7 +82,7 @@ const ResetPassword = () => {
             )}
           </div>
           <div className="w-56 mx-auto mt-4 shadow-2xl">
-            <button className="btn rounded px-4 ml-7 bg-[#f79f48] hover:bg-[#f79f48] text-white">
+            <button className="btn rounded px-4 ml-7 bg-[#ff1818] hover:bg-[#ff1818] text-white">
               Send Your Email
             </button>
           </div>

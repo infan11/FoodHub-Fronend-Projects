@@ -94,7 +94,7 @@ const RestaurantRegister = () => {
                                             {...register("name", { required: true })}
 
                                         />
-                                        {errors.name && <span className="text-red-600 text-sm ">This field is required</span>}
+                                        {errors.name && <span className="text-red-500 text-sm ">This field is required</span>}
 
                                         <Input
                                             size="lg"
@@ -103,7 +103,7 @@ const RestaurantRegister = () => {
                                             label="Restaurant Email"
                                             {...register("email", { required: true })}
                                         />
-                                        {errors.email && <span className="text-red-600 text-sm ">This field is required</span>}
+                                        {errors.email && <span className="text-red-500 text-sm ">This field is required</span>}
 
                                         <Input
                                             size="lg"
@@ -112,7 +112,7 @@ const RestaurantRegister = () => {
                                             label="Restaurant Address"
                                             {...register("restaurantAdddress", { required: true })}
                                         />
-                                        {errors.restaurantAdddress && <span className="text-red-600 text-sm ">This field is required</span>}
+                                        {errors.restaurantAdddress && <span className="text-red-500 text-sm ">This field is required</span>}
                                         <Input
                                             size="lg"
                                             name="restaurantNumber"
@@ -120,7 +120,7 @@ const RestaurantRegister = () => {
                                             label="Restaurant Number"
                                             {...register("restaurantNumber", { required: true })}
                                         />
-                                        {errors.restaurantNumber && <span className="text-red-600 text-sm ">This field is required</span>}
+                                        {errors.restaurantNumber && <span className="text-red-500 text-sm ">This field is required</span>}
 
                                         <Input
                                             type="password"
@@ -131,16 +131,16 @@ const RestaurantRegister = () => {
                                             label="Password"
                                             {...register("password", { required: true, minLength: 6, maxLength: 8 })}
                                         />
-                                        {errors.password?.type && <span className="text-red-600">This field is reqiure</span>}
-                                        {errors.password?.type === 'minLength' && <span className="text-red-600">This pass must 6 Characters</span>}
-                                        {errors.password?.type === 'maxLength' && <span className="text-red-600">This pass only 8 Characters</span>}
+                                        {errors.password?.type && <span className="text-red-500">This field is reqiure</span>}
+                                        {errors.password?.type === 'minLength' && <span className="text-red-500">This pass must 6 Characters</span>}
+                                        {errors.password?.type === 'maxLength' && <span className="text-red-500">This pass only 8 Characters</span>}
 
                                         <input type="file" name='photo' accept='image/*'
                                             {...register("photo", { required: true })}
 
                                             className="file-input file-input-ghost  max-w-xs" />
                                         <br />
-                                        {errors.photo && <span className="text-red-600 text-sm ">This field is required</span>}
+                                        {errors.photo && <span className="text-red-500 text-sm ">This field is required</span>}
                                     </div>
 
                                     <Typography color="gray" className="mt-4 text-center font-normal">
@@ -150,7 +150,7 @@ const RestaurantRegister = () => {
                                         </a>
                                     </Typography>
 
-                                    <button className=" w-full uppercase bg-[#ea9540fd] hover:bg-[#ea9540fd] text-white mt-2 btn rounded-badge" fullWidth>
+                                    <button className=" w-full uppercase bg-[#ff1818]  hover:bg-[#ff1818]  text-white mt-2 btn rounded-badge" fullWidth>
                                         Submit Request
                                     </button>
 

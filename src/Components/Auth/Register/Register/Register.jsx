@@ -99,7 +99,7 @@ const Register = () => {
                                             {...register("name", { required: true })}
 
                                         />
-                                        {errors.name && <span className="text-red-600 text-sm font-bold">This field is required</span>}
+                                        {errors.name && <span className="text-red-500  text-sm font-bold">This field is required</span>}
 
                                         <Input
                                             size="lg"
@@ -108,7 +108,7 @@ const Register = () => {
                                             label="Your Email"
                                             {...register("email", { required: true })}
                                         />
-                                        {errors.email && <span className="text-red-600 text-sm font-bold">This field is required</span>}
+                                        {errors.email && <span className="text-red-500  text-sm font-bold">This field is required</span>}
 
                                         <Input
                                             type="password"
@@ -119,9 +119,9 @@ const Register = () => {
                                             label="Password"
                                             {...register("password", { required: true, minLength: 6, maxLength: 8 })}
                                         />
-                                        {errors.password?.type && <span className="text-red-600">This field is reqiure</span>}
-                                        {errors.password?.type === 'minLength' && <span className="text-red-600">This pass must 6 Characters</span>}
-                                        {errors.password?.type === 'maxLength' && <span className="text-red-600">This pass only 8 Characters</span>}
+                                        {errors.password?.type && <span className="text-red-500 ">This field is reqiure</span>}
+                                        {errors.password?.type === 'minLength' && <span className="text-red-500 ">This pass must 6 Characters</span>}
+                                        {errors.password?.type === 'maxLength' && <span className="text-red-500 ">This pass only 8 Characters</span>}
                                     </div>
                                     <Checkbox
                                         label={
@@ -149,13 +149,13 @@ const Register = () => {
                                     </a>
                                 </Typography>
                                     <br />
-                                    <button className=" w-full uppercase bg-[#ea9540fd] hover:bg-[#ea9540fd] text-white mt-2 btn rounded-badge" fullWidth>
+                                    <button className=" w-full uppercase bg-[#ff1818]  hover:bg-[#ff1818]  text-white mt-2 btn rounded-badge" fullWidth>
                                         sign in
                                     </button>
                                     <div className="divider">OR</div>
                                 </form>
 
-                                <div className=" mx-auto "> <button onClick={handelGoogle} className="flex text-[14px] items-center font-bold btn rounded-full"><FcGoogle /> Continue With Google</button></div>
+                                <div className=" mx-auto "> <button onClick={handelGoogle} className="flex text-[14px] bg-white items-center font-bold btn rounded-full"><FcGoogle /> Continue With Google</button></div>
                                 <Typography color="gray" className="mt-4 text-center font-normal">
                                     Already have an account?{" "}
                                     <a href="/login" className="font-medium text-gray-900">

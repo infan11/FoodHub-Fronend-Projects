@@ -298,7 +298,8 @@ const handleLogout = () => {
             <Button className="mt-4 bg-[#ff1818] shadow-2xl w-full" size="sm">
               <Darkmode />
             </Button>
-            <div className=" md:mt-16 lg:mt-20 mx-auto">
+            <br />
+            <div className=" mt-20 md:mt-16 lg:mt-20 mx-auto">
            {
             user ? <>
             <button className="btn  w-[200px] rounded-full bg-white text-[#ff1818] " onClick={handleLogout}><HiLogout /> Logout</button>

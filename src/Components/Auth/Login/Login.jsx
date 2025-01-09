@@ -31,9 +31,9 @@ const Login = () => {
             const google = res.user;
             console.log(google);
             toast.success("Successfully Google")
-          
+            navigate(from, { replace: true })
         })
-        navigate(from, { replace: true })
+      
 
     }
     return (
@@ -60,7 +60,7 @@ const Login = () => {
                                             label="Your Email"
                                             {...register("email", { required: true })}
                                         />
-                                        {errors.email && <span className="text-red-600 text-sm font-bold">This field is required</span>}
+                                        {errors.email && <span className="text-[#ff1818] text-sm font-bold">This field is required</span>}
 
                                         <Input
                                             type="password"
@@ -71,9 +71,9 @@ const Login = () => {
                                             label="Password"
                                             {...register("password", { required: true, minLength: 6, maxLength: 8 })}
                                         />
-                                        {errors.password?.type && <span className="text-red-600">This field is reqiure</span>}
-                                        {errors.password?.type === 'minLength' && <span className="text-red-600">This pass must 6 Characters</span>}
-                                        {errors.password?.type === 'maxLength' && <span className="text-red-600">This pass only 8 Characters</span>}
+                                        {errors.password?.type && <span className="text-[#ff1818] ">This field is reqiure</span>}
+                                        {errors.password?.type === 'minLength' && <span className="text-[#ff1818] ">This pass must 6 Characters</span>}
+                                        {errors.password?.type === 'maxLength' && <span className="text-[#ff1818] ">This pass only 8 Characters</span>}
                                     </div>
                                    <Link to={"/resetPassword"}>
                                    <label className="label ml-2 font-bold">
@@ -100,13 +100,13 @@ const Login = () => {
                                         containerProps={{ className: "-ml-2.5" }}
                                     />
                                     <br />
-                                    <button className=" w-full uppercase bg-[#ea9540fd] hover:bg-[#ea9540fd] text-white mt-2 btn rounded-badge" fullWidth>
+                                    <button className=" w-full uppercase bg-[#ff1818]  hover:bg-[#ff1818f0]  text-white mt-2 btn rounded-badge" fullWidth>
                                         sign up
                                     </button>
                                     <div className="divider">OR</div>
                                 </form>
 
-                                <div className=" mx-auto "> <button onClick={hnadleGoogle} className="flex text-[14px] items-center font-bold btn rounded-full"><FcGoogle /> Continue With Google</button></div>
+                                <div className=" mx-auto "> <button onClick={hnadleGoogle} className="flex bg-white text-[14px] items-center font-bold btn rounded-full"><FcGoogle /> Continue With Google</button></div>
                                 <Typography color="gray" className="mt-4 text-center font-normal">
                                     Create a new account?{" "}
                                     <a href="/register" className="font-medium text-gray-900">

@@ -89,13 +89,13 @@ const Users = () => {
         <div className="max-w-7xl mx-auto min-h-full">
             {/* Header Section */}
             <div className="mb-4 flex flex-col md:flex-row items-center justify-between gap-4">
-                <h2 className="text-lg font-semibold">Manage Users</h2>
-                <div className="w-full md:w-64">
+                <h2 className="text-lg font-semibold text-[#ff1818] mt-4">Manage Users</h2>
+                <div className="w-full px-4 md:w-64">
                     <div className="relative">
-                        <MagnifyingGlassIcon className="absolute h-5 w-5 text-red-900 top-3 left-3" />
+                        <MagnifyingGlassIcon className="absolute h-3 w-3 text-[#ff1818] top-3 left-4" />
                         <Input
                             type="text"
-                            className="input input-bordered w-full pl-10 text-red-500 font-bold"
+                            className="input input-bordered w-full pl-10 text-[#ff1818]  font-bold"
                             placeholder="Search users..."
                             value={searchInput}
                             label="Search Users"
@@ -118,7 +118,7 @@ const Users = () => {
                         }`}
                         onClick={() => setActiveTab(tab)}
                     >
-                        {tab.charAt(0).toUpperCase() + tab.slice(1)} Users
+                        {tab.charAt(0).toUpperCase() + tab.slice(1)} 
                     </button>
                 ))}
             </div>
@@ -129,7 +129,7 @@ const Users = () => {
                     <thead className="bg-gray-100">
                         <tr>
                             {TABLE_HEAD.map((head) => (
-                                <th key={head} className="px-4 py-2 text-[14px] text-red-500 tracking-wide text-center"  >
+                                <th key={head} className="px-4 py-2 text-[14px] text-[#ff1818]  tracking-wide text-center"  >
                                     {head}
                                 </th>
                             ))}

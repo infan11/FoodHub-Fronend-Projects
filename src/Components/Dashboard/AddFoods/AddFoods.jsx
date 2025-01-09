@@ -71,13 +71,13 @@ const AddFoods = () => {
     return (
         <div className="min-h-screen py-8 bg-gray-50">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Add Your Food</h2>
-            <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8">
+            <div className="max-w-3xl mx-auto bg-white rounded-full shadow-lg p-8">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="space-y-6">
                         {/* Food Image */}
                         <div>
                             <div className="flex items-center justify-center">
-                                <div className="relative w-[200px] h-[200px] flex items-center justify-center border-4 border-dashed rounded-lg cursor-pointer">
+                                <div className="relative w-[200px] h-[200px] flex items-center justify-center border-4 border-dashed rounded-full cursor-pointer">
                                     <input 
                                         type="file" 
                                         id="fileInput" 
@@ -89,15 +89,15 @@ const AddFoods = () => {
                                     />
                                     <label 
                                         htmlFor="fileInput" 
-                                        className="flex items-center justify-center w-[200px] h-[200px] text-red-600"
+                                        className="flex items-center justify-center w-[200px] h-[200px] text-[#ff1818] "
                                     >
                                         <MdCloudUpload size={20} className="mr-2" />
                                         Upload File
                                     </label>
                                 </div>
                             </div>
-                            {errors.photo && <span className="text-red-600 text-sm text-center">This field is required</span>}
-                            {imageError && <span className="text-red-600 text-sm text-center">{imageError}</span>}
+                            {errors.photo && <span className="text-[#ff1818]  text-sm text-center">This field is required</span>}
+                            {imageError && <span className="text-[#ff1818]  text-sm text-center">{imageError}</span>}
                             
                             {/* Image Preview */}
                             {imagePreview && (
@@ -105,7 +105,7 @@ const AddFoods = () => {
                                     <img 
                                         src={imagePreview} 
                                         alt="Preview" 
-                                        className="w-[150px] mx-auto h-auto rounded-lg object-cover" 
+                                        className="w-[150px] mx-auto h-auto rounded-full object-cover" 
                                     />
                                 </div>
                             )}
@@ -116,13 +116,13 @@ const AddFoods = () => {
                             <label className="block text-gray-600 font-semibold mb-2">Food Name</label>
                             <input
                                 type="text"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-400 outline-none transition"
+                                className="w-full px-3 py-2 border rounded-full focus:ring-2 text-[#ff1818]  focus:ring-red-400 outline-none transition"
                                 placeholder="Enter food name"
                                 {...register("foodName", { required: true, minLength: 4, maxLength: 15 })}
                             />
-                            {errors.foodName && <span className="text-red-600 text-sm">This field is required</span>}
-                            {errors.foodName?.type === 'minLength' && <span className="text-red-600 text-sm">Must be at least 4 characters</span>}
-                            {errors.foodName?.type === 'maxLength' && <span className="text-red-600 text-sm">Cannot exceed 15 characters</span>}
+                            {errors.foodName && <span className="text-[#ff1818]  text-sm">This field is required</span>}
+                            {errors.foodName?.type === 'minLength' && <span className="text-[#ff1818]  text-sm">Must be at least 4 characters</span>}
+                            {errors.foodName?.type === 'maxLength' && <span className="text-[#ff1818]  text-sm">Cannot exceed 15 characters</span>}
                         </div>
 
                         {/* Price */}
@@ -130,18 +130,18 @@ const AddFoods = () => {
                             <label className="block text-gray-600 font-semibold mb-2">Price</label>
                             <input
                                 type="number"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-400 outline-none transition"
+                                className="w-full px-3 py-2 border rounded-full text-[#ff1818]  focus:ring-2 focus:ring-red-400 outline-none transition"
                                 placeholder="Enter price"
                                 {...register("price", { required: true })}
                             />
-                            {errors.price && <span className="text-red-600 text-sm">This field is required</span>}
+                            {errors.price && <span className="text-[#ff1818]  text-sm">This field is required</span>}
                         </div>
 
                         {/* Category */}
                         <div>
                             <label className="block text-gray-600 font-semibold mb-2">Category</label>
                             <select
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-red-400 outline-none transition"
+                                className="w-full px-3 py-2 border rounded-full text-[#ff1818]  focus:ring-2  focus:ring-red-400 outline-none transition"
                                 {...register("category", { required: true })}
                             >
                                 <option value="">Select Category</option>
@@ -154,14 +154,14 @@ const AddFoods = () => {
                                 <option>Chicken</option>
                                 <option>Beef</option>
                             </select>
-                            {errors.category && <span className="text-red-600 text-sm">This field is required</span>}
+                            {errors.category && <span className="text-[#ff1818]  text-sm">This field is required</span>}
                         </div>
 
                         {/* Submit Button */}
                         <div className="text-center">
                             <button
                                 type="submit"
-                                className="px-6 py-2 bg-[#ff0000d8] text-white font-semibold rounded-lg hover:bg-[#ff0000d8] transition focus:outline-none focus:ring-2 focus:ring-red-400 w-full"
+                                className="px-6 py-2 bg-[#ff1818 ] text-white font-semibold rounded-full hover:bg-[#ff1818 ] transition focus:outline-none focus:ring-2 focus:ring-red-400 w-full"
                             >
                                 Add Food
                             </button>
