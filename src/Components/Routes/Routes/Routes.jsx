@@ -12,7 +12,6 @@ import Register from "../../Auth/Register/Register/Register";
 import ResetPassword from "../../Auth/ResetPassword/ResetPassword";
 import AddFoods from "../../Dashboard/AddFoods/AddFoods";
 import Profile from "../../Dashboard/Profle/Profile";
-
 import RestaurantRegister from "../../Auth/RestaurantRegister/RestaurantRegister";
 import RrestaurantProfile from "../../Dashboard/RrestaurantProfile/RrestaurantProfile";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
@@ -20,7 +19,6 @@ import AdminHome from "../../Dashboard/AdminHome/AdminHome";
 import ModeratorHome from "../../Dashboard/ModeratorHome/ModeratorHome";
 import OwnerHome from "../../Dashboard/OwnerHome/OwnerHome";
 import UserHome from "../../Dashboard/UserHome/UserHome";
-import MyCart from "../../Dashboard/MyCart/MyCart";
 import UpdateFood from "../../Dashboard/UpdateFood/UpdateFood";
 import PaymentHistory from "../../Dashboard/PaymentHistory/PaymentHistory";
 import Biryani from "../../Home/Biryani/Biryani";
@@ -33,6 +31,7 @@ import Beef from "../../Home/Beef/Beef";
 import Burger from "../../Home/Home/Burger/Burger";
 import Users from "../../Dashboard/Users/Users";
 import Dashboard from "../../Dashboard/Dashboard/Dashboard";
+import MyOrder from "../../Dashboard/MyOrder/MyOrder";
 
 export const router = createBrowserRouter([
   {
@@ -46,35 +45,35 @@ export const router = createBrowserRouter([
       },
       {
         path: "/biryani",
-        element: <Biryani/>
+        element: <Biryani />
       },
       {
         path: "/pizza",
-        element: <Pizza/>
+        element: <Pizza />
       },
       {
         path: "/chicken",
-        element: <Chicken/>
+        element: <Chicken />
       },
       {
         path: "/chinese",
-        element: <Chinese/>
+        element: <Chinese />
       },
       {
         path: "/juice",
-        element: <Juice/>
+        element: <Juice />
       },
       {
         path: "/cake",
-        element: <Cake/>
+        element: <Cake />
       },
       {
         path: "/beef",
-        element: <Beef/>
+        element: <Beef />
       },
       {
         path: "/burger",
-        element: <Burger/>
+        element: <Burger />
       },
       {
         path: "/restaurants",
@@ -98,63 +97,62 @@ export const router = createBrowserRouter([
       },
       {
         path: "/restaurantRegister",
-        element: <RestaurantRegister/>
+        element: <RestaurantRegister />
       },
       {
-        path : "/resetPassword",
-        element : <ResetPassword/>
+        path: "/resetPassword",
+        element: <ResetPassword />
       }
-      
+
     ],
-    
-    
+
+
   },
   {
-    path :"/dashboard",
-    element : <Dashboard/>,
-    children : [
-     {
-      path : "/dashboard/addFoods",
-      element : <AddFoods/>
-     },
-     {
-      path : "/dashboard/RrestaurantProfile",
-      element : <RrestaurantProfile/>
-     },
-     {
-      path : "/dashboard/adminHome",
-      element :<AdminHome/>
-     },
-     {
-      path : "/dashboard/moderator",
-      element : <ModeratorHome/>
-     },
-     {
-      path : "/dashboard/ownerHome",
-      element : <OwnerHome/>
-     },
-     {
-      path : "/dashboard/userHome",
-      element : <UserHome></UserHome> 
-     },
-     {
-      path : "/dashboard/myCart",
-      element : <MyCart/>
-     },
-     {
-      path : "/dashboard/updateFood",
-      element : <UpdateFood/>
-     },
-   
-     {
-      path : "/dashboard/users",
-      element :<Users/>
-     },
-     {
-      path : "/dashboard/paymentHistory",
-      element :<PaymentHistory/>
-     },
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: "/dashboard/addFoods",
+        element: <AddFoods />
+      },
+      {
+        path: "/dashboard/RrestaurantProfile",
+        element: <RrestaurantProfile />
+      },
+      {
+        path: "/dashboard/adminHome",
+        element: <AdminHome />
+      },
+      {
+        path: "/dashboard/moderator",
+        element: <ModeratorHome />
+      },
+      {
+        path: "/dashboard/ownerHome",
+        element: <OwnerHome />
+      },
+      {
+        path: "/dashboard/userHome",
+        element: <UserHome></UserHome>
+      },
+      {
+        path: "/dashboard/myOrder",
+        element: <MyOrder />
+      },
+      {
+        path: "/dashboard/updateFood",
+        element: <UpdateFood />
+      },
+
+      {
+        path: "/dashboard/users",
+        element: <Users />
+      },
+      {
+        path: "/dashboard/paymentHistory",
+        element: <PaymentHistory />
+      },
     ]
   }
 ]);
- 

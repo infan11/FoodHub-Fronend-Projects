@@ -19,7 +19,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAdmin from "../../Hooks/useAdmin";
 import useModerator from "../../Hooks/useModerator";
 import useRestaurantOwner from "../../Hooks/useRestaurantOwner";
-
+import { IoIosAddCircleOutline } from "react-icons/io";
 const Dashboard = () => {
   const { user } = useAuth();
   const [isAdmin] = useAdmin();
@@ -34,16 +34,16 @@ const Dashboard = () => {
     <div className="min-h-screen">
       {/* Navbar */}
       <div className="navbar bg-white shadow-2xl">
-        <div className="flex-none">
+        <div className="flex-none ">
           <label
             htmlFor="my-drawer-4"
-            className="text-4xl font-bold cursor-pointer"
+            className="text-4xl font-bold cursor-pointer "
           >
-            <PiHamburgerThin />
+            <a className="text-[#ff1818]"><PiHamburgerThin /></a>
           </label>
         </div>
         <div className="flex-1">
-          <span className="text-xl font-bold">DASHBOARD</span>
+          <span className="text-xl font-bold text-[#ff1818]">DASHBOARD</span>
         </div>
       </div>
 
@@ -80,12 +80,20 @@ const Dashboard = () => {
                     Users
                   </ListItem>
                 </Link>
-                <Link to="/dashboard/myCart">
+                <Link to="/dashboard/myOrder">
                   <ListItem>
                     <ListItemPrefix>
                       <RiShoppingBag4Line />
                     </ListItemPrefix>
-                    My Cart
+                    My Order
+                  </ListItem>
+                </Link>
+                <Link to="/dashboard/paymentHistory">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <PiContactlessPaymentLight />
+                    </ListItemPrefix>
+                    Payment History
                   </ListItem>
                 </Link>
                 <Link to="/dashboard/updateFood">
@@ -112,10 +120,18 @@ const Dashboard = () => {
                     Owner Home
                   </ListItem>
                 </Link>
+                <Link to="/dashboard/userHome">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <FaRegUser />
+                    </ListItemPrefix>
+                    User Home
+                  </ListItem>
+                </Link>
                 <Link to="/dashboard/addFoods">
                   <ListItem>
                     <ListItemPrefix>
-                      <RxUpdate />
+                    <IoIosAddCircleOutline />
                     </ListItemPrefix>
                     Add Food
                   </ListItem>
@@ -134,12 +150,62 @@ const Dashboard = () => {
                     Moderator Home
                   </ListItem>
                 </Link>
+               
                 <Link to="/dashboard/updateFood">
                   <ListItem>
                     <ListItemPrefix>
                       <RxUpdate />
                     </ListItemPrefix>
                     Update Food
+                  </ListItem>
+                </Link>
+            
+                <Link to="/dashboard/ownerHome">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <FaRegUser />
+                    </ListItemPrefix>
+                    Owner Home
+                  </ListItem>
+                </Link>
+                <Link to="/dashboard/userHome">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <FaRegUser />
+                    </ListItemPrefix>
+                    User Home
+                  </ListItem>
+                </Link>
+                <Link to="/dashboard/addFoods">
+                  <ListItem>
+                    <ListItemPrefix>
+                    <IoIosAddCircleOutline />
+                    </ListItemPrefix>
+                    Add Food
+                  </ListItem>
+                </Link>
+                <Link to="/dashboard/updateFood">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <RxUpdate />
+                    </ListItemPrefix>
+                    Update Food
+                  </ListItem>
+                </Link>
+                <Link to="/dashboard/myOrder">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <RiShoppingBag4Line />
+                    </ListItemPrefix>
+                    My Order
+                  </ListItem>
+                </Link>
+                <Link to="/dashboard/paymentHistory">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <PiContactlessPaymentLight />
+                    </ListItemPrefix>
+                    Payment History
                   </ListItem>
                 </Link>
               </>
@@ -156,12 +222,36 @@ const Dashboard = () => {
                     Owner Home
                   </ListItem>
                 </Link>
-                <Link to="/dashboard/myCart">
+                <Link to="/dashboard/addFoods">
+                  <ListItem>
+                    <ListItemPrefix>
+                    <IoIosAddCircleOutline />
+                    </ListItemPrefix>
+                    Add Food
+                  </ListItem>
+                </Link>
+                <Link to="/dashboard/updateFood">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <RxUpdate />
+                    </ListItemPrefix>
+                    Update Food
+                  </ListItem>
+                </Link>
+                <Link to="/dashboard/myOrder">
                   <ListItem>
                     <ListItemPrefix>
                       <RiShoppingBag4Line />
                     </ListItemPrefix>
-                    My Cart
+                    My Order
+                  </ListItem>
+                </Link>
+                <Link to="/dashboard/paymentHistory">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <PiContactlessPaymentLight />
+                    </ListItemPrefix>
+                    Payment History
                   </ListItem>
                 </Link>
               </>
@@ -170,7 +260,7 @@ const Dashboard = () => {
             {/* General User Links */}
             {!isAdmin && !isModerator && !isOwner && (
               <>
-                <Link to="/dashboard/myCart">
+                <Link to="/dashboard/myOrder">
                   <ListItem>
                     <ListItemPrefix>
                       <RiShoppingBag4Line />

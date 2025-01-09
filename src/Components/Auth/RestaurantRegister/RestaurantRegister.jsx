@@ -42,7 +42,7 @@ const RestaurantRegister = () => {
                             photo: imageData?.data?.display_url  || " "
                         };
                         return toast.promise(
-                            axiosPublic.put("/users", usersInfo),
+                            axiosSecure.put("/users", usersInfo),
                             {
                                 loading: 'Loading...',
                                 success: `Successfully Signin`,
