@@ -264,6 +264,14 @@ const handleLogout = () => {
             {/* General User Links */}
             {!isAdmin && !isModerator && !isOwner && (
               <>
+              <Link to="/dashboard/userHome">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <FaRegUser />
+                    </ListItemPrefix>
+                    User Home
+                  </ListItem>
+                </Link>
                 <Link to="/dashboard/myOrder">
                   <ListItem>
                     <ListItemPrefix>
@@ -304,7 +312,7 @@ const handleLogout = () => {
             user ? <>
             <button className="btn  w-[200px] rounded-full bg-white text-[#ff1818] " onClick={handleLogout}><HiLogout /> Logout</button>
             </> : <><Link to={"/login"}>
-            <button className="btn mt-72 w-[200px] rounded-full bg-white text-[#ff1818] " ><IoMdLogIn />LOGIN</button>
+            <button className="btn mt-64 w-[200px] rounded-full bg-white text-[#ff1818] " ><IoMdLogIn />LOGIN</button>
             </Link></>
            }
             </div>
