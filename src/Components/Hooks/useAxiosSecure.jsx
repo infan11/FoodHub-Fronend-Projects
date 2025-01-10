@@ -7,7 +7,7 @@ const useAxiosSecure = () => {
 
     const navigate = useNavigate();
     const axiosSecure = axios.create({
-        baseURL :"https://foodhub-backend.vercel.app"
+        baseURL :"http://localhost:5000"
     })
 
     axiosSecure.interceptors.request.use(function (config) {
