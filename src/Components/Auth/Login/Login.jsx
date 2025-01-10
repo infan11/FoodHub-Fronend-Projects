@@ -77,14 +77,15 @@ const Login = () => {
                                     </div>
                                    <Link to={"/resetPassword"}>
                                    <label className="label ml-2 font-bold">
-                                        <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                        <a href="#" className="label-text-alt link link-hover text-[#ff1818]">Forgot password?</a>
                                     </label>
                                    </Link>
-                                    <Checkbox
+                                    <Checkbox 
+                                      color="red" defaultChecked 
                                         label={
                                             <Typography
                                                 variant="small"
-                                                color="gray"
+                                                color=""
                                                 className="flex items-center font-normal"
                                             >
                                                 I agree the

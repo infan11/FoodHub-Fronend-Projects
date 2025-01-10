@@ -95,19 +95,19 @@ const Navbar = () => {
   return (
     <div>
       {/* First Navbar */}
-      <div className="navbar px-4 md:px-4 lg:px-6">
+      <div className="navbar px-2 md:px-6 lg:px-7">
         <div className="navbar-start">
-          <a className=" w-12  rounded-full mr-3"><img src="https://i.ibb.co.com/GszTr2n/LOGO-removebg-preview.png" alt="" /></a>
+          <a className=" w-10  lg:w-14  rounded-full "><img src="https://i.ibb.co.com/F57mtch/logo2.png" alt="" /></a>
         </div>
         <div className="navbar-center " >
-          <div className="relative flex w-full gap-2 md:w-max ">
+          <div className="relative flex  md:w-max ">
             <Input
-              type="search"
+              type="search"a
               placeholder="Search"
               color="red"
               onBlurCapture={"red"}
               containerProps={{
-                className: "w-[250px] md:w-[320px] lg:w-[600px] mr-3 rounded-ful"
+                className: " w-[20px] md:w-[50px] lg:w-[600px] rounded-ful"
               }}
               className=" !border-red-500 pl-9 font-extrabold  rounded-full text-red-500 md:rounded-full placeholder:text-red-500 focus:!border-red-500"
               labelProps={{
@@ -144,7 +144,7 @@ const Navbar = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="h-5 w-5 text-red-500"
+                    className="h-5 w-5 text-[#ff1818]"
                   >
                     <path
                       fillRule="evenodd"
@@ -215,7 +215,7 @@ const Navbar = () => {
                 variant="circular"
                 alt="tania andrew"
 
-                className="cursor-pointer w-10 h-10 rounded-full"
+                className="cursor-pointer w-9 h-9 rounded-full"
                 src={user?.photoURL}
               />
             </MenuHandler>
@@ -351,13 +351,13 @@ const Navbar = () => {
             </MenuList>
           </Menu>
           </> : <><Link to={"/login"}>
-          <button className="btn  text-4xl rounded-full bg-white text-[#ff1818] " ><IoMdLogIn /></button>
+          <button className="btn  text-xl rounded-full bg-white text-[#ff1818] " ><IoMdLogIn /></button>
           </Link></>
         }
         </div>
       </div>
       {/* Second Navbar */}
-      <div className={`navbar  sm:px-2 md:px-4 lg:px-6 bg-[#ff0000d8] ${scrolled ? "fixed top-0 left-0 w-full  shadow z-10 " : ""}`}>
+      <div className={`navbar  px-3 md:px-6 lg:px-8 bg-[#ff0000d8] ${scrolled ? "fixed top-0 left-0 w-full  shadow z-10 " : ""}`}>
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle text-white  font-extrabold">

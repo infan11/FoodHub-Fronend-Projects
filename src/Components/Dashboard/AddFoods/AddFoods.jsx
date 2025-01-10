@@ -70,8 +70,8 @@ const AddFoods = () => {
 
     return (
         <div className="min-h-screen py-8 bg-gray-50">
-            <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Add Your Food</h2>
-            <div className="max-w-3xl mx-auto bg-white rounded-full shadow-lg p-8">
+            <h2 className="text-3xl font-bold text-center text-[#ff1818]   mb-8">Add Your Food</h2>
+            <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="space-y-6">
                         {/* Food Image */}
