@@ -47,8 +47,8 @@ const RestaurantRegister = () => {
             });
 
         try {
-            await validateImage(logo, 300, 300); 
-            await validateImage(banner, 1080, 1080); 
+            await validateImage(logo, 300, 300);
+            await validateImage(banner, 1080, 1080);
             const logoData = await imageUpload(logo);
             const bannerData = await imageUpload(banner);
 
@@ -81,8 +81,8 @@ const RestaurantRegister = () => {
     };
 
     return (
-        <div className="hero min-h-screen mx-auto md:px-5">
-            <div className="grid md:grid-cols-2 rounded-r-2xl shadow-2xl">
+        <div className="hero min-h-screen mx-auto px-4 md:px-5">
+            <div className="grid md:grid-cols-2 rounded-r-2xl shadow-xl">
                 <div className="text-center hidden sm:block">
                     <img
                         className="md:w-[670px] md:h-[810px] lg:w-[690px] lg:h-[740px] rounded-l-2xl"
@@ -90,10 +90,10 @@ const RestaurantRegister = () => {
                         alt="Seller Mode"
                     />
                 </div>
-                <div className="lg:w-full bg-white shrink-0 rounded-r-2xl shadow-2xl">
+                <div className="lg:w-full  shrink-0 rounded-r-2xl shadow-xl">
                     <Card color="transparent" shadow={false}>
                         <p className="text-2xl font-extrabold text-center mb-3">SIGN IN</p>
-                        <form onSubmit={handleSubmit(onSubmit)} className="mt-3 mb-2 mx-auto w-full">
+                        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 mb-2 mx-auto px-4 md:px-6 w-full">
                             <div className="mb-1 md:w-full lg:w-96 mx-auto space-y-2 gap-6">
                                 <Input
                                     size="lg"
@@ -143,24 +143,32 @@ const RestaurantRegister = () => {
                                 {errors.password?.type === 'minLength' && <span className="text-red-500">Password must be at least 6 characters</span>}
                                 {errors.password?.type === 'maxLength' && <span className="text-red-500">Password must not exceed 8 characters</span>}
 
-                                <div className="flex">
+                                <div className="">
+                                    <label className="label">
+                                        <span className="label-text  text-red-500 font-extrabold ml-4">Logo Should be 300×300</span>
+                                    </label>
                                     <input
                                         type="file"
                                         name="photo"
                                         accept="image/*"
                                         {...register("photo", { required: true })}
-                                        className="file-input file-input-ghost w-1/2"
+                                        className="file-input
+                                         file-input-ghost "
                                     />
+                                      <label className="label">
+                                        <span className="label-text  text-red-500 font-extrabold ml-4">Banner Should be 1080×1080</span>
+                                    </label>
                                     <input
                                         type="file"
                                         name="banner"
+
                                         accept="image/*"
                                         {...register("banner", { required: true })}
-                                        className="file-input file-input-ghost w-1/2 border-2"
+                                        className="file-input file-input-ghost "
                                     />
                                 </div>
                                 {errors.photo && <span className="text-red-500 text-sm">Logo is required</span>}
-                                {errors.banner && <span className="text-red-500 text-sm">Banner is required</span>}
+                                {errors.banner && <span className="text-red-500 text-sm ml-2">Banner is required</span>}
                             </div>
 
                             <button
