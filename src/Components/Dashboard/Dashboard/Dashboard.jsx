@@ -307,7 +307,7 @@ const handleLogout = () => {
               <Darkmode />
             </Button>
             <br />
-            <div className=" mt-20 md:mt-16 lg:mt-20 mx-auto">
+            <div className=" mt-20 md:mt-16 lg:mt-14 mx-auto">
            {
             user ? <>
             <button className="btn  w-[200px] rounded-full bg-white text-[#ff1818] " onClick={handleLogout}><HiLogout /> Logout</button>

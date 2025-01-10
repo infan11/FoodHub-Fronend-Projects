@@ -1,8 +1,13 @@
+import useAuth from "../../Hooks/useAuth";
 
 const UserHome = () => {
+    const {user} = useAuth();
     return (
         <div>
-        UserHome 
+       
+        user : {user?.name || user?.displayName}
+         <br />
+         user Email : {user?.email}
         </div>
     );
 };

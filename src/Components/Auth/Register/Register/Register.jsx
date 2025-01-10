@@ -40,7 +40,7 @@ const Register = () => {
 
                             {
                                 loading: 'Loading...',
-                                success: `${user?.displayName}`,
+                                success: `${user?.name || user?.displayName}`,
                                 error: <b>Could not save user.</b>,
                             },
                             navigate(from, { replace: true })
@@ -67,7 +67,7 @@ const Register = () => {
                    
                     {
                         loading: 'Loading...',
-                        success: `Sucessfully Signin ${user?.displayName}`,
+                        success: `Sucessfully Signin ${user?.name || user?.displayName}`,
                         error: <b>Could not save user.</b>,
                     },
                     navigate(from, { replace: true })
