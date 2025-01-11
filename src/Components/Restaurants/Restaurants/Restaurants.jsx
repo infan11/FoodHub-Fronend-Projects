@@ -1,9 +1,14 @@
 import React from 'react';
+import RestaurantBanner from '../RestaurantBanner/RestaurantBanner';
+import RestaurentBannerTwo from '../RestaurentBannerTwo/RestaurentBannerTwo';
+import RestaurantsCard from '../RestaurantsCard/RestaurantsCard';
 
 const Restaurants = () => {
     return (
         <div>
-           this is Restaurants page 
+         <RestaurantBanner/>
+         <RestaurentBannerTwo/>
+         <RestaurantsCard/>
         </div>
     );
 };

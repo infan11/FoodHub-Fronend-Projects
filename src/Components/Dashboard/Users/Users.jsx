@@ -49,7 +49,7 @@ const Users = () => {
   const [searchInput, setSearchInput] = useState("");
   const [activeTab, setActiveTab] = useState("all");
   const axiosSecure = useAxiosSecure();
-  const TABLE_HEAD = ["Information", "", "Action", "Admin Role", "Moderator Role", "Owner Role"];
+  const TABLE_HEAD = ["Information", "", "Action", "Admin", "Moderator ", "Owner "];
 
   // Filter users by tab and search
   const filteredUsers = users.filter((user) => {

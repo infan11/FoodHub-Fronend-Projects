@@ -10,10 +10,9 @@ const Banner = () => {
             <Swiper
                 pagination={{
                     dynamicBullets: true,
-
-
+                    
                 }}
-             
+
 
                 className="mySwiper  "
             >

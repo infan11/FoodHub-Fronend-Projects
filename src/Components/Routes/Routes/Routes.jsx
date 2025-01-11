@@ -1,6 +1,5 @@
 import {
   createBrowserRouter,
-
 } from "react-router-dom";
 import Main from "../../Main/Main";
 import Home from "../../Home/Home/Home";
@@ -36,77 +35,74 @@ import MyOrder from "../../Dashboard/MyOrder/MyOrder";
 export const router = createBrowserRouter([
   {
     path: "/",
-    // TO DO : ERROR element
+    // TO DO : ERROR <PrivateRoutes>element
     element: <Main />,
     children: [
       {
         path: "/",
-        element: <Home />
+        element: <Home />,
       },
       {
         path: "/biryani",
-        element: <Biryani />
+        element: <Biryani />,
       },
       {
         path: "/pizza",
-        element: <Pizza />
+        element: <Pizza />,
       },
       {
         path: "/chicken",
-        element: <Chicken />
+        element: <Chicken />,
       },
       {
         path: "/chinese",
-        element: <Chinese />
+        element: <Chinese />,
       },
       {
         path: "/juice",
-        element: <Juice />
+        element: <Juice />,
       },
       {
         path: "/cake",
-        element: <Cake />
+        element: <Cake />,
       },
       {
         path: "/beef",
-        element: <Beef />
+        element: <Beef />,
       },
       {
         path: "/burger",
-        element: <Burger />
+        element: <Burger />,
       },
       {
         path: "/restaurants",
-        element: <Restaurants />
+        element: <Restaurants />,
       },
       {
         path: "/food",
-        element: <Food />
+        element: <Food />,
       },
       {
         path: "/about",
-        element: <About />
+        element: <About />,
       },
       {
         path: "/login",
-        element: <Login />
+        element: <Login />,
       },
       {
         path: "/register",
-        element: <Register />
+        element: <Register />,
       },
       {
         path: "/restaurantRegister",
-        element: <RestaurantRegister />
+        element: <RestaurantRegister />,
       },
       {
         path: "/resetPassword",
-        element: <ResetPassword />
-      }
-
+        element: <ResetPassword />,
+      },
     ],
-
-
   },
   {
     path: "/dashboard",
@@ -114,45 +110,44 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard/addFoods",
-        element: <AddFoods />
+        element: <PrivateRoutes><AddFoods /></PrivateRoutes>,
       },
       {
         path: "/dashboard/RrestaurantProfile",
-        element: <RrestaurantProfile />
+        element: <PrivateRoutes><RrestaurantProfile /></PrivateRoutes>,
       },
       {
         path: "/dashboard/adminHome",
-        element: <AdminHome />
+        element: <PrivateRoutes><AdminHome /></PrivateRoutes>,
       },
       {
         path: "/dashboard/moderator",
-        element: <ModeratorHome />
+        element: <PrivateRoutes><ModeratorHome /></PrivateRoutes>,
       },
       {
         path: "/dashboard/ownerHome",
-        element: <OwnerHome />
+        element: <PrivateRoutes><OwnerHome /></PrivateRoutes>,
       },
       {
         path: "/dashboard/userHome",
-        element: <UserHome></UserHome>
+        element: <PrivateRoutes><UserHome /></PrivateRoutes>,
       },
       {
         path: "/dashboard/myOrder",
-        element: <MyOrder />
+        element: <PrivateRoutes><MyOrder /></PrivateRoutes>,
       },
       {
         path: "/dashboard/updateFood",
-        element: <UpdateFood />
+        element: <PrivateRoutes><UpdateFood /></PrivateRoutes>,
       },
-
       {
         path: "/dashboard/users",
-        element: <Users />
+        element: <PrivateRoutes><Users /></PrivateRoutes>,
       },
       {
         path: "/dashboard/paymentHistory",
-        element: <PaymentHistory />
+        element: <PrivateRoutes><PaymentHistory /></PrivateRoutes>,
       },
-    ]
-  }
+    ],
+  },
 ]);

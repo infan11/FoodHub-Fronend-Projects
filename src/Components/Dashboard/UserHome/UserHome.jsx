@@ -5,9 +5,13 @@ const UserHome = () => {
     return (
         <div>
        
-        user : {user?.name || user?.displayName}
+          {
+            user  ? <>
+            user : {user?.name || user?.displayName}
          <br />
          user Email : {user?.email}
+            </>: <> Your Not User Please Login Now </>
+          }
         </div>
     );
 };
