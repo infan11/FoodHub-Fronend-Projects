@@ -92,6 +92,14 @@ const handleLogout = () => {
                     My Order
                   </ListItem>
                 </Link>
+                <Link to="/dashboard/uploadInfo">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <FaRegUser />
+                    </ListItemPrefix>
+                    Upload Info
+                  </ListItem>
+                </Link>
                 <Link to="/dashboard/paymentHistory">
                   <ListItem>
                     <ListItemPrefix>
@@ -172,6 +180,14 @@ const handleLogout = () => {
                     Owner Home
                   </ListItem>
                 </Link>
+                <Link to="/dashboard/uploadInfo">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <FaRegUser />
+                    </ListItemPrefix>
+                    Upload Info
+                  </ListItem>
+                </Link>
                 <Link to="/dashboard/userHome">
                   <ListItem>
                     <ListItemPrefix>
@@ -224,6 +240,14 @@ const handleLogout = () => {
                       <FaRegUser />
                     </ListItemPrefix>
                     Owner Home
+                  </ListItem>
+                </Link>
+                <Link to="/dashboard/uploadInfo">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <FaRegUser />
+                    </ListItemPrefix>
+                    Upload Info
                   </ListItem>
                 </Link>
                 <Link to="/dashboard/addFoods">

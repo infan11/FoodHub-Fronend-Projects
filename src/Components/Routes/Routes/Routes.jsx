@@ -31,6 +31,7 @@ import Burger from "../../Home/Home/Burger/Burger";
 import Users from "../../Dashboard/Users/Users";
 import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import MyOrder from "../../Dashboard/MyOrder/MyOrder";
+import UploadInfo from "../../Dashboard/UploadInfo/UploadInfo";
 
 export const router = createBrowserRouter([
   {
@@ -127,6 +128,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/ownerHome",
         element: <PrivateRoutes><OwnerHome /></PrivateRoutes>,
+      },
+      {
+        path: "/dashboard/uploadInfo",
+        element: <PrivateRoutes><UploadInfo/></PrivateRoutes>,
       },
       {
         path: "/dashboard/userHome",
