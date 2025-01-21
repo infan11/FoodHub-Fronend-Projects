@@ -14,7 +14,7 @@ const UploadInfo = () => {
     const { updateUserProfile } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
+    // const from = location.state?.from?.pathname || "/";
     const axiosSecure = useAxiosSecure();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [isSubmitting, setIsSubmitting] = useState(false); // Track submission
@@ -54,17 +54,18 @@ const UploadInfo = () => {
             const logoData = await imageUpload(logo);
             const bannerData = await imageUpload(banner);
 
-            await updateUserProfile(data.name, logoData?.data?.display_url || "");
+            await updateUserProfile(data.restaurantName, logoData?.data?.display_url || "");
 
             const usersInfo = {
-                name: data.name,
+                restaurantName: data.restaurantName,
+                email : data.email,
                 restaurantAddress: data.restaurantAddress,
                 restaurantNumber: parseFloat(data.restaurantNumber),
                 resataurantCategory: data.resataurantCategory,
                 photo: logoData?.data?.display_url || " ",
                 banner: bannerData?.data?.display_url || " ",
             };
-
+            
             await toast.promise(
                 axiosSecure.post("/restaurantUpload", usersInfo),
                 {
@@ -74,7 +75,7 @@ const UploadInfo = () => {
                 }
             );
 
-            navigate(from); // Redirect after successful submission
+            navigate("/restaurants"); // Redirect after successful submission
         } catch (error) {
             toast.error(typeof error === "string" ? error : "Something went wrong.");
         } finally {
@@ -102,9 +103,17 @@ const UploadInfo = () => {
                                     name="name"
                                     type="text"
                                     label="Restaurant Name"
-                                    {...register("name", { required: true })}
+                                    {...register("restaurantName", { required: true })}
                                 />
                                 {errors.name && <span className="text-red-500 text-sm">This field is required</span>}
+                                <Input
+                                    size="lg"
+                                    name="email"
+                                    type="email"
+                                    label="Restaurant email"
+                                    {...register("email", { required: true })}
+                                />
+                                {errors.email && <span className="text-red-500 text-sm">This field is required</span>}
                                 
                                 <Input
                                     size="lg"

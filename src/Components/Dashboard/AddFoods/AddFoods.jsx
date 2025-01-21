@@ -4,22 +4,23 @@ import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { imageUpload } from '../../Hooks/imageHooks';
 import toast from 'react-hot-toast';
 import { MdCloudUpload } from 'react-icons/md';
+import useRestaurantData from '../../Hooks/useRestaurantData';
 
 const AddFoods = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const axiosSecure = useAxiosSecure();
     const [imageError, setImageError] = useState("");
     const [imagePreview, setImagePreview] = useState(null);
-
+    const [isRestaurantData] = useRestaurantData();
     const validateImage = (file) => {
         return new Promise((resolve, reject) => {
             const img = new Image();
             const reader = new FileReader();
-            
+
             reader.onloadend = () => {
                 img.onload = () => {
                     if (img.width <= 300 && img.height <= 300) {
-                        resolve(true); 
+                        resolve(true);
                     } else {
                         reject("Image dimensions must be 300x300 pixels or smaller");
                     }
@@ -27,34 +28,37 @@ const AddFoods = () => {
                 img.onerror = () => reject("Invalid image file");
                 img.src = reader.result;
             };
-    
+
             reader.readAsDataURL(file);
         });
     };
     const onSubmit = async (data) => {
         setImageError("");
-        const photo = data.photo?.[0];
+        const foodImage = data.foodImage?.[0];
 
         try {
-            await validateImage(photo); // Validate image dimensions
+            await validateImage(foodImage);
 
-            const imageData = await imageUpload(photo);
+            const imageData = await imageUpload(foodImage);
             const foodInfo = {
+                name: data.name,
                 foodName: data.foodName,
-                photo: imageData?.data?.display_url || "",
+                foodImage: imageData?.data?.display_url || "",
                 category: data.category,
+                email: data.email,
                 price: parseFloat(data.price),
             };
 
-            axiosSecure.post("/foods", foodInfo)
-                .then(res => {
-                    console.log(res.data);
-                    if(res.data.insertedId){
-                        toast.success("Successfully added Food")
+            axiosSecure.patch(`/restaurantUpload/${_id}`, foodInfo)
+                .then((res) => {
+                    if (res.data.modifiedCount > 0) {
+                        toast.success("Successfully added Food");
+                    } else {
+                        toast.error("Failed to add Food");
                     }
                 });
         } catch (error) {
-            setImageError(error); // Set image error if validation fails
+            setImageError(error);
         }
     };
 
@@ -78,17 +82,17 @@ const AddFoods = () => {
                         <div>
                             <div className="flex items-center justify-center">
                                 <div className="relative w-[200px] h-[200px] flex items-center justify-center border-4 border-dashed rounded-full cursor-pointer">
-                                    <input 
-                                        type="file" 
-                                        id="fileInput" 
+                                    <input
+                                        type="file"
+                                        id="fileInput"
                                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                        name="photo"
+                                        name="foodImage"
                                         accept="image/*"
-                                        {...register("photo", { required: true })}
+                                        {...register("foodImage", { required: true })}
                                         onChange={handleImageChange} // Handle image change
                                     />
-                                    <label 
-                                        htmlFor="fileInput" 
+                                    <label
+                                        htmlFor="fileInput"
                                         className="flex items-center justify-center w-[200px] h-[200px] text-[#ff1818] "
                                     >
                                         <MdCloudUpload size={20} className="mr-2" />
@@ -96,22 +100,23 @@ const AddFoods = () => {
                                     </label>
                                 </div>
                             </div>
-                            {errors.photo && <span className="text-[#ff1818]  text-sm text-center">This field is required</span>}
+                            {errors.foodImage && <span className="text-[#ff1818]  text-sm text-center">This field is required</span>}
                             {imageError && <span className="text-[#ff1818]  text-sm text-center">{imageError}</span>}
-                            
+
                             {/* Image Preview */}
                             {imagePreview && (
                                 <div className="mt-4">
-                                    <img 
-                                        src={imagePreview} 
-                                        alt="Preview" 
-                                        className="w-[150px] mx-auto h-auto rounded-full object-cover" 
+                                    <img
+                                        src={imagePreview}
+                                        alt="Preview"
+                                        className="w-[150px] mx-auto h-auto rounded-full object-cover"
                                     />
                                 </div>
                             )}
                         </div>
 
                         {/* Food Name */}
+
                         <div>
                             <label className="block text-gray-600 font-semibold mb-2">Food Name</label>
                             <input
@@ -137,6 +142,7 @@ const AddFoods = () => {
                             {errors.price && <span className="text-[#ff1818]  text-sm">This field is required</span>}
                         </div>
 
+
                         {/* Category */}
                         <div>
                             <label className="block text-gray-600 font-semibold mb-2">Category</label>
@@ -161,7 +167,7 @@ const AddFoods = () => {
                         <div className="text-center">
                             <button
                                 type="submit"
-                                className="px-6 py-2 bg-[#ff1818 ] text-white font-semibold rounded-full hover:bg-[#ff1818 ] transition focus:outline-none focus:ring-2 focus:ring-red-400 w-full"
+                                className="px-6 py-2 bg-[#ff1818] text-white font-semibold rounded-full hover:bg-[#ff1818 ] transition focus:outline-none focus:ring-2 focus:ring-red-400 w-full"
                             >
                                 Add Food
                             </button>

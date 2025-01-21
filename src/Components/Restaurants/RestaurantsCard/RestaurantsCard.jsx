@@ -5,46 +5,60 @@ import {
     Typography,
     Avatar,
   } from "@material-tailwind/react";
-import useAllUserHooks from "../../Hooks/useAllUserHooks";
-const RestaurantsCard = () => {
-    const [users] = useAllUserHooks();
-    // const  banner = banner.filter(banner => banner.users === "banner" )
+  import useRestaurantData from "../../Hooks/useRestaurantData";
+import { Link } from "react-router-dom";
+  
+  const RestaurantsCard = () => {
+    const [isRestaurantData] = useRestaurantData();
+  
     return (
-        <div>
-            <Card
-      shadow={false}
-      className="relative grid h-[320px] w-full max-w-[500px] items-end justify-center overflow-hidden text-center"
-    >
-      <CardHeader
-        floated={false}
-        shadow={false}
-        color="transparent"
-        className={`absolute inset-0 m-0 h-full w-full rounded-none bg-[url(${users.banner})] bg-cover bg-center`}
-      >
-        <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
-      </CardHeader>
-      <CardBody className="relative py-14 px-6 md:px-12">
-        <Typography
-          variant="h2"
-          color="white"
-          className="mb-6 font-medium leading-[1.5]"
-        >
-          How we design and code open-source projects?
-        </Typography>
-        <Typography variant="h5" className="mb-4 text-gray-400">
-          Tania Andrew
-        </Typography>
-        <Avatar
-          size="xl"
-          variant="circular"
-          alt="tania andrew"
-          className="border-2 border-white"
-          src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-        />
-      </CardBody>
-    </Card>
-        </div>
+      <div className="grid md:grid-cols-3 gap-4 px-8 max-w-7xl mx-auto mt-10">
+        {isRestaurantData.map((restaurant) => (
+          <Card
+            key={restaurant.id} // Assuming each restaurant has a unique `id`
+            shadow={false}
+            className="relative grid h-[500px] w-full max-w-[350px] items-end justify-center overflow-hidden text-center group"
+          >
+            {/* Card Header with Hover Effect */}
+            <CardHeader
+              floated={false}
+              shadow={false}
+              color="transparent"
+              className="absolute inset-0 m-0 h-full w-full rounded-none bg-cover bg-center transition-all duration-500 group-hover:scale-110"
+              style={{
+                backgroundImage: `url(${restaurant.banner})`,
+              }}
+            >
+              <div className="absolute inset-0 h-full w-full bg-black/10 group-hover:bg-black/70 transition-all duration-500" />
+            </CardHeader>
+  
+            {/* Card Body */}
+            <CardBody className="relative py-14 px-6 md:px-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <Typography
+                variant="h2"
+                color="white"
+                className="mb-6 text-xl"
+              >
+              
+              </Typography>
+              <Typography variant="h5" className="mb-4 text-white">
+                {restaurant?.restaurantName}
+              </Typography>
+             <Link to={`/restaurantUpload/${restaurant._id}`}>
+             <Avatar
+                size="xl"
+                variant="circular"
+                alt={restaurant?.restaurantName}
+                className="border-2 border-white"
+                src={restaurant?.photo}
+              />
+             </Link>
+            </CardBody>
+          </Card>
+        ))}
+      </div>
     );
-};
-
-export default RestaurantsCard;
+  };
+  
+  export default RestaurantsCard;
+  

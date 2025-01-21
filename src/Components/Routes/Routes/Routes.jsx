@@ -32,6 +32,7 @@ import Users from "../../Dashboard/Users/Users";
 import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import MyOrder from "../../Dashboard/MyOrder/MyOrder";
 import UploadInfo from "../../Dashboard/UploadInfo/UploadInfo";
+import DeatilsRestaurants from "../../Restaurants/DetailsRestaurants/DeatilsRestaurants";
 
 export const router = createBrowserRouter([
   {
@@ -103,6 +104,10 @@ export const router = createBrowserRouter([
         path: "/resetPassword",
         element: <ResetPassword />,
       },
+      {
+        path : '/restaurantUpload/:id',
+        element : <DeatilsRestaurants/>
+      }
     ],
   },
   {
