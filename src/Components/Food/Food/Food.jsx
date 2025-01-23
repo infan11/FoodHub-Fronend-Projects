@@ -3,7 +3,7 @@
 const Food = () => {
     return (
         <div className='min-h-screen'>
-          this is food 
+          this
         </div>
     );
 };
