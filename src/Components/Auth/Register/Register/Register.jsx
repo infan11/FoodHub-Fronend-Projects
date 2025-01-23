@@ -120,8 +120,8 @@ const Register = () => {
                                             {...register("password", { required: true, minLength: 6, maxLength: 8 })}
                                         />
                                         {errors.password?.type && <span className="text-red-500 ">This field is reqiure</span>}
-                                        {errors.password?.type === 'minLength' && <span className="text-red-500 ">This pass must 6 Characters</span>}
-                                        {errors.password?.type === 'maxLength' && <span className="text-red-500 ">This pass only 8 Characters</span>}
+                                        {errors.password?.type === 'minLength' && <span className="text-red-500">This pass must 6 Characters</span>}
+                                        {errors.password?.type === 'maxLength' && <span className="text-red-500">This pass only 8 Characters</span>}
                                     </div>
                                     <Checkbox
                                         label={

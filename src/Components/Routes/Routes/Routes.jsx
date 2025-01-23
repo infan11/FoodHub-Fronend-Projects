@@ -105,7 +105,7 @@ export const router = createBrowserRouter([
         element: <ResetPassword />,
       },
       {
-        path : '/restaurantUpload/:id',
+        path : '/restaurantUpload/:restaurantName',
         element : <DeatilsRestaurants/>
       }
     ],

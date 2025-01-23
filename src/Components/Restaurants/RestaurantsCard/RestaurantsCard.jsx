@@ -44,7 +44,7 @@ import { Link } from "react-router-dom";
               <Typography variant="h5" className="mb-4 text-white">
                 {restaurant?.restaurantName}
               </Typography>
-             <Link to={`/restaurantUpload/${restaurant._id}`}>
+             <Link to={`/restaurantUpload/${restaurant.restaurantName}`}>
              <Avatar
                 size="xl"
                 variant="circular"
