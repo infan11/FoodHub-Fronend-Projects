@@ -15,7 +15,7 @@ const DetailsRestaurants = () => {
     axiosSecure
       .get(`/restaurantUpload/${restaurantName}`)
       .then((res) => {
-        setFoodItems(res.data.foods); // Assuming `foods` contains the array of food items
+        setFoodItems(res.data.foods); 
         console.log(res.data.foods);
       })
       .catch((err) => console.error(err));
