@@ -4,9 +4,19 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { imageUpload } from "../../Hooks/imageHooks";
 import toast from "react-hot-toast";
 import { MdCloudUpload } from "react-icons/md";
+import useAuth from "../../Hooks/useAuth";
 
 const AddFoods = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { user } = useAuth();
+  const {
+    register,  handleSubmit, formState: { errors },
+setValue,
+  } = useForm({
+    defaultValues: {
+      restaurantName: user?.displayName || "Default Restaurant",
+    },
+  });
+
   const axiosSecure = useAxiosSecure();
   const [imageError, setImageError] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
@@ -49,14 +59,13 @@ const AddFoods = () => {
       };
 
       // Send data to the backend
-      axiosSecure.patch(`/restaurantUpload/${data.restaurantName}`, foodInfo)
-        .then((res) => {
-          if (res.data.modifiedCount > 0) {
-            toast.success("Successfully added Food");
-          } else {
-            toast.error("Failed to add Food");
-          }
-        });
+      axiosSecure.patch(`/restaurantUpload/${data.restaurantName}`, foodInfo).then((res) => {
+        if (res.data.modifiedCount > 0) {
+          toast.success("Successfully added Food");
+        } else {
+          toast.error("Failed to add Food");
+        }
+      });
     } catch (error) {
       setImageError(error.message || "An error occurred");
     }
@@ -98,9 +107,16 @@ const AddFoods = () => {
                   </label>
                 </div>
               </div>
-              {errors.foodImage && <span className="text-[#ff1818] text-sm text-center">This field is required</span>}
-              {imageError && <span className="text-[#ff1818] text-sm text-center">{String(imageError)}</span>}
-
+              {errors.foodImage && (
+                <span className="text-[#ff1818] text-sm text-center">
+                  This field is required
+                </span>
+              )}
+              {imageError && (
+                <span className="text-[#ff1818] text-sm text-center">
+                  {String(imageError)}
+                </span>
+              )}
               {imagePreview && (
                 <div className="mt-4">
                   <img
@@ -114,43 +130,63 @@ const AddFoods = () => {
 
             {/* Restaurant Name */}
             <div>
-              <label className="block text-gray-600 font-semibold mb-2">Restaurant Name</label>
+              <label className="block text-gray-600 font-semibold mb-2">
+                Restaurant Name
+              </label>
               <input
                 type="text"
                 className="w-full px-3 py-2 border rounded-full focus:ring-2 text-[#ff1818] focus:ring-red-400 outline-none transition"
                 placeholder="Enter restaurant name"
                 {...register("restaurantName", { required: true, minLength: 1, maxLength: 20 })}
               />
-              {errors.restaurantName && <span className="text-[#ff1818] text-sm">This field is required</span>}
+              {errors.restaurantName && (
+                <span className="text-[#ff1818] text-sm">
+                  This field is required
+                </span>
+              )}
             </div>
 
             {/* Food Name */}
             <div>
-              <label className="block text-gray-600 font-semibold mb-2">Food Name</label>
+              <label className="block text-gray-600 font-semibold mb-2">
+                Food Name
+              </label>
               <input
                 type="text"
                 className="w-full px-3 py-2 border rounded-full focus:ring-2 text-[#ff1818] focus:ring-red-400 outline-none transition"
                 placeholder="Enter food name"
                 {...register("foodName", { required: true, minLength: 4, maxLength: 15 })}
               />
-              {errors.foodName && <span className="text-[#ff1818] text-sm">This field is required</span>}
+              {errors.foodName && (
+                <span className="text-[#ff1818] text-sm">
+                  This field is required
+                </span>
+              )}
             </div>
 
             {/* Price */}
             <div>
-              <label className="block text-gray-600 font-semibold mb-2">Price</label>
+              <label className="block text-gray-600 font-semibold mb-2">
+                Price
+              </label>
               <input
                 type="number"
                 className="w-full px-3 py-2 border rounded-full text-[#ff1818] focus:ring-2 focus:ring-red-400 outline-none transition"
                 placeholder="Enter price"
                 {...register("price", { required: true })}
               />
-              {errors.price && <span className="text-[#ff1818] text-sm">This field is required</span>}
+              {errors.price && (
+                <span className="text-[#ff1818] text-sm">
+                  This field is required
+                </span>
+              )}
             </div>
 
             {/* Category */}
             <div>
-              <label className="block text-gray-600 font-semibold mb-2">Category</label>
+              <label className="block text-gray-600 font-semibold mb-2">
+                Category
+              </label>
               <select
                 className="w-full px-3 py-2 border rounded-full text-[#ff1818] focus:ring-2 focus:ring-red-400 outline-none transition"
                 {...register("category", { required: true })}
@@ -165,7 +201,11 @@ const AddFoods = () => {
                 <option>Chicken</option>
                 <option>Beef</option>
               </select>
-              {errors.category && <span className="text-[#ff1818] text-sm">This field is required</span>}
+              {errors.category && (
+                <span className="text-[#ff1818] text-sm">
+                  This field is required
+                </span>
+              )}
             </div>
 
             {/* Submit Button */}
