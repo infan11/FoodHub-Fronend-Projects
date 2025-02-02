@@ -18,7 +18,7 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null); // Corrected state initialization
+    const [user, setUser] = useState(null); 
     const [loading, setLoading] = useState(true);
     const axiosPublic = useAxiosPublic();
 
@@ -47,13 +47,13 @@ const AuthProvider = ({ children }) => {
         return sendPasswordResetEmail(auth, email);
     };
 
-    const updateUserProfile = (name, photo) => {
+    const updateUserProfile = ({name, photo}) => {
         if (auth.currentUser) {
             return updateProfile(auth.currentUser, {
                 displayName: name,
                 photoURL: photo,
             }).then(() => {
-                setUser({ ...auth.currentUser }); // Ensures the UI updates
+                setUser({ ...auth.currentUser });
             });
         }
     };
@@ -63,7 +63,6 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
             setLoading(false);
             console.log("User found:", currentUser);
-
             if (currentUser) {
                 const userInfo = { email: currentUser.email };
                 axiosPublic.post("/jwt", userInfo)

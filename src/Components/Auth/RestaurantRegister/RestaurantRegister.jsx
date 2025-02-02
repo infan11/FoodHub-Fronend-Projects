@@ -19,21 +19,48 @@ const RestaurantRegister = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        const logo = data.photo?.[0]; // Photo input for logo
-        const banner = data.banner?.[0]; // Photo input for banner
+        const logo = data.photo?.[0]; // Logo Image
+        const banner = data.banner?.[0]; // Banner Image
 
         if (!logo || !banner) {
             toast.error("Please upload both logo and banner images.");
             return;
         }
 
+        const validateImage = (file, maxWidth, maxHeight) =>
+            new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        if (img.width > maxWidth || img.height > maxHeight) {
+                            reject(`Image must not exceed ${maxWidth}x${maxHeight} dimensions.`);
+                        } else {
+                            resolve();
+                        }
+                    };
+                    img.onerror = () => reject("Invalid image file.");
+                    img.src = e.target.result;
+                };
+                reader.onerror = () => reject("File reading error.");
+                reader.readAsDataURL(file);
+            });
+
         try {
+            await validateImage(logo, 300, 300);
+            await validateImage(banner, 1080, 1080);
+
             const logoData = await imageUpload(logo);
             const bannerData = await imageUpload(banner);
 
-            // Create the user in Firebase Authentication
             const userResponse = await createUser(data.email, data.password);
-            await updateUserProfile(data.displayName, logoData?.data?.display_url || "");
+            const registerUser = userResponse.user;
+
+            // Ensure profile update with correct format
+          await   updateUserProfile({
+       name: data.displayName,
+                photo: logoData?.data?.display_url || ""
+            });
 
             const usersInfo = {
                 name: data.displayName,
@@ -47,9 +74,9 @@ const RestaurantRegister = () => {
             toast.promise(
                 axiosSecure.put("/users", usersInfo),
                 {
-                    loading: 'Loading...',
-                    success: 'Successfully Signed In',
-                    error: <b>Could not save user.</b>,
+                    loading: 'Registering...',
+                    success: 'Successfully Registered!',
+                    error: <b>Could not register user.</b>,
                 }
             );
 
@@ -66,7 +93,7 @@ const RestaurantRegister = () => {
                 <div className="text-center hidden sm:block">
                     <img
                         className="md:w-[670px] md:h-[810px] lg:w-[690px] lg:h-[740px] rounded-l-2xl"
-                        src="https://i.ibb.co/nBHCFg8/seller-Mode.png"
+                        src="https://i.ibb.co.com/nBHCFg8/seller-Mode.png"
                         alt="Seller Mode"
                     />
                 </div>
@@ -93,21 +120,70 @@ const RestaurantRegister = () => {
 
                                 <Input
                                     size="lg"
+                                    type="text"
+                                    label="Restaurant Address"
+                                    {...register("restaurantAddress", { required: true })}
+                                />
+                                {errors.restaurantAddress && <span className="text-red-500 text-sm">This field is required</span>}
+
+                                <Input
+                                    size="lg"
+                                    type="number"
+                                    label="Restaurant Number"
+                                    {...register("restaurantNumber", { required: true })}
+                                />
+                                {errors.restaurantNumber && <span className="text-red-500 text-sm">This field is required</span>}
+
+                                <Input
                                     type="password"
+                                    size="lg"
+                                    placeholder="********"
                                     label="Password"
                                     {...register("password", { required: true, minLength: 6, maxLength: 8 })}
                                 />
+                                {errors.password?.type === 'required' && <span className="text-red-500">This field is required</span>}
                                 {errors.password?.type === 'minLength' && <span className="text-red-500">Password must be at least 6 characters</span>}
                                 {errors.password?.type === 'maxLength' && <span className="text-red-500">Password must not exceed 8 characters</span>}
 
-                                <input type="file" accept="image/*" {...register("photo", { required: true })} />
-                                <input type="file" accept="image/*" {...register("banner", { required: true })} />
+                                <div className="">
+                                    <label className="label">
+                                        <span className="label-text text-red-500 font-extrabold ml-4">Logo Should be 300×300</span>
+                                    </label>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        {...register("photo", { required: true })}
+                                        className="file-input file-input-ghost"
+                                    />
+                                    {errors.photo && <span className="text-red-500 text-sm">Logo is required</span>}
 
-                                <button className="w-full bg-[#ff1818] text-white mt-2 btn rounded-badge" type="submit">
-                                    Submit Request
-                                </button>
+                                    <label className="label">
+                                        <span className="label-text text-red-500 font-extrabold ml-4">Banner Should be 1080×1080</span>
+                                    </label>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        {...register("banner", { required: true })}
+                                        className="file-input file-input-ghost"
+                                    />
+                                    {errors.banner && <span className="text-red-500 text-sm ml-2">Banner is required</span>}
+                                </div>
                             </div>
+
+                            <button
+                                className="w-full uppercase bg-[#ff1818] text-white mt-2 btn rounded-badge"
+                                type="submit"
+                            >
+                                Submit Request
+                            </button>
                         </form>
+
+                        <Typography color="gray" className="mt-4 text-center font-normal">
+                            Already have an account?{" "}
+                            <a href="/login" className="font-medium text-gray-900">
+                                Sign up
+                            </a>
+                        </Typography>
                     </Card>
                 </div>
             </div>

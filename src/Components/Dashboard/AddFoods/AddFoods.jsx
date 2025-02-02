@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -59,11 +60,13 @@ setValue,
       };
 
       // Send data to the backend
-      axiosSecure.patch(`/restaurantUpload/${data.restaurantName}`, foodInfo).then((res) => {
+      axiosSecure.patch(`/restaurantUpload/${data.restaurantName}`, foodInfo)
+      .then((res) => {
+        console.log(res.data);
         if (res.data.modifiedCount > 0) {
           toast.success("Successfully added Food");
         } else {
-          toast.error("Failed to add Food");
+          toast.error("Please Upload Your Info");
         }
       });
     } catch (error) {

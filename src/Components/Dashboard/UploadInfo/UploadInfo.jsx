@@ -16,9 +16,19 @@ const UploadInfo = () => {
     const location = useLocation();
     // const from = location.state?.from?.pathname || "/";
     const axiosSecure = useAxiosSecure();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { user } = useAuth()
     const [isSubmitting, setIsSubmitting] = useState(false); // Track submission
+    const {
+        register, handleSubmit, formState: { errors },
+        setValue,
+    } = useForm({
+        defaultValues: {
+            restaurantName: user?.displayName  || "Default Restaurant",
+            email : user?.email  || "Default Email  "
+            
 
+        },
+    });
     const onSubmit = async (data) => {
         const logo = data.photo?.[0]; // Photo input for logo
         const banner = data.banner?.[0]; // Photo input for banner
@@ -58,14 +68,14 @@ const UploadInfo = () => {
 
             const usersInfo = {
                 restaurantName: data.restaurantName,
-                email : data.email,
+                email: data.email,
                 restaurantAddress: data.restaurantAddress,
                 restaurantNumber: parseFloat(data.restaurantNumber),
                 resataurantCategory: data.resataurantCategory,
                 photo: logoData?.data?.display_url || " ",
                 banner: bannerData?.data?.display_url || " ",
             };
-            
+
             await toast.promise(
                 axiosSecure.post("/restaurantUpload", usersInfo),
                 {
@@ -85,17 +95,11 @@ const UploadInfo = () => {
 
     return (
         <div className="hero min-h-screen mx-auto px-4 md:px-5">
-            <div className="grid md:grid-cols-2 rounded-r-2xl shadow-xl">
-                <div className="text-center hidden sm:block">
-                    <img
-                        className="md:w-[670px] md:h-[810px] lg:w-[690px] lg:h-[740px] rounded-l-2xl"
-                        src="https://i.ibb.co/nBHCFg8/seller-Mode.png"
-                        alt="Seller Mode"
-                    />
-                </div>
+
+            <div className=" rounded-r-2xl shadow-xl px-6">
+
                 <div className="lg:w-full shrink-0 rounded-r-2xl shadow-xl">
                     <Card color="transparent" shadow={false}>
-                        <p className="text-2xl font-extrabold text-center mb-3">SIGN IN</p>
                         <form onSubmit={handleSubmit(onSubmit)} className="mt-4 mb-2 mx-auto px-4 md:px-6 w-full">
                             <div className="mb-1 md:w-full lg:w-96 mx-auto space-y-2 gap-6">
                                 <Input
@@ -114,7 +118,7 @@ const UploadInfo = () => {
                                     {...register("email", { required: true })}
                                 />
                                 {errors.email && <span className="text-red-500 text-sm">This field is required</span>}
-                                
+
                                 <Input
                                     size="lg"
                                     name="restaurantAddress"
