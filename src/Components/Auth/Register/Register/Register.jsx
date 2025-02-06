@@ -17,7 +17,7 @@ const Register = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
     const axiosSecure = useAxiosSecure();
-    
+
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
@@ -134,16 +134,17 @@ const Register = () => {
                                     Sign In
                                 </button>
 
-                                <div className="divider">OR</div>
 
-                                <button onClick={handleGoogle} className="flex text-[14px] bg-white items-center font-bold btn rounded-full">
-                                    <FcGoogle /> Continue With Google
-                                </button>
-
-                                <Typography color="gray" className="mt-4 text-center font-normal">
-                                    Already have an account? <a href="/login" className="font-medium text-gray-900">Log in</a>
-                                </Typography>
                             </form>
+                            <div className="divider">OR</div>
+
+                            <button onClick={handleGoogle} className="flex text-[14px] bg-white items-center font-bold btn rounded-full">
+                                <FcGoogle /> Continue With Google
+                            </button>
+
+                            <Typography color="gray" className="mt-4 text-center font-normal">
+                                Already have an account? <a href="/login" className="font-medium text-gray-900">Log in</a>
+                            </Typography>
                         </Card>
                     </div>
                 </div>
