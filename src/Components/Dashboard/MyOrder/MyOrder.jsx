@@ -152,7 +152,7 @@ const {user} = useAuth();
           </table>
 
           {/* Order Summary */}
-          <div className="mt-6 md:px-24">
+          <div className="mt-6 md:px-20">
             <div className="divider ml-4 divider-error mx-auto"></div>
 
             <div className="flex justify-evenly md:justify-end gap-12">
