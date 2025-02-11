@@ -1,9 +1,10 @@
+import FoodBanner from "../FoodBanner/FoodBanner";
 
 
 const Food = () => {
     return (
         <div className='min-h-screen'>
-          this
+          <FoodBanner/>
         </div>
     );
 };

@@ -3,42 +3,44 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
-
-const Banner = () => {
+import RestaurantBanner1 from '../../../assets/RestaurantBanner/RestaurantBanner1.png'
+import RestaurantBanner2 from '../../../assets/RestaurantBanner/RestaurantBanner2.png'
+import RestaurantBanner3 from '../../../assets/RestaurantBanner/RestaurantBanner3.png'
+import RestaurantBanner4 from '../../../assets/RestaurantBanner/RestaurantBanner4.png'
+const FoodBanner = () => {
     return (
         <div className='relative'>
             <Swiper
                 pagination={{
                     dynamicBullets: true,
-                    
-                }}
-autoplay={true}
 
+                }}
+
+              
                 className="mySwiper  "
             >
                 <SwiperSlide>
 
                     <div className=' '>
-                        <img src="https://i.ibb.co.com/v66fBkR5/3.png" alt="" />
+                        <img src={RestaurantBanner1} alt="" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
 
                     <div className=' '>
-                        <img src="https://i.ibb.co.com/MCd7jXg/HOME1.png" alt="" />
+                        <img src={RestaurantBanner2} alt="" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
 
                     <div className=' '>
-                        <img src="https://i.ibb.co.com/xjTbNcp/home2.png" alt="" />
+                        <img src={RestaurantBanner3} alt="" />
                     </div>
                 </SwiperSlide>
-
                 <SwiperSlide>
 
                     <div className=' '>
-                        <img src="https://i.ibb.co.com/XWzByRJ/home4.png" alt="" />
+                        <img src={RestaurantBanner4} alt="" />
                     </div>
                 </SwiperSlide>
 
@@ -47,4 +49,4 @@ autoplay={true}
     );
 };
 
-export default Banner;
+export default FoodBanner;
