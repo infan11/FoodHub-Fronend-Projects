@@ -76,7 +76,7 @@ const {user} = useAuth();
   const total = subtotal - discount;
 
   return (
-    <div className="max-w-7xl mx-auto min-h-screen mt-10">
+    <div className=" min-h-screen mt-10 px-4 lg:px-5">
       {cartFood.length > 0 ? (
         <div className="mb-11">
           <table className="table w-full">
