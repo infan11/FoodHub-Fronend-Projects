@@ -140,14 +140,7 @@ const handleLogout = () => {
                     User Home
                   </ListItem>
                 </Link>
-                <Link to="/dashboard/addFoods">
-                  <ListItem>
-                    <ListItemPrefix>
-                    <IoIosAddCircleOutline />
-                    </ListItemPrefix>
-                    Add Food
-                  </ListItem>
-                </Link>
+                
               </>
             )}
 
@@ -196,14 +189,7 @@ const handleLogout = () => {
                     User Home
                   </ListItem>
                 </Link>
-                <Link to="/dashboard/addFoods">
-                  <ListItem>
-                    <ListItemPrefix>
-                    <IoIosAddCircleOutline />
-                    </ListItemPrefix>
-                    Add Food
-                  </ListItem>
-                </Link>
+                
                 <Link to="/dashboard/updateFood">
                   <ListItem>
                     <ListItemPrefix>
@@ -250,14 +236,7 @@ const handleLogout = () => {
                     Upload Info
                   </ListItem>
                 </Link>
-                <Link to="/dashboard/addFoods">
-                  <ListItem>
-                    <ListItemPrefix>
-                    <IoIosAddCircleOutline />
-                    </ListItemPrefix>
-                    Add Food
-                  </ListItem>
-                </Link>
+                
                 <Link to="/dashboard/updateFood">
                   <ListItem>
                     <ListItemPrefix>

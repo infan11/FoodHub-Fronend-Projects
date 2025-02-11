@@ -106,16 +106,21 @@ const UploadInfo = () => {
                                     size="lg"
                                     name="name"
                                     type="text"
+                                    color="red"
+                                    className="text-red-500"
                                     label="Restaurant Name"
                                     {...register("restaurantName", { required: true })}
+                                    readOnly
                                 />
                                 {errors.name && <span className="text-red-500 text-sm">This field is required</span>}
                                 <Input
                                     size="lg"
                                     name="email"
                                     type="email"
+                                    className="text-red-500"
                                     label="Restaurant email"
                                     {...register("email", { required: true })}
+                                    readOnly
                                 />
                                 {errors.email && <span className="text-red-500 text-sm">This field is required</span>}
 

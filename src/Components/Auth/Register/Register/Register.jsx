@@ -29,7 +29,7 @@ const Register = () => {
                 throw new Error("User creation failed");
             }
 
-            await updateUserProfile(data.displayName, null);
+            await updateUserProfile( { name: data.displayName});
             await res.user.reload();
             console.log("Updated User:", res.user);
 

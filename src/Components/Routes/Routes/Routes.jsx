@@ -147,7 +147,7 @@ export const router = createBrowserRouter([
         element: <PrivateRoutes><MyOrder /></PrivateRoutes>,
       },
       {
-        path: "/dashboard/updateFood",
+        path: "/dashboard/updateFood/restaurantName/:foods",
         element: <PrivateRoutes><UpdateFood /></PrivateRoutes>,
       },
       {

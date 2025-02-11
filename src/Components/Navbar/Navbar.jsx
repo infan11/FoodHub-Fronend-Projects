@@ -19,6 +19,7 @@ import { IoMdLogIn } from "react-icons/io";
 import useAdmin from "../Hooks/useAdmin";
 import useModerator from "../Hooks/useModerator";
 import useRestaurantOwner from "../Hooks/useRestaurantOwner";
+import useAddFood from "../Hooks/useAddFood";
 const Navbar = () => {
   const ClockIcon = () => {
     return (
@@ -42,6 +43,7 @@ const Navbar = () => {
   const  [isAdmin ] = useAdmin();
   const [isModerator] = useModerator();
   const [isOwner] = useRestaurantOwner();
+  const [cartFood] = useAddFood()
   const handleLogut = () => {
     logout()
       .then(() => { })
@@ -505,7 +507,7 @@ const Navbar = () => {
             <button className="btn btn-ghost btn-circle text-2xl  text-white font-extrabold">
               <div className="indicator">
                 <RiShoppingBag2Line />
-                <span className="badge badge-sm indicator-item ">8</span>
+                
               </div>
             </button>
           </div>

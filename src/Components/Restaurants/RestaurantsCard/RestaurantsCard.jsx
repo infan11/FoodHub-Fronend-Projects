@@ -7,10 +7,49 @@ import {
   } from "@material-tailwind/react";
   import useRestaurantData from "../../Hooks/useRestaurantData";
 import { Link } from "react-router-dom";
-  
+import useAdmin from "../../Hooks/useAdmin";
+import useModerator from "../../Hooks/useModerator";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
+import { AiOutlineDelete } from "react-icons/ai";
+import { motion } from "framer-motion";
+import { MdOutlineAddCircleOutline } from "react-icons/md";
   const RestaurantsCard = () => {
-    const [isRestaurantData] = useRestaurantData();
-  
+    const [isRestaurantData , refetch] = useRestaurantData();
+    const [isAdmin] = useAdmin();
+    const [isModerator] = useModerator();
+    const axiosSecure = useAxiosSecure();
+    
+    const handleDeleted = (food) => {
+      if (isAdmin || isModerator) {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            axiosSecure.delete(`/restaurantUpload/${food}`)
+              .then((res) => {
+                if (res.data.deletedCount > 0) {
+                  toast.success("Successfully Deleted");
+                }
+                refetch();
+              })
+              .catch((error) => {
+                console.error("Error deleting:", error);
+                toast.error("Failed to delete");
+              });
+          }
+        });
+      } else {
+        toast.error("You are not authorized to delete");
+      }
+    };
     return (
       <div className="grid md:grid-cols-3 gap-4 px-8 max-w-7xl mx-auto mt-10">
         {isRestaurantData.map((restaurant) => (
@@ -44,7 +83,8 @@ import { Link } from "react-router-dom";
               <Typography variant="h5" className="mb-4 text-white">
                 {restaurant?.restaurantName}
               </Typography>
-             <Link to={`/restaurantUpload/${restaurant.restaurantName}`}>
+          <div className="">
+          <Link to={`/restaurantUpload/${restaurant.restaurantName}`}>
              <Avatar
                 size="xl"
                 variant="circular"
@@ -53,6 +93,22 @@ import { Link } from "react-router-dom";
                 src={restaurant?.photo}
               />
              </Link>
+             { (isAdmin || isModerator) && (
+    <button className="">
+     
+      <motion.button
+                     onClick={() => handleDeleted(restaurant.restaurantName)}
+                      className="text-xl font-bold bg-[#ff0000d8]  text-white rounded-full shadow-lg p-6  ml-5 "
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                       <AiOutlineDelete />
+                    </motion.button>
+    </button>
+    
+  )}
+          </div>
+           
             </CardBody>
           </Card>
         ))}

@@ -12,7 +12,7 @@ const PrivateRoutes = ({ children }) => {
                 <Circles
                     height="80"
                     width="80"
-                    color="#ea9540fd"
+                    color="#ff0000d8"
                     ariaLabel="circles-loading"
                     visible={true}
                 />

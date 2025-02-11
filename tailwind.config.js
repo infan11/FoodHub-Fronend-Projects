@@ -16,7 +16,7 @@ module.exports = withMT({
          ],
          theme: {
           fontFamily: {
-            'sans': ['sans-serif', 'roboto',],
+            Kanit : ["Kanit" , "sans-serif"]
             
           }
         },

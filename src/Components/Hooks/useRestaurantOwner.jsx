@@ -11,7 +11,7 @@ const useRestaurantOwner = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/restaurantOwner/${user?.email}`);
-      console.log("isOwner:", res.data);
+      // console.log("isOwner:", res.data);
       return res.data?.owner ?? false; // Ensure it returns a boolean
     },
   });
