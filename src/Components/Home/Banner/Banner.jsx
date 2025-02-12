@@ -2,7 +2,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
 
 const Banner = () => {
     return (
@@ -16,12 +15,7 @@ autoplay={true}
 
                 className="mySwiper  "
             >
-                <SwiperSlide>
-
-                    <div className=' '>
-                        <img src="https://i.ibb.co.com/v66fBkR5/3.png" alt="" />
-                    </div>
-                </SwiperSlide>
+                
                 <SwiperSlide>
 
                     <div className=' '>

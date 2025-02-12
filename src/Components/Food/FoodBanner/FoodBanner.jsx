@@ -19,18 +19,19 @@ const FoodBanner = () => {
               
                 className="mySwiper  "
             >
+                 <SwiperSlide>
+
+<div className=' '>
+    <img src={RestaurantBanner2} alt="" />
+</div>
+</SwiperSlide>
                 <SwiperSlide>
 
                     <div className=' '>
                         <img src={RestaurantBanner1} alt="" />
                     </div>
                 </SwiperSlide>
-                <SwiperSlide>
-
-                    <div className=' '>
-                        <img src={RestaurantBanner2} alt="" />
-                    </div>
-                </SwiperSlide>
+               
                 <SwiperSlide>
 
                     <div className=' '>

@@ -20,6 +20,7 @@ import useAdmin from "../Hooks/useAdmin";
 import useModerator from "../Hooks/useModerator";
 import useRestaurantOwner from "../Hooks/useRestaurantOwner";
 import useAddFood from "../Hooks/useAddFood";
+import { GiHamburger } from "react-icons/gi";
 const Navbar = () => {
   const ClockIcon = () => {
     return (
@@ -65,14 +66,14 @@ const Navbar = () => {
     >
       RESTAURANTS
     </NavLink>
-    <NavLink
+    {/* <NavLink
       to="/food"
       className={({ isActive }) =>
         isActive ? " font-extrabold text-white border-b-2  border-y-red-200 " : "font-extrabold text-white"
       }
     >
       FOOD
-    </NavLink>
+    </NavLink> */}
     <NavLink
       to="/about"
       className={({ isActive }) =>
@@ -446,7 +447,7 @@ const Navbar = () => {
 
               <Menu>
                 <MenuHandler>
-                  <a className="text-white text-2xl">   <FaHamburger /></a>
+                  <a className="text-white text-2xl"> <GiHamburger /></a>
                 </MenuHandler>
 
 
@@ -460,7 +461,7 @@ const Navbar = () => {
                   >
                     HOME
                   </NavLink></MenuItem>
-                  <MenuItem>
+                  {/* <MenuItem>
                     <NavLink
                       to="/food"
                       className={({ isActive }) =>
@@ -470,7 +471,7 @@ const Navbar = () => {
                       FOOD
                     </NavLink>
 
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem><NavLink
                     to="/about"
                     className={({ isActive }) =>
@@ -502,14 +503,21 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
 
-          <div className="w-16 text-2xl">
-
-            <button className="btn btn-ghost btn-circle text-2xl  text-white font-extrabold">
-              <div className="indicator">
-                <RiShoppingBag2Line />
-                
-              </div>
-            </button>
+          <div className="w-16 ">
+        {
+          user ? <>
+            <Link to={"/dashboard/myOrder"}>
+          
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+        <div className="indicator">
+        <div className="text-2xl text-white">  <GiHamburger /></div>
+          <span className="badge text-[10px] indicator-item text-[#ff0000d8]">{cartFood.length}</span>
+        </div>
+      </div>
+     
+          </Link>
+          </> : <></>
+        }
           </div>
         </div>
       </div>

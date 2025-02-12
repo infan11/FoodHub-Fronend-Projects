@@ -94,106 +94,103 @@ const UploadInfo = () => {
     };
 
     return (
-        <div className="hero min-h-screen mx-auto px-4 md:px-5">
+        <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-gray-100">
+            <div className="w-full max-w-2xl bg-white shadow-lg rounded-lg p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Add Restaurant</h2>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label className="text-[#ff0000d8] font-semibold">Restaurant Name</label>
+                            <input
+                                type="text"
+                                className="w-full p-2 border rounded-md bg-gray-100 text-[#ff0000d8]"
+                                {...register("restaurantName", { required: true })}
+                                readOnly
+                            />
+                            {errors.restaurantName && <span className="text-red-500 text-sm">This field is required</span>}
+                        </div>
+                        <div>
+                            <label className="text-[#ff0000d8] font-semibold">Restaurant Email</label>
+                            <input
+                                type="email"
+                                className="w-full p-2 border rounded-md  text-[#ff0000d8]"
+                                {...register("email", { required: true })}
+                                readOnly
+                            />
+                            {errors.email && <span className="text-red-500 text-sm">This field is required</span>}
+                        </div>
+                    </div>
 
-            <div className=" rounded-r-2xl shadow-xl px-6">
+                    <div>
+                        <label className="text-[#ff0000d8] font-semibold">Restaurant Address</label>
+                        <input
+                            type="text"
+                            className="w-full p-2 border rounded-md text-[#ff0000d8]"
+                            {...register("restaurantAddress", { required: true })}
+                        />
+                        {errors.restaurantAddress && <span className="text-red-500 text-sm">This field is required</span>}
+                    </div>
+                    
+                    <div>
+                        <label className="text-[#ff0000d8] font-semibold">Restaurant Number</label>
+                        <input
+                            type="number"
+                            className="w-full p-2 border rounded-md text-[#ff0000d8]"
+                            {...register("restaurantNumber", { required: true })}
+                        />
+                        {errors.restaurantNumber && <span className="text-red-500 text-sm">This field is required</span>}
+                    </div>
 
-                <div className="lg:w-full shrink-0 rounded-r-2xl shadow-xl">
-                    <Card color="transparent" shadow={false}>
-                        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 mb-2 mx-auto px-4 md:px-6 w-full">
-                            <div className="mb-1 md:w-full lg:w-96 mx-auto space-y-2 gap-6">
-                                <Input
-                                    size="lg"
-                                    name="name"
-                                    type="text"
-                                    color="red"
-                                    className="text-red-500"
-                                    label="Restaurant Name"
-                                    {...register("restaurantName", { required: true })}
-                                    readOnly
-                                />
-                                {errors.name && <span className="text-red-500 text-sm">This field is required</span>}
-                                <Input
-                                    size="lg"
-                                    name="email"
-                                    type="email"
-                                    className="text-red-500"
-                                    label="Restaurant email"
-                                    {...register("email", { required: true })}
-                                    readOnly
-                                />
-                                {errors.email && <span className="text-red-500 text-sm">This field is required</span>}
+                    <div>
+                        <label className="text-[#ff0000d8] font-semibold">Restaurant Category</label>
+                        <select
+                            className="w-full p-2 border rounded-md text-[#ff0000d8]"
+                            {...register("restaurantCategory", { required: true })}
+                        >
+                            <option value="" disabled selected>Choose your Restaurant Category</option>
+                            <option>Biryani</option>
+                            <option>Pizza</option>
+                            <option>Burger</option>
+                            <option>Cake</option>
+                            <option>Chicken</option>
+                            <option>Juice</option>
+                            <option>Beef</option>
+                            <option>Chinese</option>
+                        </select>
+                        {errors.restaurantCategory && <span className="text-red-500 text-sm">This field is required</span>}
+                    </div>
 
-                                <Input
-                                    size="lg"
-                                    name="restaurantAddress"
-                                    type="text"
-                                    label="Restaurant Address"
-                                    {...register("restaurantAddress", { required: true })}
-                                />
-                                {errors.restaurantAddress && <span className="text-red-500 text-sm">This field is required</span>}
-
-                                <Input
-                                    size="lg"
-                                    name="restaurantNumber"
-                                    type="number"
-                                    label="Restaurant Number"
-                                    {...register("restaurantNumber", { required: true })}
-                                />
-                                {errors.restaurantNumber && <span className="text-red-500 text-sm">This field is required</span>}
-                                <select
-                                    className="select select-error w-full max-w-xs"
-                                    name="resataurantCategory"
-                                    {...register("resataurantCategory", { required: true })}
-                                >
-                                    <option disabled selected>Choose your Restaurant Category</option>
-                                    <option>Biryani</option>
-                                    <option>Pizza</option>
-                                    <option>Burger</option>
-                                    <option>Cake</option>
-                                    <option>Chicken</option>
-                                    <option>Juice</option>
-                                    <option>Beef</option>
-                                    <option>Chinese</option>
-                                </select>
-                                {errors.resataurantCategory && <span className="text-red-500 text-sm">This field is required</span>}
-
-                                <div>
-                                    <label className="label">
-                                        <span className="label-text text-red-500 font-extrabold ml-4">Logo Should be 300×300</span>
-                                    </label>
-                                    <input
-                                        type="file"
-                                        name="photo"
-                                        accept="image/*"
-                                        {...register("photo", { required: true })}
-                                        className="file-input file-input-ghost"
-                                    />
-                                    <label className="label">
-                                        <span className="label-text text-red-500 font-extrabold ml-4">Banner Should be 1080×1080</span>
-                                    </label>
-                                    <input
-                                        type="file"
-                                        name="banner"
-                                        accept="image/*"
-                                        {...register("banner", { required: true })}
-                                        className="file-input file-input-ghost"
-                                    />
-                                </div>
-                                {errors.photo && <span className="text-red-500 text-sm">Logo is required</span>}
-                                {errors.banner && <span className="text-red-500 text-sm ml-2">Banner is required</span>}
-                            </div>
-
-                            <button
-                                className={`w-full uppercase bg-[#ff1818] text-white mt-2 btn rounded-badge ${isSubmitting ? "opacity-50" : ""}`}
-                                type="submit"
-                                disabled={isSubmitting}
-                            >
-                                {isSubmitting ? "Submitting..." : "Add Restaurant"}
-                            </button>
-                        </form>
-                    </Card>
-                </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label className="text-[#ff0000d8] font-semibold">Upload Logo (300×300)</label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                {...register("photo", { required: true })}
+                                className="w-full p-2 border rounded-md"
+                            />
+                            {errors.photo && <span className="text-red-500 text-sm">Logo is required</span>}
+                        </div>
+                        <div>
+                            <label className="text-[#ff0000d8] font-semibold">Upload Banner (1080×1080)</label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                {...register("banner", { required: true })}
+                                className="w-full p-2 border rounded-md"
+                            />
+                            {errors.banner && <span className="text-red-500 text-sm">Banner is required</span>}
+                        </div>
+                    </div>
+                    
+                    <button
+                        className={`w-full py-2 mt-4 text-white bg-red-600 hover:bg-red-700 rounded-md ${isSubmitting ? "opacity-50" : ""}`}
+                        type="submit"
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? "Submitting..." : "Add Restaurant"}
+                    </button>
+                </form>
             </div>
         </div>
     );

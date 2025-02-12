@@ -66,7 +66,7 @@ const RestaurantRegister = () => {
                 name: data.displayName,
                 email: data.email,
                 restaurantAddress: data.restaurantAddress,
-                restaurantNumber: parseFloat(data.restaurantNumber),
+                restaurantNumber: parseFloat(data.phoneNumber),
                 photo: logoData?.data?.display_url || "",
                 banner: bannerData?.data?.display_url || "",
             };
@@ -130,9 +130,9 @@ const RestaurantRegister = () => {
                                     size="lg"
                                     type="number"
                                     label="Restaurant Number"
-                                    {...register("restaurantNumber", { required: true })}
+                                    {...register("phoneNumber", { required: true })}
                                 />
-                                {errors.restaurantNumber && <span className="text-red-500 text-sm">This field is required</span>}
+                                {errors.phoneNumber && <span className="text-red-500 text-sm">This field is required</span>}
 
                                 <Input
                                     type="password"

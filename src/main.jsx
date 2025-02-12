@@ -11,11 +11,11 @@ import { Circles } from 'react-loader-spinner';
 const queryClient = new QueryClient();
 
 const Loader = () => (
-  <div className="flex justify-center items-center min-h-screen bg-gray-100">
+  <div className="flex justify-center items-center min-h-screen  ">
   <div>
-  <Circles
-                    height="80"
-                    width="80"
+   <Circles
+                    height="90"
+                    width="90"
                     color="#ff0000d8"
                     ariaLabel="circles-loading"
                     visible={true}
