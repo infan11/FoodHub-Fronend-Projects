@@ -1,5 +1,5 @@
 import { Button, Input } from "@material-tailwind/react";
-import { FaHamburger } from "react-icons/fa";
+import { FaHamburger, FaUserCircle } from "react-icons/fa";
 import {
   Menu,
   MenuHandler,
@@ -21,6 +21,7 @@ import useModerator from "../Hooks/useModerator";
 import useRestaurantOwner from "../Hooks/useRestaurantOwner";
 import useAddFood from "../Hooks/useAddFood";
 import { GiHamburger } from "react-icons/gi";
+import "./navbar.css"
 const Navbar = () => {
   const ClockIcon = () => {
     return (
@@ -49,42 +50,42 @@ const Navbar = () => {
     logout()
       .then(() => { })
   }
-  const navbarLinks = <>
-    <NavLink
-      to="/"
-      className={({ isActive }) =>
-        isActive ? " font-extrabold text-white border-b-2  border-y-red-200 " : "font-extrabold text-white "
-      }
-    >
-      HOME
-    </NavLink>
-    <NavLink
-      to="/restaurants"
-      className={({ isActive }) =>
-        isActive ? "   font-extrabold text-white border-b-2  border-y-red-200 " : "font-extrabold text-white  "
-      }
-    >
-      RESTAURANTS
-    </NavLink>
-    {/* <NavLink
-      to="/food"
-      className={({ isActive }) =>
-        isActive ? " font-extrabold text-white border-b-2  border-y-red-200 " : "font-extrabold text-white"
-      }
-    >
-      FOOD
-    </NavLink> */}
-    <NavLink
-      to="/about"
-      className={({ isActive }) =>
-        isActive ? " font-extrabold text-white border-b-2  border-y-red-200 " : "font-extrabold text-white"
-      }
-    >
-      ABOUT
-    </NavLink>
-
-
-  </>
+  const navbarLinks = (
+    <>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive
+            ? "font-extrabold text-white border-b-2 border-red-200 relative inline-block transition-colors duration-300 before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-full before:h-[2px] before:bg-white before:scale-100 before:transition-transform before:duration-300 hover:before:scale-100"
+            : "font-extrabold text-white relative inline-block transition-colors duration-300 before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-full before:h-[2px] before:bg-white before:scale-0 before:transition-transform before:duration-300 hover:before:scale-100 rounded"
+        }
+      >
+        HOME
+      </NavLink>
+      <NavLink
+        to="/restaurants"
+        className={({ isActive }) =>
+          isActive
+            ? "font-extrabold text-white border-b-2 border-red-200 relative inline-block transition-colors duration-300 before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-full before:h-[2px] before:bg-white before:scale-100 before:transition-transform before:duration-300 hover:before:scale-100"
+            : "font-extrabold text-white relative inline-block transition-colors duration-300 before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-full before:h-[2px] before:bg-white before:scale-0 before:transition-transform before:duration-300 hover:before:scale-100 rounded"
+        }
+      >
+        RESTAURANTS
+      </NavLink>
+      <NavLink
+        to="/about"
+        className={({ isActive }) =>
+          isActive
+            ? "font-extrabold text-white border-b-2 border-red-200 relative inline-block transition-colors duration-300 before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-full before:h-[2px] before:bg-white before:scale-100 before:transition-transform before:duration-300 hover:before:scale-100"
+            : "font-extrabold text-white relative inline-block transition-colors duration-300 before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-full before:h-[2px] before:bg-white before:scale-0 before:transition-transform before:duration-300 hover:before:scale-100 rounded"
+        }
+      >
+        ABOUT
+      </NavLink>
+    </>
+  );
+  
+  
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -501,8 +502,28 @@ const Navbar = () => {
             {navbarLinks}
           </ul>
         </div>
+        <div>
+          <div>
+            
+          </div>
+        </div>
         <div className="navbar-end">
-
+      <div>
+      {
+          user ? <>
+            <Link to={"/myProfile"}>
+          
+          <div tabIndex={0} role="button" className="md:block hidden">
+        <div className="">
+        <div className="badge text-[12px]  text-[#ff0000d8 ">  <p className="flex justify-center items-center gap-3 font-bold "><FaUserCircle /> {user?.displayName}</p></div>
+        
+        </div>
+      </div>
+     
+          </Link>
+          </> : <></>
+        }
+      </div>
           <div className="w-16 ">
         {
           user ? <>

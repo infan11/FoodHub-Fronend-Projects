@@ -161,7 +161,7 @@ const DetailsRestaurants = () => {
                   <p className="mb-2 bg-[#ff0000d8] text-white text-xs py-1 px-3 rounded-full w-fit">{food.foodName || "Unavailable"}</p>
                   {/* <p className="mb-2 bg-[#ff0000d8] text-white text-xs py-1 px-3 rounded-full w-fit">{food.category || "Unavailable"}</p> */}
                   <div className="flex justify-between items-center">
-                    <p className="text-red-500 text-sm">Delicious {food.foodName} from {restaurantName}. Price: ${food.price}</p>
+                    <p className="text-red-500 text-sm">Delicious {food.foodName} from <Link to={`/restaurantUpload/${food.restaurantName}`}><span className="font-bold">{restaurantName}</span></Link>. Price: ${food.price}</p>
                     {isAdmin || isModerator || isOwner ? (
                       // /dashboard/updateFood
                       <Link to={`/dashboard/updateFood/${food.restaurantName.foods}`}>

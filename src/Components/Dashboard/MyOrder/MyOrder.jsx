@@ -5,12 +5,14 @@ import { MdDeleteOutline } from "react-icons/md";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useForm } from "react-hook-form";
 
 const MyOrder = () => {
-  const [cartFood ,refetch] = useAddFood();
+  const [cartFood, refetch] = useAddFood();
   const [quantities, setQuantities] = useState({});
   const axiosSecure = useAxiosSecure();
-const {user} = useAuth();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const { user } = useAuth();
   // Function to increment quantity
   const handleIncrement = (id) => {
     setQuantities((prev) => ({
@@ -37,32 +39,33 @@ const {user} = useAuth();
   };
 
   const handleRemove = (id) => {
-    if(user && user.email){
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
-            if (result.isConfirmed) {
-                axiosSecure.delete(`/addFood/${id}`)
-                .then(res =>{
-                    // console.log(res.data);
-                    refetch()
-                    if(res.data.deletedCount > 0){
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success",
-                            color: "red"
-                          });
-                    }
-                })
-            } 
-          });
+
+    if (user && user.email) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure.delete(`/addFood/${id}`)
+            .then(res => {
+              // console.log(res.data);
+              refetch()
+              if (res.data.deletedCount > 0) {
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "Your file has been deleted.",
+                  icon: "success",
+                  color: "red"
+                });
+              }
+            })
+        }
+      });
     }
   };
 
@@ -74,13 +77,35 @@ const {user} = useAuth();
 
   const discount = subtotal * 0.15; // 15% discount
   const total = subtotal - discount;
+  const onSubmit = (data, id) => {
+    if (!id) {
+      console.error("Invalid ID:", id);
+      Swal.fire("Error!", "Invalid food item ID.", "error");
+      return;
+    }
+
+    const updatedQuantity = quantities[id] || 1;
+
+    axiosSecure
+      .patch(`/addFood/${id}`, { quantity: updatedQuantity })
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire("Success!", "Quantity updated successfully.", "success");
+        }
+      })
+      .catch((err) => {
+        console.error("Error updating quantity:", err);
+        Swal.fire("Error!", "Failed to update quantity.", "error");
+      });
+  };
 
   return (
-    <div className=" min-h-screen mt-10 px-4 lg:px-5">
+    <div className=" min-h-screen mt-10 px-2 lg:px-5 border-2 ">
       {cartFood.length > 0 ? (
         <div className="mb-11">
-          <table className="table w-full">
-            <thead className="bg-[#ff0000d8] text-white">
+          <table className="table ">
+            <thead className="bg-[#ff0000d8] rounded-xl text-white">
               <tr>
                 <th>Product</th>
                 <th>Quantity</th>
@@ -91,9 +116,9 @@ const {user} = useAuth();
               {cartFood.map((item) => (
                 <tr key={item._id}>
                   <td className="p-4">
-                    <div className="flex flex-col md:flex-row items-center gap-4">
+                    <div className="flex  items-center gap-2">
                       <div className="avatar">
-                        <div className="h-16 w-16  mr-32 md:mr-0 rounded-md overflow-hidden">
+                        <div className=" h-10 lg:h-16 w-10 lg:w-16  md:mr-0 rounded-md overflow-hidden">
                           <img
                             src={item.foodImage}
                             alt={item.foodName}
@@ -101,49 +126,56 @@ const {user} = useAuth();
                           />
                         </div>
                       </div>
-                      <div className="mr-20 md:mr-0">
-                        <p className="font-bold text-sm md:text-lg text-[#ff1818]">{item.foodName}</p>
-                        <p className="text-sm font-semibold ">Price: ${item.foodPrice}.00</p>
-                        <button
-                          onClick={() => handleRemove(item._id)}
-                          className="text-[#ff1818] text-sm font-semibold mt-1 hover:underline"
-                        >
-                          <MdDeleteOutline />
-                        </button>
+                      <div className=" grid md:grid-cols-2  ">
+
+                        <p className=" lg:font-bold text-[10px] lg:text-lg text-[#ff1818]">{item.foodName}</p>
                       </div>
+
                     </div>
+
+                    <p className="text-sm font-semibold ">Price: ${item.foodPrice}</p>
+                    <button
+                      onClick={() => handleRemove(item._id)}
+                      className="text-[#ff1818] text-sm font-semibold mt-1 hover:underline"
+                    >
+                      <MdDeleteOutline />
+                    </button>
                   </td>
 
                   <td className="">
-                 <div className=" w-[84px]">
-                <div className="mx-auto">
-                <button
-                      className="px-3 py-1  rounded hover:bg-gray-300"
-                      onClick={() => handleDecrement(item._id)}
-                    >
-                      -
-                    </button>
-                    <input
-                      type="text"
-                      className="w-4  bg-white text-[#ff0000d8] text-center font-bold"
-                      value={quantities[item._id] || 1}
-                      onChange={(e) => handleQuantityChange(item._id, e.target.value)}
-                      required
-                    />
-                    <button
-                      onClick={() => handleIncrement(item._id)}
-                      className="px-3 py-1  rounded hover:bg-gray-300"
-                      disabled={(quantities[item._id] || 1) >= 100}
-                    >
-                      +
-                    </button>
-                </div>
-                 </div>
+                    <form onSubmit={handleSubmit((data) => onSubmit(data, item._id))}>
+                      <div className=" w-[84px]">
+                        <div className="mx-auto">
+                          <button
+                            className="px-3 py-1  rounded hover:bg-gray-300"
+                            onClick={() => handleDecrement(item._id)}
+                          >
+                            -
+                          </button>
+                          <input
+                            type="text"
+                            className="w-4 bg-white text-[#ff0000d8] text-center font-bold"
+                            name="quantities"
+                            value={quantities[item._id] || "" || 1}
+                            onChange={(e) => handleQuantityChange(item._id, e.target.value)}
+                            required
+                          />
+
+                          <button
+                            onClick={() => handleIncrement(item._id)}
+                            className="px-3 py-1  rounded hover:bg-gray-300"
+                            disabled={(quantities[item._id] || 1) >= 100}
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    </form>
                   </td>
 
                   <td>
                     <p className="font-semibold text-[#ff1818]">
-                      ${item.foodPrice * (quantities[item._id] || 1)}.00
+                      ${item.foodPrice * (quantities[item._id] || 1)}
                     </p>
                   </td>
                 </tr>
@@ -173,7 +205,7 @@ const {user} = useAuth();
 
           {/* Checkout Button */}
           <div className="px-3 md:px-1">
-            <Link to={"/dashboard/checkOut"}>
+            <Link to={"/dashboard/checkOutForm"}>
               <button className="btn w-full mt-4 font-Kanit btn-outline bg-[#ff0000d8] hover:bg-[#ff0000d8] text-white hover:text-white ">
                 Confirm Order
               </button>

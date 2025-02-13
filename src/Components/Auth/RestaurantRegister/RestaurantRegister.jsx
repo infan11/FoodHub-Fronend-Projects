@@ -19,47 +19,24 @@ const RestaurantRegister = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        const logo = data.photo?.[0]; // Logo Image
-        const banner = data.banner?.[0]; // Banner Image
-
-        if (!logo || !banner) {
-            toast.error("Please upload both logo and banner images.");
-            return;
-        }
-
-        const validateImage = (file, maxWidth, maxHeight) =>
-            new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        if (img.width > maxWidth || img.height > maxHeight) {
-                            reject(`Image must not exceed ${maxWidth}x${maxHeight} dimensions.`);
-                        } else {
-                            resolve();
-                        }
-                    };
-                    img.onerror = () => reject("Invalid image file.");
-                    img.src = e.target.result;
-                };
-                reader.onerror = () => reject("File reading error.");
-                reader.readAsDataURL(file);
-            });
 
         try {
-            await validateImage(logo, 300, 300);
-            await validateImage(banner, 1080, 1080);
 
-            const logoData = await imageUpload(logo);
-            const bannerData = await imageUpload(banner);
+            const response = await axiosSecure.get(`/users/check-name?name=${encodeURIComponent(data.displayName)}`);
+
+
+            if (response.data?.exists) {
+                toast.error("This restaurant name is already taken. Please choose another name.");
+                return;
+            }
+
+
 
             const userResponse = await createUser(data.email, data.password);
             const registerUser = userResponse.user;
 
-            // Ensure profile update with correct format
-          await   updateUserProfile({
-       name: data.displayName,
-                photo: logoData?.data?.display_url || ""
+            await updateUserProfile({
+                name: data.displayName,
             });
 
             const usersInfo = {
@@ -67,26 +44,19 @@ const RestaurantRegister = () => {
                 email: data.email,
                 restaurantAddress: data.restaurantAddress,
                 restaurantNumber: parseFloat(data.phoneNumber),
-                photo: logoData?.data?.display_url || "",
-                banner: bannerData?.data?.display_url || "",
+
             };
 
-            toast.promise(
-                axiosSecure.put("/users", usersInfo),
-                {
-                    loading: 'Registering...',
-                    success: 'Successfully Registered!',
-                    error: <b>Could not register user.</b>,
-                }
-            );
+            await axiosSecure.put("/users", usersInfo);
 
+            toast.success("Successfully Registered!");
             navigate(from, { replace: true });
 
         } catch (error) {
-            toast.error(typeof error === "string" ? error : "Something went wrong.");
+            console.error("Error during registration:", error);
+            toast.error(error.response?.data?.message || "Something went wrong.");
         }
     };
-
     return (
         <div className="hero min-h-screen mx-auto px-4 md:px-5">
             <div className="grid md:grid-cols-2 rounded-r-2xl shadow-xl">
@@ -146,10 +116,10 @@ const RestaurantRegister = () => {
                                 {errors.password?.type === 'maxLength' && <span className="text-red-500">Password must not exceed 8 characters</span>}
 
                                 <div className="">
-                                    <label className="label">
+                                    {/* <label className="label">
                                         <span className="label-text text-red-500 font-extrabold ml-4">Logo Should be 300×300</span>
-                                    </label>
-                                    <input
+                                    </label> */}
+                                    {/* <input
                                         type="file"
                                         accept="image/*"
                                         {...register("photo", { required: true })}
@@ -166,7 +136,7 @@ const RestaurantRegister = () => {
                                         {...register("banner", { required: true })}
                                         className="file-input file-input-ghost"
                                     />
-                                    {errors.banner && <span className="text-red-500 text-sm ml-2">Banner is required</span>}
+                                    {errors.banner && <span className="text-red-500 text-sm ml-2">Banner is required</span>} */}
                                 </div>
                             </div>
 

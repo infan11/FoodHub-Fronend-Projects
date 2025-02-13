@@ -33,6 +33,8 @@ import Dashboard from "../../Dashboard/Dashboard/Dashboard";
 import MyOrder from "../../Dashboard/MyOrder/MyOrder";
 import UploadInfo from "../../Dashboard/UploadInfo/UploadInfo";
 import DeatilsRestaurants from "../../Restaurants/DetailsRestaurants/DeatilsRestaurants";
+import MyProfile from "../../MyProfile/MyProfile/MyProfile";
+import CheckoutForm from "../../Dashboard/CheckoutForm/CheckoutForm";
 
 export const router = createBrowserRouter([
   {
@@ -101,6 +103,10 @@ export const router = createBrowserRouter([
         element: <RestaurantRegister />,
       },
       {
+        path: "/myProfile",
+        element:  <MyProfile/>
+      },
+      {
         path: "/resetPassword",
         element: <ResetPassword />,
       },
@@ -153,6 +159,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/users",
         element: <PrivateRoutes><Users /></PrivateRoutes>,
+      },
+      {
+        path: "/dashboard/checkOutForm",
+        element: <CheckoutForm/>,
       },
       {
         path: "/dashboard/paymentHistory",

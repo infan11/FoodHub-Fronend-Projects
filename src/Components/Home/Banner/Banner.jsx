@@ -9,25 +9,25 @@ const Banner = () => {
             <Swiper
                 pagination={{
                     dynamicBullets: true,
-                    
+
                 }}
-autoplay={true}
+                autoplay={true}
 
                 className="mySwiper  "
             >
-                
-                <SwiperSlide>
-
-                    <div className=' '>
-                        <img src="https://i.ibb.co.com/MCd7jXg/HOME1.png" alt="" />
-                    </div>
-                </SwiperSlide>
                 <SwiperSlide>
 
                     <div className=' '>
                         <img src="https://i.ibb.co.com/xjTbNcp/home2.png" alt="" />
                     </div>
                 </SwiperSlide>
+                <SwiperSlide>
+
+                    <div className=' '>
+                        <img src="https://i.ibb.co.com/MCd7jXg/HOME1.png" alt="" />
+                    </div>
+                </SwiperSlide>
+
 
                 <SwiperSlide>
 

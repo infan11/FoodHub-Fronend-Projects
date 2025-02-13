@@ -26,15 +26,16 @@ const Biryani = () => {
   const [isOwner] = useRestaurantOwner();
   const [isRestaurantData, refetchTwo] = useRestaurantData();
   const [existingItem, setExistingItem] = useState(false);
-
   const biryaniFoods = isRestaurantData
-    ?.flatMap((restaurant) =>
-      restaurant.foods.map((food) => ({
-        ...food,
-        restaurantName: restaurant.restaurantName, // ✅ প্রতিটি খাবারের সাথে রেস্টুরেন্টের নাম যোগ করা
-      }))
-    )
-    ?.filter((food) => food.category === "Biryani"); // শুধু Biryani ফিল্টার করা
+  ?.flatMap((restaurant) =>
+    restaurant?.foods?.map((food) => ({
+      ...food,
+      restaurantName: restaurant?.restaurantName,
+    }))
+  )
+  ?.filter((food) => food?.category === "Biryani") || []; 
+
+console.log("Burger Foods Data:", biryaniFoods); 
 
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
@@ -128,7 +129,14 @@ const Biryani = () => {
                   <p className="mb-2 bg-[#ff0000d8] text-white text-xs py-1 px-3 rounded-full w-fit">{food.foodName || "Unavailable"}</p>
                   {/* <p className="mb-2 bg-[#ff0000d8] text-white text-xs py-1 px-3 rounded-full w-fit">{food.category || "Unavailable"}</p> */}
                   <div className="flex justify-between items-center">
-                    <p className="text-red-500 text-sm">Delicious {food.foodName} from <span className="font-bold">{food.restaurantName}</span>. Price: ${food.price}</p>
+                   <p className="text-red-500 text-sm">
+                      Delicious {food.foodName} from{" "}
+                      <Link to={`/restaurantUpload/${food.restaurantName}`}>
+                        <span className="font-bold">{food.restaurantName}</span>
+                      </Link>
+                      . Price: ${food.price}
+                    </p>
+
                 
 
                     {existingItem ? (
