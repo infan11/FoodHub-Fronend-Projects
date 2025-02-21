@@ -40,7 +40,7 @@ createRoot(document.getElementById('root')).render(
     <AuthProvider>
       <Toaster />
       <QueryClientProvider client={queryClient}>
-        <div className="font-Kanit">
+        <div className="font-Kanit bg-white">
           <AppWithLoader />
         </div>
       </QueryClientProvider>

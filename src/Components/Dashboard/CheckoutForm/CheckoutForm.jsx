@@ -1,6 +1,6 @@
 
 
-import { Input, Textarea } from '@material-tailwind/react';
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, IconButton, Input, Textarea, Typography } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdDeleteOutline } from 'react-icons/md';
@@ -8,22 +8,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
 import Select from "react-select";
-import { FaCcStripe } from "react-icons/fa6";
-import {
-    Radio,
-    Card,
-    List,
-    ListItem,
-    ListItemPrefix,
-    Typography,
-} from "@material-tailwind/react";
+
 import { Helmet } from 'react-helmet';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import useAddFood from '../../Hooks/useAddFood';
 import useAuth from '../../Hooks/useAuth';
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { FaCcStripe } from "react-icons/fa";
+import Stripe from 'stripe';
+
+
 const CheckoutForm = () => {
     const navigate = useNavigate()
-
+    // const stripe = useStripe();
     const axiosSecure = useAxiosSecure();
     const [stateOptions, setStateOptions] = useState([]);
     const [localCountry, setLocalCountry] = useState(null);
@@ -32,9 +30,24 @@ const CheckoutForm = () => {
     const [selectedDistrict, setSelectedDistrict] = useState(null);
     const [loading, setLoading] = useState(false);
     const [quantities, setQuantities] = useState({});
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const [cartFood, refetch] = useAddFood();
     const { user } = useAuth();
+    const [selectedUpazila, setSelectedUpazila] = useState(null);
+    const [upazilaOptions, setUpazilaOptions] = useState([]);
+    const [open, setOpen] = React.useState(false);
+    const [clientSecret, setClientSecret] = useState("");
+    const [transactionId, setTransactionId] = useState("");
+   
+ 
+    const {
+        register, handleSubmit, formState: { errors },
+        setValue,
+    } = useForm({
+        defaultValues: {
+            restaurantName: user?.displayName || "Default name", email: user?.email || "Default Email  "
+        },
+    });
+    const handleOpen = () => setOpen(!open);
     useEffect(() => {
         setLoading(true);
         let options = [];
@@ -77,7 +90,7 @@ const CheckoutForm = () => {
                 { value: "Lakshmipur", label: "Lakshmipur" },
                 { value: "Noakhali", label: "Noakhali" },
                 { value: "Rangamati", label: "Rangamati" },
-                { value: "Cox'sbazar", label: "Cox'sbazar" }
+                { value: "Cox_sBazar", label: "Cox_sBazar" }
             ],
             Khulna: [
                 { value: "Khulna", label: "Khulna" },
@@ -129,6 +142,7 @@ const CheckoutForm = () => {
             ]
         };
 
+
         setStateOptions(options);
         if (selectedStateCategory) {
             setDistrictOption(district[selectedStateCategory.value] || []);
@@ -138,7 +152,69 @@ const CheckoutForm = () => {
 
         setLoading(false);
     }, [localCountry, selectedStateCategory]);
+    const upazilas = {
+        Dhaka: [
+            { value: "Adabor", label: "Adabor" },
+            { value: "Badda", label: "Badda" },
+            { value: "Banani", label: "Banani" },
+            { value: "Bangshal", label: "Bangshal" },
+            { value: "Cantonment", label: "Cantonment" },
+            { value: "Chawkbazar", label: "Chawkbazar" },
+            { value: "Dhanmondi", label: "Dhanmondi" },
+            { value: "Gendaria", label: "Gendaria" },
+            { value: "Gulshan", label: "Gulshan" },
+            { value: "Hazaribagh", label: "Hazaribagh" },
+            { value: "Jatrabari", label: "Jatrabari" },
+            { value: "Kadamtali", label: "Kadamtali" },
+            { value: "Kafrul", label: "Kafrul" },
+            { value: "Kamrangirchar", label: "Kamrangirchar" },
+            { value: "Khilgaon", label: "Khilgaon" },
+            { value: "Khilkhet", label: "Khilkhet" },
+            { value: "Kotwali", label: "Kotwali" },
+            { value: "Lalbagh", label: "Lalbagh" },
+            { value: "Mirpur", label: "Mirpur" },
+            { value: "Mohammadpur", label: "Mohammadpur" },
+            { value: "Motijheel", label: "Motijheel" },
+            { value: "New Market", label: "New Market" },
+            { value: "Pallabi", label: "Pallabi" },
+            { value: "Paltan", label: "Paltan" },
+            { value: "Ramna", label: "Ramna" },
+            { value: "Sabujbagh", label: "Sabujbagh" },
+            { value: "Shah Ali", label: "Shah Ali" },
+            { value: "Shahbagh", label: "Shahbagh" },
+            { value: "Shyampur", label: "Shyampur" },
+            { value: "Sutrapur", label: "Sutrapur" },
+            { value: "Tejgaon", label: "Tejgaon" },
+            { value: "Turag", label: "Turag" },
+            { value: "Uttara", label: "Uttara" },
+            { value: "Uttarkhan", label: "Uttarkhan" },
+        ],
+        Cox_sBazar: [
 
+            { value: "Cox_sBazar: Sadar", label: "Cox_sBazar: Sadar" },
+            { value: "Chakaria", label: "Chakaria" },
+            { value: "Eidgaon", label: "Eidgaon" },
+            { value: "Ramu", label: "Ramu" },
+            { value: "Teknaf", label: "Teknaf" },
+            { value: "Ukhiya", label: "Ukhiya" },
+
+        ]
+    };
+    useEffect(() => {
+        setLoading(true);
+
+        if (selectedDistrict) {
+            setUpazilaOptions(upazilas[selectedDistrict.value] || []);
+        } else {
+            setUpazilaOptions([]);
+        }
+
+        setLoading(false);
+    }, [selectedDistrict]);
+    const handleUpazilaChange = (selectedOption) => {
+        setSelectedUpazila(selectedOption);
+        setValue("upazila", selectedOption?.value || null);
+    };
     const handleCategoryChange = (selectedOption) => {
         setLocalCountry(selectedOption);
         setValue("category", selectedOption?.value || null);
@@ -191,7 +267,36 @@ const CheckoutForm = () => {
 
     const discount = subtotal * 0.15; // 15% discount
     const total = subtotal - discount;
+    const safeCartFood = Array.isArray(cartFood) ? cartFood : [];
 
+    // Ensure quantities exist, fallback to an empty object
+    // const quantities = cartFood?.quantities || {};
+
+    // const subtotal = safeCartFood.reduce((acc, item) => {
+    //     const quantity = quantities[item._id] || 1;
+    //     return acc + (item.foodPrice || 0) * quantity; 
+    // }, 0);
+
+    // const discount = subtotal * 0.15; 
+    // const total = subtotal - discount;
+    const handleCreatePayment = async () => {
+        const payment = {
+            email: user.email,
+            foodPrice: parseFloat(total),
+            transactionId: "",
+            date: new Date(),
+            cartFoodId: cartFood.map((item) => item._id),
+            status: "pending"
+        }
+        axiosSecure.post("/create-ssl-payment", payment)
+            .then(res => {
+                console.log(res.data);
+                if (res.data?.gatewayPageURL) {
+                    window.location.replace(res.data.gatewayPageURL)
+                }
+            });
+
+    }
 
     const handleRemove = (id) => {
         if (user && user.email) {
@@ -223,6 +328,15 @@ const CheckoutForm = () => {
             });
         }
     };
+    useEffect(() => {
+        if (total > 0 && !clientSecret) {
+            axiosSecure.post('/create-payment-intent', { price: total })
+                .then(res => setClientSecret(res.data.clientSecret))
+                .catch(error => console.error("Error creating payment intent:", error));
+        }
+    }, [axiosSecure, total, clientSecret]);
+    // stripe payment
+
 
     return (
         <div >
@@ -245,12 +359,12 @@ const CheckoutForm = () => {
                                             className="w-full px-3 py-2 border rounded-full focus:ring-2 text-[#ff1818] focus:ring-red-400 outline-none transition"
                                             placeholder="Enter restaurant name"
                                             {...register("restaurantName", { required: true, minLength: 1, maxLength: 20 })}
-                                            readOnly
+
                                         />
                                         {errors.name && <span className="text-[#ff1818]">This field is required</span>}
                                         <br />
                                         <div className='md:flex gap-2'>
-                                            <Input type="email" color='green' size="lg" label="Email" name="email" {...register("email", { required: true })} className="text-green-400" />
+                                            <Input type="email" color='red' size="lg" label="Email" name="email" {...register("email", { required: true })} className="text-[#ff1818]" readOnly />
                                             {errors.email && <span className="text-[#ff1818]">This field is required</span>}
 
                                             <br />
@@ -259,7 +373,7 @@ const CheckoutForm = () => {
                                                 label="Contact Number"
                                                 {...register("contactNumber", { required: true })}
                                                 placeholder="e.g., +1 123-456-7890"
-                                                color='green'
+                                                color='red'
                                                 pattern="^\+\d{1,3}\s\d{1,4}-\d{1,4}-\d{4}$"
                                                 className="appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                                                 icon={
@@ -267,7 +381,7 @@ const CheckoutForm = () => {
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 24 24"
                                                         fill="currentColor"
-                                                        className="h-4 w-4 text-green-400"
+                                                        className="h-4 w-4 text-[#ff1818]"
                                                     >
                                                         <path
                                                             fill-rule="evenodd"
@@ -285,31 +399,8 @@ const CheckoutForm = () => {
                                                 placeholder="Select Country"
                                                 options={[
                                                     { value: "Afghanistan", label: "Afghanistan" },
-                                                    { value: "Albania", label: "Albania" },
-                                                    { value: "Algeria", label: "Algeria" },
-                                                    { value: "Andorra", label: "Andorra" },
-
-                                                    { value: "Bahamas", label: "Bahamas" },
-                                                    { value: "Bahrain", label: "Bahrain" },
                                                     { value: "Bangladesh", label: "Bangladesh" },
-                                                    { value: "Barbados", label: "Barbados" },
-                                                    { value: "Belarus", label: "Belarus" },
-                                                    { value: "Belgium", label: "Belgium" },
-                                                    { value: "Belize", label: "Belize" },
-                                                    { value: "Benin", label: "Benin" },
-                                                    { value: "Bhutan", label: "Bhutan" },
-                                                    { value: "Bolivia", label: "Bolivia" },
-                                                    { value: "Bosnia and Herzegovina", label: "Bosnia and Herzegovina" },
-                                                    { value: "Botswana", label: "Botswana" },
-                                                    { value: "Brazil", label: "Brazil" },
-                                                    { value: "Brunei", label: "Brunei" },
-                                                    { value: "Bulgaria", label: "Bulgaria" },
-                                                    { value: "Burkina Faso", label: "Burkina Faso" },
-                                                    { value: "Burundi", label: "Burundi" },
-                                                    { value: "Cabo Verde", label: "Cabo Verde" },
-                                                    { value: "Cambodia", label: "Cambodia" },
-                                                    { value: "Cameroon", label: "Cameroon" },
-                                                    { value: "Canada", label: "Canada" },
+
 
                                                 ]}
                                                 value={localCountry}
@@ -325,7 +416,7 @@ const CheckoutForm = () => {
                                                 onChange={handleProductCategoryChange}
                                                 isDisabled={loading || stateOptions.length === 0}
                                                 isClearable
-                                                className='w-full text-gray-800'
+                                                className='w-full text-[#ff1818]'
                                             />
                                         </div>
                                         <br />
@@ -338,7 +429,7 @@ const CheckoutForm = () => {
                                                 onChange={handleDistrictChange}
                                                 isDisabled={!selectedStateCategory}
                                                 isClearable
-                                                className='text-gray-800'
+                                                className='text-[#ff1818]'
                                             />
 
 
@@ -348,13 +439,22 @@ const CheckoutForm = () => {
 
                                     </div>
                                     <br />
-                                    <Input color='green' type="text" size="lg" label="Upzila Name" name="upzilaName" {...register("upzilaName", { required: true })} className=" text-green-400" />
+                                    <Select
+                                        placeholder="Select Upazila"
+                                        value={selectedUpazila}
+                                        options={upazilaOptions}
+                                        onChange={handleUpazilaChange}
+                                        isDisabled={!selectedDistrict} // Enable when a district is selected
+                                        isClearable
+                                        className='text-[#ff1818]'
+                                    />
+                                    {/* <Input color='red' type="text" size="lg" label="Upzila Name" name="upzilaName" {...register("upzilaName", { required: true })} className=" text-green-400" /> */}
                                     {errors.upzilaName && <span className="text-[#ff1818]">This field is required</span>}
                                     <br />
 
 
                                     <div className="w-full">
-                                        <Textarea color='green' label="Full Address" className='text-green-400' name='address' {...register("address", { required: true })} />
+                                        <Textarea color='red' label={`Please Your Full Address ${user?.displayName}`} className='text-[#ff1818]' name='address' {...register("address", { required: true })} />
                                         {errors.address && <span className="text-[#ff1818]">This field is required</span>}
                                     </div>
 
@@ -436,40 +536,26 @@ const CheckoutForm = () => {
                                             <p className="text-center ml-3 font-bold text-[#ff1818]">${total.toFixed(2)} </p>
                                         </div>
                                     </div>
-                                    <Card>
-                                        <List>
 
-                                            <ListItem className="p-0">
-                                                <label
-                                                    htmlFor="vertical-list-vue"
-                                                    className="flex w-full cursor-pointer items-center px-3 py-2"
-                                                >
-                                                    <ListItemPrefix className="mr-3">
-                                                        <Radio
-                                                            name="vertical-list"
-                                                            id="vertical-list-vue"
-                                                            ripple={false}
-                                                            className="hover:before:opacity-0"
-                                                            containerProps={{
-                                                                className: "p-0",
-                                                            }}
-                                                        />
-                                                    </ListItemPrefix>
-                                                    <Typography
-                                                        color="blue-gray"
-                                                        name="onlinePayment"
-                                                        className="font-medium  flex items-center gap-3"
-                                                    >
-                                                        Online Payment <FaCcStripe />
-                                                    </Typography>
-                                                </label>
-                                            </ListItem>
 
-                                        </List>
-                                    </Card>
+                                    <div className='flex items-center justify-center gap-4 mt-4'>
+
+                                     <Link to={"/dashboard/paymentPage"}>
+                                     <button onClick={handleOpen} className="btn btn-outline hover:bg-white">
+                                            <img className="w-10 drop-shadow-2xl" src="https://i.ibb.co.com/FLXQZjJ1/Stripe.png" alt="Stripe Logo" />
+                                        </button>
+                                     </Link>
+
+                                     
+                                        or
+                                        <Link ><button onClick={handleCreatePayment} className='btn  btn-outline hover:bg-white'>
+                                            <img className='w-16' src="https://i.ibb.co.com/9mCGY8wh/ssl-Commerce.png" alt="" />
+                                        </button></Link>
+                                    </div>
+
                                     <div className='px-3 md:px-1'>
 
-                                        <button className='btn  w-full mt-4  btn-outline bg-orange-900 text-white'>Payment</button>
+                                        <button className='btn  w-full mt-4  btn-outline bg-[#ff1818] hover:bg-[#ff1818] text-white'>Payment</button>
 
                                     </div>
                                 </div>

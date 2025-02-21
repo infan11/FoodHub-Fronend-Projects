@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 const BannerTwo = () => {
@@ -19,7 +20,7 @@ const BannerTwo = () => {
                         Created god gathered don't you yielding herb you had. And isn't, god was saw. Dominion. Great sixth for in unto was. Open can't tree waters brought. Divide after there. Was. Created god gathered don't you yielding herb you had. And isn't god.
                         </p>
                         <div className="w-60 "> 
-                        <button className={`rounded  mt-5 border-2 p-3 px-3 border-red-500  bg-[#ff0000d8] text-white font-semibold hover:transition-colors  hover:bg-white hover:text-red-600`}>BOOK A FOOD</button>
+                   <Link to={"https://foodhub-d3e1e.web.app/restaurantUpload/7dayz"}>     <button className={`rounded  mt-5 border-2 p-3 px-3 border-red-500  bg-[#ff0000d8] text-white font-semibold hover:transition-colors  hover:bg-white hover:text-red-600`}>BOOK A FOOD</button></Link>
                         </div>
                     </div>
                  </div>

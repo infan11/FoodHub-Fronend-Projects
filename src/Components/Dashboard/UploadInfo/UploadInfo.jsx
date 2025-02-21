@@ -20,11 +20,10 @@ const UploadInfo = () => {
     const [isSubmitting, setIsSubmitting] = useState(false); // Track submission
     const {
         register, handleSubmit, formState: { errors },
-        setValue,
     } = useForm({
         defaultValues: {
             restaurantName: user?.displayName  || "Default Restaurant",
-            email : user?.email  || "Default Email  "
+            email : user?.email  || "Default Email"
             
 
         },

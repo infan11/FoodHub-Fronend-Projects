@@ -35,6 +35,9 @@ import UploadInfo from "../../Dashboard/UploadInfo/UploadInfo";
 import DeatilsRestaurants from "../../Restaurants/DetailsRestaurants/DeatilsRestaurants";
 import MyProfile from "../../MyProfile/MyProfile/MyProfile";
 import CheckoutForm from "../../Dashboard/CheckoutForm/CheckoutForm";
+// import SSLCommerce from "../../Dashboard/PaymentMethod/SSLCommerce/SSLCommerce";
+import PaymentSuccess from "../../Dashboard/PaymentSuccess/PaymentSuccess";
+import PaymentPage from "../../Dashboard/PaymentPage/PaymentPage";
 
 export const router = createBrowserRouter([
   {
@@ -167,6 +170,18 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/paymentHistory",
         element: <PrivateRoutes><PaymentHistory /></PrivateRoutes>,
+      },
+      // {
+      //   path: "/dashboard/SSLCommerce",
+      //   element: <PrivateRoutes><SSLCommerce/></PrivateRoutes>,
+      // },
+      {
+        path: "/dashboard/paymentSuccess",
+        element: <PrivateRoutes><PaymentSuccess/></PrivateRoutes>,
+      },
+      {
+        path: "/dashboard/paymentPage",
+        element: <PrivateRoutes><PaymentPage/></PrivateRoutes>,
       },
     ],
   },
