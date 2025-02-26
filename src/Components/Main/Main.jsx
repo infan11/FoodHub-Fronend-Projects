@@ -6,7 +6,7 @@ import Footer from "../Footer/Footer";
 
 const Main = () => {
     const location = useLocation();
-    const noNavbarFooter = ["/login" , "/register" , "/resetPassword" ,"/restaurantRegister"].includes(location.pathname);
+    const noNavbarFooter = ["/login" , "/register" , "/resetPassword" ,"/restaurantRegister" , "/dashboard/paymentSuccess"].includes(location.pathname);
     return (
         <div>
           { noNavbarFooter || <Navbar/>  }

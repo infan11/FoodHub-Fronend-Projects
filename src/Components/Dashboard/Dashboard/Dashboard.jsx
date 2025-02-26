@@ -7,7 +7,7 @@ import {
   ListItemPrefix,
 } from "@material-tailwind/react";
 import { PiHamburgerThin } from "react-icons/pi";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { LuUserSearch } from "react-icons/lu";
 import { FaRegUser } from "react-icons/fa";
 import { RxUpdate } from "react-icons/rx";
@@ -34,10 +34,12 @@ const handleLogout = () => {
   logout()
   .then(() => {})
 }
+const location = useLocation();
+const noNavbarFooter = ["/dashboard/paymentSuccess"].includes(location.pathname);
   return (
     <div className="min-h-screen">
       {/* Navbar */}
-      <div className="navbar bg-white shadow-2xl">
+     {noNavbarFooter || <div className="navbar bg-white shadow-2xl">
         <div className="flex-none ">
           <label
             htmlFor="my-drawer-4"
@@ -49,13 +51,14 @@ const handleLogout = () => {
         <div className="flex-1">
           <span className="text-xl font-bold text-[#ff1818]">DASHBOARD</span>
         </div>
-      </div>
+      </div> }
 
       {/* Drawer */}
       <div className="drawer drawer-end">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Main Content */}
+    
           <Outlet />
         </div>
         <div className="drawer-side">
