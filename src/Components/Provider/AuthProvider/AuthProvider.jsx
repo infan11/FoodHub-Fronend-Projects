@@ -47,17 +47,27 @@ const AuthProvider = ({ children }) => {
         return sendPasswordResetEmail(auth, email);
     };
 
-    const updateUserProfile = ({name, photo}) => {
+    const updateUserProfile = async ({ displayName, photoURL }) => {
         if (auth.currentUser) {
-            return updateProfile(auth.currentUser, {
-                displayName: name,
-                photoURL: photo,
-            }).then(() => {
-                setUser({ ...auth.currentUser });
+          try {
+            await updateProfile(auth.currentUser, {
+              displayName,
+              photoURL,
             });
+      
+            // Force refresh user state from Firebase Auth
+            await auth.currentUser.reload();
+      
+            // Update AuthContext state with the new user data
+            setUser({ ...auth.currentUser });
+      
+            console.log("Updated user profile:", auth.currentUser);
+          } catch (error) {
+            console.error("Profile update failed:", error);
+            toast.error("Failed to update profile");
+          }
         }
-    };
-
+      };
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);

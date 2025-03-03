@@ -44,7 +44,7 @@ const CheckoutForm = () => {
         setValue,
     } = useForm({
         defaultValues: {
-            restaurantName: user?.displayName || "Default name", email: user?.email || "Default Email  "
+             customerName : user?.displayName || "Default name", email: user?.email || "Default Email  "
         },
     });
     const handleOpen = () => setOpen(!open);
@@ -232,32 +232,39 @@ const CheckoutForm = () => {
         setSelectedDistrict(selectedOption);
         setValue("district", selectedOption?.value || null);
     };
-
-    const onSubmit = (data) => {
-        // // console.log(data);
-        const CheckoutFormItems = {
-            name: data.name,
-            category: localCountry?.value,
-            state_category: data.state_category,
-            district: data.district,
-            CheckoutFormEmail: data.email,
-            address: data.address,
-            contactNumber: parseFloat(data.contactNumber)
-
-
-        };
-        // // console.log(CheckoutFormItems);
-        axiosSecure.post("/CheckoutForm", CheckoutFormItems)
-            .then(res => {
-                // // console.log(res.data);
-                if (res.data.insertedId) {
-                    toast.success("Payment Please")
-                }
-                navigate("/dashboard/payment")
-
-            })
-
+    const onSubmit = async (data) => {
+        try {
+            const payment = {
+                email: user?.email,
+                foodPrice: parseFloat(total),
+                transactionId: "",
+                date: new Date(),
+                cartFoodId: cartFood.map((item) => item._id),
+                status: "pending",
+                customerName: user?.displayName || "Customer",
+                category: localCountry?.value || "General",
+                state_category: data.state_category || "Unknown",
+                district: data.district || "Unknown",
+                address: data.address || "Unknown Address",
+                contactNumber: parseFloat(data.contactNumber) || "01700000000"
+            };
+    
+            console.log("🚀 Sending Payment Data:", payment); 
+    
+            const res = await axiosSecure.post("/create-ssl-payment", payment);
+            console.log("🔍 Response from Backend:", res.data);
+    
+            if (res.data?.gatewayPageURL) {
+                window.location.replace(res.data.gatewayPageURL);
+            } else {
+                console.error(" Gateway URL not received!");
+            }
+    
+        } catch (error) {
+            console.error(" Payment request failed:", error);
+        }
     };
+    
 
     // Calculate Subtotal
     const subtotal = cartFood.reduce((acc, item) => {
@@ -279,24 +286,6 @@ const CheckoutForm = () => {
 
     // const discount = subtotal * 0.15; 
     // const total = subtotal - discount;
-    const handleCreatePayment = async () => {
-        const payment = {
-            email: user.email,
-            foodPrice: parseFloat(total),
-            transactionId: "",
-            date: new Date(),
-            cartFoodId: cartFood.map((item) => item._id),
-            status: "pending"
-        }
-        axiosSecure.post("/create-ssl-payment", payment)
-            .then(res => {
-                console.log(res.data);
-                if (res.data?.gatewayPageURL) {
-                    window.location.replace(res.data.gatewayPageURL)
-                }
-            });
-
-    }
 
     const handleRemove = (id) => {
         if (user && user.email) {
@@ -350,15 +339,16 @@ const CheckoutForm = () => {
                     <div style={{ backgroundImage: "url()" }} className="  min-h-screen  hero">
                         <div className="hero-content grid md:grid-cols-2 md:gap-5 lg:flex-row-reverse justify-between  ">
                             <div className="  w-full  mx-auto  items-baseline  rounded-md ">
-                                <form className="card-body">
+                                <form className="card-body"> 
 
                                     <br />
                                     <div className="form-control">
                                         <input
                                             type="text"
                                             className="w-full px-3 py-2 border rounded-full focus:ring-2 text-[#ff1818] focus:ring-red-400 outline-none transition"
-                                            placeholder="Enter restaurant name"
-                                            {...register("restaurantName", { required: true, minLength: 1, maxLength: 20 })}
+                                            placeholder="Enter Your Name"
+                                            name='customerName'
+                                            {...register("customerName", { required: true, minLength: 1, maxLength: 20 })}
 
                                         />
                                         {errors.name && <span className="text-[#ff1818]">This field is required</span>}
@@ -491,10 +481,7 @@ const CheckoutForm = () => {
                                                                 <p className="font-bold flex text-[10px] md:text-[10px]">{item.foodName}
                                                                     <div className="badge ml-3 text-[8px]">×{item.quantity}</div>
                                                                 </p>
-                                                                {/* {
-                                                                    mensProduct ? <> <p className='font-bold text-gray-600'>  {item.size}</p> </> : <>
-                                                                    </>
-                                                                } */}
+                                                             
 
                                                                 <div className="flex gap-8 mb-4">
                                                                     <p className="font-bold text-[12px]">${item.foodPrice}.00</p>
@@ -548,9 +535,9 @@ const CheckoutForm = () => {
 
                                      
                                         or
-                                        <Link ><button onClick={handleCreatePayment} className='btn  btn-outline hover:bg-white'>
+                                        <button  className='btn  btn-outline hover:bg-white'>
                                             <img className='w-16' src="https://i.ibb.co.com/9mCGY8wh/ssl-Commerce.png" alt="" />
-                                        </button></Link>
+                                        </button>
                                     </div>
 
                                     <div className='px-3 md:px-1'>

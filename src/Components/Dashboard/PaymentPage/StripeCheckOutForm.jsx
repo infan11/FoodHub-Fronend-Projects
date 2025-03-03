@@ -35,7 +35,7 @@ const elements = useElements();
         if (total > 0) {
             axiosSecure.post('/create-payment-intent', { price: total })
                 .then(res => {
-                    console.log("Client Secret Received:", res.data.clientSecret);
+                    // console.log("Client Secret Received:", res.data.clientSecret);
                     if (res.data.clientSecret) {
                         setClientSecret(res.data.clientSecret);
                     } else {
