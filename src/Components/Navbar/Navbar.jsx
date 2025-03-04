@@ -230,7 +230,8 @@ const Navbar = () => {
                   />
                 </MenuHandler>
                 <MenuList>
-                  <MenuItem className="flex items-center gap-2">
+                <Link to={"/myProfile"}>
+                <MenuItem className="flex items-center gap-2">
                     <svg
                       width="16"
                       height="16"
@@ -251,6 +252,7 @@ const Navbar = () => {
                     </Typography>
 
                   </MenuItem>
+                </Link>
                   <MenuItem className="flex items-center gap-2">
                     <svg
                       width="16"

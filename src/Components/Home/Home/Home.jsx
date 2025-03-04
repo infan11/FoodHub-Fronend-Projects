@@ -4,6 +4,7 @@ import BannerTwo from "../BannerTwo/BannerTwo";
 import ServeFood from "../ServeFood/ServeFood";
 import Food from "../Food/Food";
 import AvailableItem from "../AvailableItem/AvailableItem";
+import BannerFour from "../bannerFour/BannerFour";
 
 const Home = () => {
     return (
@@ -13,7 +14,7 @@ const Home = () => {
             </Helmet>
          <Banner/>
          <BannerTwo/>
-       
+         <BannerFour/>
          <AvailableItem/>
          <ServeFood/>
         </div>
