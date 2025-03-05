@@ -103,6 +103,14 @@ const noNavbarFooter = ["/dashboard/paymentSuccess"].includes(location.pathname)
                     Upload Info
                   </ListItem>
                 </Link>
+                <Link to="/dashboard/addDistrictCollection">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <FaRegUser />
+                    </ListItemPrefix>
+                  Add  District Collection
+                  </ListItem>
+                </Link>
                 <Link to="/dashboard/paymentHistory">
                   <ListItem>
                     <ListItemPrefix>

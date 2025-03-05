@@ -16,10 +16,8 @@ module.exports = withMT({
          ],
          theme: {
           fontFamily: {
-            // Kanit : ["Kanit" , "sans-serif"]
-            Sigmar : [  "Sigmar", "sans-serif"],
-            Caveat: [  "Caveat", "sans-serif"]
-            
+            Kanit : ["Kanit" , "sans-serif"],
+            Caveat : ["Caveat" , "sans-serif"]
           }
         },
   plugins: [require("daisyui")],

@@ -38,6 +38,7 @@ import CheckoutForm from "../../Dashboard/CheckoutForm/CheckoutForm";
 // import SSLCommerce from "../../Dashboard/PaymentMethod/SSLCommerce/SSLCommerce";
 import PaymentSuccess from "../../Dashboard/PaymentSuccess/PaymentSuccess";
 import PaymentPage from "../../Dashboard/PaymentPage/PaymentPage";
+import AddDistrictCollection from "../../Dashboard/AddDistrictCollection/AddDistrictCollection";
 
 export const router = createBrowserRouter([
   {
@@ -171,10 +172,10 @@ export const router = createBrowserRouter([
         path: "/dashboard/paymentHistory",
         element: <PrivateRoutes><PaymentHistory /></PrivateRoutes>,
       },
-      // {
-      //   path: "/dashboard/SSLCommerce",
-      //   element: <PrivateRoutes><SSLCommerce/></PrivateRoutes>,
-      // },
+      {
+        path: "/dashboard/AddDistrictCollection",
+        element: <PrivateRoutes><AddDistrictCollection/></PrivateRoutes>,
+      },
       {
         path: "/dashboard/paymentSuccess",
         element: <PrivateRoutes><PaymentSuccess/></PrivateRoutes>,

@@ -41,11 +41,11 @@ const DetailsRestaurants = () => {
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
-  }, [restaurantName, refetch, refetchTwo]); // ✅ Added `refetch` to dependencies
+  }, [restaurantName, refetch, refetchTwo]); 
 
 
   useEffect(() => {
-    // Check if item already exists in the cart
+   
     if (user && user.email && cart.fooName) {
       axiosSecure.get(`/addItem?email=${user?.email}`)
         .then(res => {
@@ -56,7 +56,7 @@ const DetailsRestaurants = () => {
     }
   }, [user, axiosSecure, cart.foodName]);
 
-  // Handle Food Deletion
+ 
   const handleDeleted = (restaurantName, foodName) => {
     if (isAdmin || isModerator || isOwner) {
       Swal.fire({
@@ -92,7 +92,7 @@ const DetailsRestaurants = () => {
   };
 
 
-  // Handle Add Food to Cart
+ 
   const handleAddFood = (food) => {
     if (user && user.email) {
       const foodInfo = {
@@ -151,7 +151,7 @@ const DetailsRestaurants = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4 px-6 lg:px-4">
         {foodItems.length > 0 ? (
-          foodItems.map((food, index) => ( // ✅ Fixed `foodItems.foods`
+          foodItems.map((food, index) => (
             <motion.div key={index} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: index * 0.1 }}>
               <div className="relative flex flex-col bg-white shadow-md border border-gray-200 rounded-lgw-[330px] h-[360px]  lg:w-[400px] lg:h-[450px] mx-auto px-2 py-2">
                 <div className="relative overflow-hidden rounded-md">

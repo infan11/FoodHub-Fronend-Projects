@@ -226,7 +226,7 @@ const Navbar = () => {
                     alt="tania andrew"
 
                     className="cursor-pointer w-9 h-9 rounded-full"
-                    src={user?.photoURL}
+                    src={user?.photoURL || "https://i.ibb.co.com/PGwHS087/profile-Imagw.jpg"}
                   />
                 </MenuHandler>
                 <MenuList>

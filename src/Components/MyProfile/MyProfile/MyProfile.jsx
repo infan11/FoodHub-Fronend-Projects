@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 import { imageUpload } from "../../Hooks/imageHooks";
-
+import { IoCloudUploadOutline } from "react-icons/io5";
 const MyProfile = () => {
   const { user, updateUserProfile } = useContext(AuthContext);
   const [profileImage, setProfileImage] = useState(user?.photoURL || "");
@@ -17,7 +17,7 @@ const MyProfile = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSelectedFile(file); // Store file in state
+      setSelectedFile(file); 
       setPreviewImage(URL.createObjectURL(file));
     }
   };
@@ -73,7 +73,7 @@ const MyProfile = () => {
         <div className="relative w-40 h-40 mx-auto">
           <img
             className="w-full h-full rounded-full object-cover border-4 border-gray-300 cursor-pointer transition duration-300 hover:opacity-70"
-            src={previewImage || profileImage || "default-profile.png"}
+            src={previewImage || profileImage || "https://i.ibb.co.com/PGwHS087/profile-Imagw.jpg"}
             alt="Profile"
             onClick={handleImageClick}
           />
@@ -81,7 +81,7 @@ const MyProfile = () => {
             className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-sm font-semibold opacity-0 hover:opacity-100 transition duration-300 cursor-pointer"
             onClick={handleImageClick}
           >
-            Choose File
+           <IoCloudUploadOutline />
           </div>
         </div>
 
