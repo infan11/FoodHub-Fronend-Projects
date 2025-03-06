@@ -32,7 +32,7 @@ const DistrictAvailable = () => {
                         transition={{ duration: 0.3, delay: index * 0.1 }}
                     >
                         <img
-                            src={district.photo || "https://via.placeholder.com/150"}
+                            src={district.photo }
                             className="w-full h-44 object-cover rounded-lg"
                         />
                         <motion.div

@@ -194,7 +194,7 @@ const Users = () => {
                         {isNew && (
                           <span className="indicator-item badge badge-primary">New</span>
                         )}
-                        <img src={photo} alt={`${name}'s photo`} className="w-10 h-10 rounded-full object-cover" />
+                        <img src={photo || "https://i.ibb.co.com/PGwHS087/profile-Imagw.jpg"} alt={`${name}'s photo`} className="w-10 h-10 rounded-full object-cover" />
                       </div>
                       <div>
                         <p>{name}</p>

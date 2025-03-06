@@ -1,90 +1,39 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const items = [
+    { name: "Biryani", path: "/biryani", img: "https://i.ibb.co/Hgq3rf9/biryani.png" },
+    { name: "Pizza", path: "/pizza", img: "https://i.ibb.co/PFBV4qh/pizza.png" },
+    { name: "Burger", path: "/burger", img: "https://i.ibb.co/yy1Jc6N/burger-removebg-preview.png" },
+    { name: "Chicken", path: "/chicken", img: "https://i.ibb.co/FJg7xmP/Chicken.png" },
+    { name: "Chinese", path: "/chinese", img: "https://i.ibb.co/jLzCxbQ/Chinese.png" },
+    { name: "Cake", path: "/cake", img: "https://i.ibb.co/12qMjL0/Cake.png" },
+    { name: "Beef", path: "/beef", img: "https://i.ibb.co/wMjCr5Q/beep.png" },
+    { name: "Juice", path: "/juice", img: "https://i.ibb.co/LRQjdvF/drinks.png" },
+];
 
 const AvailableItem = () => {
     return (
         <div data-aos="fade-up" className="px-4 sm:px-8 md:px-36">
-            <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-4">
-            <Link to={"/biryani"}>
-            <div>
-              <img 
-                    className="w-32 h-32 mx-auto object-contain" 
-                    src="https://i.ibb.co.com/Hgq3rf9/biryani.png" 
-                    alt="Biryani" 
-                    
-                />
-                <p className='text-center font-extrabold -mt-3 text-red-500'>Biryani</p>
-              </div>
-            </Link>
-               <Link to={"/pizza"}>
-               <div>
-                <img 
-                    className="w-32 h-32 mx-auto object-contain" 
-                    src="https://i.ibb.co.com/PFBV4qh/pizza.png" 
-                    alt="Pizza" 
-                />
-                  <p className='text-center font-extrabold -mt-3 text-red-500'>Pizza</p>
-                </div>
-               </Link>
-         <Link to={"/burger"}>
-         <div>
-               <img 
-                    className="w-20 h-20 mt-6 mx-auto object-contain" 
-                    src="https://i.ibb.co.com/yy1Jc6N/burger-removebg-preview.png" 
-                    alt="Burger" 
-                />
-                  <p className='text-center font-extrabold mt-2 text-red-500'>Burger</p>
-               </div>
-         </Link>
-        <Link to={"/chicken"}>
-        <div>
-              <img 
-                    className="w-32 h-32 mx-auto object-contain" 
-                    src="https://i.ibb.co.com/FJg7xmP/Chicken.png" 
-                    alt="Chicken" 
-                />
-                  <p className='text-center font-extrabold -mt-3 text-red-500'>Chicken</p>
-              </div>
-        </Link>
-           <Link to={"/chinese"}>
-           <div>
-              <img 
-                    className="w-32 h-32 mx-auto object-contain" 
-                    src="https://i.ibb.co.com/jLzCxbQ/Chinese.png" 
-                    alt="Chinese" 
-                />
-                  <p className='text-center font-extrabold -mt-3 text-red-500'>Chinese</p>
-              </div>
-           </Link>
-         <Link to={"/cake"}>
-         <div>
-             <img 
-                    className="w-32 h-32  mx-auto object-contain" 
-                    src="https://i.ibb.co.com/12qMjL0/Cake.png" 
-                    alt="Cake" 
-                />
-                  <p className='text-center font-extrabold -mt-3 text-red-500'>Cake</p>
-             </div>
-         </Link>
-              <Link to={"/beef"}>
-              <div><img 
-                    className="w-32 h-32 mx-auto object-contain" 
-                    src="https://i.ibb.co.com/wMjCr5Q/beep.png" 
-                    alt="Beef" 
-                />
-                  <p className='text-center font-extrabold -mt-3 text-red-500'>Beef</p>
-                </div>
-              </Link>
-             <Link to={"/juice"}>
-             <div>
-              <img 
-                    className="w-32 h-32 mx-auto object-contain" 
-                    src="https://i.ibb.co.com/LRQjdvF/drinks.png" 
-                    alt="Drinks" 
-                />
-                  <p className='text-center font-extrabold -mt-3 text-red-500'>Juice</p>
-              </div>
-             </Link>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
+                {items.map((item, index) => (
+                    <Link to={item.path} key={index}>
+                        <motion.div 
+                            className="flex flex-col items-center"
+                            whileHover={{ scale: 1.1 }} 
+                            transition={{ duration: 0.3 }}
+                        >
+                            <img 
+                                className="w-28 h-28 object-contain"
+                                src={item.img} 
+                                alt={item.name} 
+                            />
+                           
+                        </motion.div>
+                        <p className="text-center font-Caveat font-extrabold  text-red-500">{item.name}</p>
+                    </Link>
+                ))}
             </div>
         </div>
     );
