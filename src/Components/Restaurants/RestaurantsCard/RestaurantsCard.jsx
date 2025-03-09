@@ -14,7 +14,6 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { AiOutlineDelete } from "react-icons/ai";
 import { motion } from "framer-motion";
-import { MdOutlineAddCircleOutline } from "react-icons/md";
   const RestaurantsCard = () => {
     const [isRestaurantData , refetch] = useRestaurantData();
     const [isAdmin] = useAdmin();
@@ -51,66 +50,57 @@ import { MdOutlineAddCircleOutline } from "react-icons/md";
       }
     };
     return (
-      <div className="grid md:grid-cols-3 gap-4 px-8 max-w-7xl mx-auto mt-10">
+      <div className="grid md:grid-cols-3 gap-4 px-8 max-w-7xl mx-auto mt-10 min-h-screen">
         {isRestaurantData.map((restaurant) => (
           <Card
-            key={restaurant.id} // Assuming each restaurant has a unique `id`
-            shadow={false}
-            className="relative grid h-[500px] w-full max-w-[350px] items-end justify-center overflow-hidden text-center group"
-          >
-            {/* Card Header with Hover Effect */}
-            <CardHeader
+          key={restaurant._id}
+          shadow={false}
+          className="relative w-full max-w-[400px] mx-auto rounded-xl overflow-hidden group transition-transform duration-300 hover:scale-105"
+      >
+          {/* Banner Image */}
+          <CardHeader
               floated={false}
               shadow={false}
-              color="transparent"
-              className="absolute inset-0 m-0 h-full w-full rounded-none bg-cover bg-center transition-all duration-500 group-hover:scale-110"
-              style={{
-                backgroundImage: `url(${restaurant.banner})`,
-              }}
-            >
-              <div className="absolute inset-0 h-full w-full bg-black/10 group-hover:bg-black/70 transition-all duration-500" />
-            </CardHeader>
-  
-            {/* Card Body */}
-            <CardBody className="relative py-14 px-6 md:px-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              <Typography
-                variant="h2"
-                color="white"
-                className="mb-6 text-xl"
-              >
-              
+              className="relative h-[250px] bg-cover bg-center"
+              style={{ backgroundImage: `url(${restaurant.banner})` }}
+          >
+              <div className="absolute inset-0 transition-all duration-300" />
+          </CardHeader>
+
+          {/* Card Body */}
+          <CardBody className="text-center p-6">
+              <Typography  className="text-[18px] font-bold font-Caveat text-gray-900">
+                  {restaurant?.restaurantName}
               </Typography>
-              <Typography variant="h5" className="mb-4 text-white">
-                {restaurant?.restaurantName}
-              </Typography>
-          <div className="">
-          <Link to={`/restaurantUpload/${restaurant.restaurantName}`}>
-             <Avatar
-                size="xl"
-                variant="circular"
-                alt={restaurant?.restaurantName}
-                className="border-2 border-white"
-                src={restaurant?.photo}
-              />
-             </Link>
-             { (isAdmin || isModerator) && (
-    <button className="">
-     
-      <motion.button
-                     onClick={() => handleDeleted(restaurant.restaurantName)}
-                      className="text-xl font-bold bg-[#ff0000d8]  text-white rounded-full shadow-lg p-6  ml-5 "
+              <Typography className="mb-2 font-Kanit ">
+{restaurant?.restaurantAddress}
+</Typography>
+              {/* Avatar & Link */}
+              <div className="mt-4 flex justify-center">
+                  <Link to={`/restaurantUpload/${restaurant.restaurantName}`}>
+                      <Avatar
+                          size="xl"
+                          variant="circular"
+                          alt={restaurant?.restaurantName}
+                          className="border-2 border-gray-300 shadow-lg transition-transform duration-300 hover:scale-110"
+                          src={restaurant?.photo}
+                      />
+                  </Link>
+              </div>
+
+              {/* Delete Button for Admin/Moderator */}
+              {(isAdmin || isModerator) && (
+                  <motion.button
+                      onClick={() => handleDeleted(restaurant.restaurantName)}
+                      className="absolute top-4 right-4 bg-red-600 text-white p-3 rounded-full shadow-md hover:bg-red-700 transition-all"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                    >
-                       <AiOutlineDelete />
-                    </motion.button>
-    </button>
-    
-  )}
-          </div>
-           
-            </CardBody>
-          </Card>
+                  >
+                      <AiOutlineDelete size={20} />
+                  </motion.button>
+              )}
+          </CardBody>
+      </Card>
         ))}
       </div>
     );

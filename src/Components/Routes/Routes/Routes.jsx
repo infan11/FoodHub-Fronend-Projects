@@ -40,6 +40,10 @@ import PaymentSuccess from "../../Dashboard/PaymentSuccess/PaymentSuccess";
 import PaymentPage from "../../Dashboard/PaymentPage/PaymentPage";
 import AddDistrictCollection from "../../Dashboard/AddDistrictCollection/AddDistrictCollection";
 
+import DistrictRes from "../../Home/DistrictAvailable/DistrictRes/DistrictRes";
+import Serach from "../../Navbar/Search/Serach";
+
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -117,6 +121,14 @@ export const router = createBrowserRouter([
       {
         path : '/restaurantUpload/:restaurantName',
         element : <DeatilsRestaurants/>
+      },
+      {
+        path : '/restaurantUpload/district/:districtName',
+        element :  <DistrictRes/>
+      },
+      {
+        path: "/search",
+        element : <Serach/>
       }
     ],
   },

@@ -2,6 +2,7 @@ import React from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const DistrictAvailable = () => {
     const axiosSecure = useAxiosSecure();
@@ -32,18 +33,16 @@ const DistrictAvailable = () => {
                         transition={{ duration: 0.3, delay: index * 0.1 }}
                     >
                         <img
-                            src={district.photo }
+                            src={district.photo}
                             className="w-full h-44 object-cover rounded-lg"
                         />
-                        <motion.div
-                            className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
-                        >
-                            <p className="text-white font-semibold text-lg">
-                                {district.districtName && typeof district.districtName === "object" 
-                                    ? district.districtName.en 
-                                    : district.districtName || "Unknown"}
-                            </p>
-                        </motion.div>
+                        <Link to={`/restaurantUpload/district/${district.districtName}`}>
+                            <motion.div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <p className="text-white font-semibold text-lg font-Caveat hover:underline">
+                                    {district.districtName || "Unknown"}
+                                </p>
+                            </motion.div>
+                        </Link>
                     </motion.div>
                 ))}
             </div>

@@ -110,7 +110,8 @@ const Navbar = () => {
           <a className=" w-10  lg:w-14  rounded-full "><img src="https://i.ibb.co.com/F57mtch/logo2.png" alt="" /></a>
         </div>
         <div className="navbar-center " >
-          <div className="relative flex  md:w-max ">
+         <Link to={"/search"}>
+         <div className="relative flex  md:w-max ">
             <Input
               type="search" a
               placeholder="Search"
@@ -139,6 +140,7 @@ const Navbar = () => {
               </svg>
             </div>
           </div>
+         </Link>
 
         </div>
         <div className="navbar-end gap-1">

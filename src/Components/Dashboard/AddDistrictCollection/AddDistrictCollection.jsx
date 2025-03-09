@@ -55,6 +55,7 @@ const AddDistrictCollection = () => {
             .then(res => {
                 if (res.data.insertedId) {
                     toast.success("District uploaded successfully!");
+                    navigate("/")
 
                 } else {
                     toast.error("Failed to upload district.");
@@ -74,7 +75,7 @@ const AddDistrictCollection = () => {
                 <div className="relative w-40 h-40 mx-auto">
                     <img
                         className="w-full h-full rounded-full object-cover border-4 border-gray-300 cursor-pointer transition duration-300 hover:opacity-70"
-                        src={previewImage || "https://i.ibb.co.com/PGwHS087/profile-Imagw.jpg"}
+                        src={previewImage || "https://i.ibb.co.com/HL4RKtR3/cox-sbazar.jpg"}
                         alt="Profile"
                         onClick={handleImageClick}
                     />
@@ -99,7 +100,7 @@ const AddDistrictCollection = () => {
 
                 {/* District Selection */}
                 <select
-                    {...register("districtName", { required: "District selection is required" })}
+                    {...register("districtName", { required: "District selection is required" })} required
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     // onChange={(e) => setValue("districtName", e.target.value)}
                     defaultValue=""
@@ -122,7 +123,7 @@ const AddDistrictCollection = () => {
 
 
 
-                    <option value="Chattogram">Chittagong</option>
+                    <option value="Chittagong">Chittagong</option>
                     <option value="Bandarban">Bandarban</option>
                     <option value="Brahmanbaria">Brahmanbaria</option>
                     <option value="Chandpur">Chandpur</option>
@@ -131,7 +132,7 @@ const AddDistrictCollection = () => {
                     <option value="Lakshmipur">Lakshmipur</option>
                     <option value="Noakhali">Noakhali</option>
                     <option value="Rangamati">Rangamati</option>
-                    <option value="Cox_sBazar">Cox's Bazar</option>
+                    <option value="Cox'sbazar">Cox'sbazar</option>
 
 
                     <option value="Khulna">Khulna</option>

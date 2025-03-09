@@ -67,7 +67,7 @@ const RestaurentBannerTwo = ({
           <span
             key={index}
             ref={(el) => (wordRefs.current[index] = el)}
-            className="relative text-[1rem] text-red-500  font-black cursor-pointer"
+            className="relative text-[1rem] text-red-500 font-Caveat  font-black cursor-pointer"
             style={{
               filter: manualMode
                 ? isActive
